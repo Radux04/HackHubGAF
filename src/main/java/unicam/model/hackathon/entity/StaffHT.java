@@ -1,4 +1,6 @@
-package unicam.Model;
+package unicam.model.hackathon.entity;
+
+import unicam.model.utenti.staff.Staff;
 
 import java.util.List;
 

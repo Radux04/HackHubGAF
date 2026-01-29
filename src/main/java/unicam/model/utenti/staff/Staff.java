@@ -1,4 +1,6 @@
-package unicam.Model;
+package unicam.model.utenti.staff;
+
+import unicam.model.utenti.Utente;
 
 public class Staff extends Utente {
     private RuoliStaff ruolo;

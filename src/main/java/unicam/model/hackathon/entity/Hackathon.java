@@ -1,4 +1,6 @@
-package unicam.Model;
+package unicam.model.hackathon.entity;
+
+import unicam.model.utenti.staff.Staff;
 
 public class Hackathon {
     private int id;

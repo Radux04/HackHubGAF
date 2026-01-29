@@ -1,4 +1,4 @@
-package unicam.Model;
+package unicam.model.utenti;
 
 public abstract class Utente {
     private int id;

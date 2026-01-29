@@ -1,4 +1,4 @@
-package unicam.Model;
+package unicam.model.utenti.staff;
 
 public enum RuoliStaff {
     ORGANIZZATORE,

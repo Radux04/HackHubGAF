@@ -1,4 +1,4 @@
-package unicam.Model;
+package unicam.model.hackathon.entity;
 
 import java.time.LocalDateTime;
 
