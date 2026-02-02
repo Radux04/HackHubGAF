@@ -20,6 +20,9 @@ public class Team {
         this.occupato = false;
     }
 
+    public Team() { this.occupato = false;
+    }
+
     public int getId() {
         return id;
     }
