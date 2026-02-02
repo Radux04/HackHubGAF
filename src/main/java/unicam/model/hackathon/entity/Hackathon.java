@@ -11,6 +11,8 @@ public class Hackathon {
     private StatiHackathon stato;
     private Staff organizzatore;
 
+    public Hackathon() {}
+
     public int getId() {
         return id;
     }
