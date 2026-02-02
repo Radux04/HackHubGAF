@@ -15,7 +15,7 @@ public class HackathonService {
     private InMemoryHackathonRepository inMemoryHackathonRepository;
     private InMemoryStaffRepository inMemoryStaffRepository;
 
-    public void CreaHackathon(DescrizioneHT descrizione, PlacementHT placement, StaffHT staff, String nome, Staff organizzatore) {
+    public Hackathon CreaHackathon(DescrizioneHT descrizione, PlacementHT placement, StaffHT staff, String nome, Staff organizzatore) {
         // Implementation goes here
         if(organizzatore.isOccupato()) throw new IllegalArgumentException("Organizzatore occupato");
         else{
@@ -49,7 +49,7 @@ public class HackathonService {
                 inMemoryStaffRepository.save(m);
             }
 
-            inMemoryHackathonRepository.save(hackathon);
+            return inMemoryHackathonRepository.save(hackathon);
         }
     }
 }
