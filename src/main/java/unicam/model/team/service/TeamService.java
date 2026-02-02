@@ -2,16 +2,21 @@ package unicam.model.team.service;
 
 import unicam.model.team.Team;
 import unicam.model.team.builder.TeamBuilder;
+import unicam.model.team.repository.InMemoryTeamRepository;
 import unicam.model.team.repository.TeamRepository;
 import unicam.model.utenti.user.Ruoli;
 import unicam.model.utenti.user.User;
+import unicam.model.utenti.user.repository.InMemoryUserRepository;
+import unicam.model.utenti.user.repository.UserRepository;
 
 public class TeamService {
-    private final TeamRepository teamRepository;
+    private final InMemoryTeamRepository teamRepository;
+    private final InMemoryUserRepository userRepository;
 
-    public TeamService(TeamRepository teamRepository) {
+    public TeamService(InMemoryTeamRepository teamRepository, InMemoryUserRepository userRepository) {
         this.teamRepository = teamRepository;
 
+        this.userRepository = userRepository;
     }
 
 
@@ -36,12 +41,9 @@ public class TeamService {
                 .build();
 
         coordinatore.setRuolo(Ruoli.COORDINATORE);
+        userRepository.save(coordinatore);
 
         return teamRepository.save(team);
-
-
-
-
 
     }
 

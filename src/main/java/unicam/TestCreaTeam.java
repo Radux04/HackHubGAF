@@ -12,9 +12,9 @@ import unicam.model.utenti.user.repository.UserRepository;
 public class TestCreaTeam {
     public static void main(String[] args) {
         // wiring
-        UserRepository userRepo = new InMemoryUserRepository();
-        TeamRepository teamRepo = new InMemoryTeamRepository();
-        TeamService teamService = new TeamService(teamRepo);
+        InMemoryTeamRepository teamRepo = new InMemoryTeamRepository();
+        InMemoryUserRepository userRepo = new InMemoryUserRepository();
+        TeamService teamService = new TeamService(teamRepo, userRepo);
         TeamController teamController = new TeamController(teamService, userRepo);
 
         // crea utente e salvalo

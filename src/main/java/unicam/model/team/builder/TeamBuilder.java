@@ -7,11 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TeamBuilder {
-    private final Team team;
+    private Team team;
 
     public TeamBuilder() {
-        this.team = new Team(); // serve costruttore vuoto in Team
-        this.team.setMembri(new ArrayList<>());
+//        this.team = new Team(); // serve costruttore vuoto in Team
+//        this.team.setMembri(new ArrayList<>());
+        reset();
     }
 
     public TeamBuilder buildNome(String nome) {
@@ -31,6 +32,11 @@ public class TeamBuilder {
 
     public TeamBuilder buildMembri(List<User> membri) {
         team.setMembri(membri);
+        return this;
+    }
+
+    public TeamBuilder reset(){
+        team = new Team();
         return this;
     }
 
