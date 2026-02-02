@@ -15,6 +15,15 @@ public class HackathonService {
     private InMemoryHackathonRepository inMemoryHackathonRepository;
     private InMemoryStaffRepository inMemoryStaffRepository;
 
+    public HackathonService(HackathonRepository hackathonRepository, InMemoryHackathonRepository inMemoryHackathonRepository, InMemoryStaffRepository inMemoryStaffRepository) {
+        this.hackathonRepository = hackathonRepository;
+        this.inMemoryHackathonRepository = inMemoryHackathonRepository;
+        this.inMemoryStaffRepository = inMemoryStaffRepository;
+    }
+
+    public HackathonService() {
+    }
+
     public Hackathon CreaHackathon(DescrizioneHT descrizione, PlacementHT placement, StaffHT staff, String nome, Staff organizzatore) {
         // Implementation goes here
         if(organizzatore.isOccupato()) throw new IllegalArgumentException("Organizzatore occupato");
