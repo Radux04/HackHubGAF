@@ -30,17 +30,13 @@ public class TeamBuilder {
         return this;
     }
 
-    public TeamBuilder buildMembri(List<User> membri) {
-        team.setMembri(membri);
-        return this;
-    }
-
     public TeamBuilder reset(){
         team = new Team();
         return this;
     }
 
     public Team build() {
+        team.setMembri(new ArrayList<>());
         return team;
     }
 }

@@ -6,19 +6,17 @@ import unicam.model.utenti.user.User;
 import unicam.model.utenti.user.repository.UserRepository;
 
 public class TeamController {
-    private final TeamService teamService;
-    private final UserRepository userRepository;
+    private TeamService teamService;
 
-    public TeamController(TeamService teamService, UserRepository userRepository) {
+    public TeamController(TeamService teamService) {
         this.teamService = teamService;
-        this.userRepository = userRepository;
     }
 
-    public Team creaTeam(String nome, String descrizione, int utenteId) {
-        User coordinatore = userRepository.findById(utenteId);
-        if (coordinatore == null) {
-            throw new IllegalArgumentException("Utente non trovato: " + utenteId);
-        }
+    public Team creaTeam(String nome, String descrizione, User coordinatore) {
+//        User coordinatore = userRepository.findById(utenteId);
+//        if (coordinatore == null) {
+//            throw new IllegalArgumentException("Utente non trovato: " + utenteId);
+//        }
         return teamService.creaTeam(nome, descrizione, coordinatore);
     }
 }
