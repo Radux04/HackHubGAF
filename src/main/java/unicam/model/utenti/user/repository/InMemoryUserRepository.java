@@ -7,8 +7,8 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class InMemoryUserRepository implements UserRepository {
-    private final Map<Integer, User> byId = new HashMap<>();
-    private final AtomicInteger nextId = new AtomicInteger(1);
+    private Map<Integer, User> byId = new HashMap<>();
+    private AtomicInteger nextId = new AtomicInteger(1);
 
     @Override
     public User findById(int id) {
@@ -16,7 +16,7 @@ public class InMemoryUserRepository implements UserRepository {
     }
 
     public User save(User user) {
-        if (user.getId() == 0) {
+        if (user.getId() <= byId.size()) {
             user.setId(nextId.getAndIncrement());
         }
         byId.put(user.getId(), user);
