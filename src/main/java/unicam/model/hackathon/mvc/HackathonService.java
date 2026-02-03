@@ -5,23 +5,17 @@ import unicam.model.hackathon.entity.DescrizioneHT;
 import unicam.model.hackathon.entity.Hackathon;
 import unicam.model.hackathon.entity.PlacementHT;
 import unicam.model.hackathon.entity.StaffHT;
-import unicam.model.hackathon.repository.HackathonRepository;
-import unicam.model.hackathon.test.InMemoryHackathonRepository;
-import unicam.model.hackathon.test.InMemoryStaffRepository;
+import unicam.model.hackathon.repo.InMemoryHackathonRepository;
+import unicam.model.hackathon.repo.InMemoryStaffRepository;
 import unicam.model.utenti.staff.Staff;
 
 public class HackathonService {
-    private HackathonRepository hackathonRepository;
     private InMemoryHackathonRepository inMemoryHackathonRepository;
     private InMemoryStaffRepository inMemoryStaffRepository;
 
-    public HackathonService(HackathonRepository hackathonRepository, InMemoryHackathonRepository inMemoryHackathonRepository, InMemoryStaffRepository inMemoryStaffRepository) {
-        this.hackathonRepository = hackathonRepository;
-        this.inMemoryHackathonRepository = inMemoryHackathonRepository;
-        this.inMemoryStaffRepository = inMemoryStaffRepository;
-    }
-
     public HackathonService() {
+        this.inMemoryHackathonRepository = new InMemoryHackathonRepository();
+        this.inMemoryStaffRepository = new InMemoryStaffRepository();
     }
 
     public Hackathon CreaHackathon(DescrizioneHT descrizione, PlacementHT placement, StaffHT staff, String nome, Staff organizzatore) {

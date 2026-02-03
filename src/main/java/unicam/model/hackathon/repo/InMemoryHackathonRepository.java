@@ -1,7 +1,6 @@
-package unicam.model.hackathon.test;
+package unicam.model.hackathon.repo;
 
 import unicam.model.hackathon.entity.Hackathon;
-import unicam.model.utenti.staff.Staff;
 
 import java.util.HashMap;
 import java.util.Map;
