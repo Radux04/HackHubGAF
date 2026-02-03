@@ -27,4 +27,12 @@ public class InMemoryTeamRepository implements TeamRepository {
         }
         return team;
     }
+
+    public Team findTeamByCoordinatoreId(int coordinatoreId) {
+        for(Team t : byId.values()) {
+            if(t.getCoordinatore().getId() == coordinatoreId)
+                return t;
+        }
+        return null;
+    }
 }

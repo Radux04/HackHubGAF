@@ -1,17 +1,23 @@
 package unicam.model.iscrizione;
 
+import unicam.model.utenti.user.User;
+
 import java.util.List;
 
 public class Iscrizione {
     private int id;
     private int htId;
     private int teamId;
-    private List<Integer> participant;
+    private List<User> participanti;
 
-    public Iscrizione(int htId, int teamId, List<Integer> participant) {
+    public Iscrizione(int htId, int teamId, List<User> participanti) {
         this.htId = htId;
         this.teamId = teamId;
-        this.participant = participant;
+        this.participanti = participanti;
+    }
+
+    public Iscrizione() {
+
     }
 
     public int getId() {
@@ -38,11 +44,11 @@ public class Iscrizione {
         this.teamId = teamId;
     }
 
-    public List<Integer> getParticipant() {
-        return participant;
+    public List<User> getParticipant() {
+        return participanti;
     }
 
-    public void setParticipant(List<Integer> participant) {
-        this.participant = participant;
+    public void setParticipant(List<User> participanti) {
+        this.participanti = participanti;
     }
 }
