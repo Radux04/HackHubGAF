@@ -22,17 +22,16 @@ public class UserService {
         //Team that sent the request
         Team mittente = inMemoryTeamRepository.getTeamById(invito.getTeamId());
         //User's role
-        Team UserTeam = user.getTeam();
+        Team userTeam = user.getTeam();
         //user is a simple user
         if(r == Ruoli.UTENTE){
             if(risposta){
-                aggiungiMembro(mittente, user);
-                return true;
+                return aggiungiMembro(mittente, user);
             }
         }
         else if(r == Ruoli.MEMBROTEAM){
             if(risposta){
-                teamService.cambiaTeam();
+                return teamService.cambiaTeam(user, userTeam,  mittente);
             }
         }
     }
@@ -42,6 +41,8 @@ public class UserService {
     }
 
     public boolean aggiungiMembro(Team team, User user) {
-        return true;
+        user.setTeam(team);
+        return team.getMembri().add(user);
+
     }
 }

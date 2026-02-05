@@ -40,8 +40,4 @@ public class InMemoryTeamRepository implements TeamRepository {
     public Team getTeamById(int id) {
         return byId.get(id);
     }
-
-    public void removeMembro(Team team, User user) {
-        team.getMembri().remove(user);
-    }
 }
