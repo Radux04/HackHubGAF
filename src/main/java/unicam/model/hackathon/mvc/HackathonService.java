@@ -7,22 +7,33 @@ import unicam.model.hackathon.entity.PlacementHT;
 import unicam.model.hackathon.entity.StaffHT;
 import unicam.model.hackathon.repo.InMemoryHackathonRepository;
 import unicam.model.hackathon.repo.InMemoryStaffRepository;
+import unicam.model.iscrizione.repo.InMemoryIscrizioniRepository;
+import unicam.model.supporto.RichiestaSupporto;
+import unicam.model.supporto.repository.InMemoryRichiestaSupportoRepository;
+import unicam.model.supporto.repository.RichiestaSupportoRepository;
+import unicam.model.team.Team;
 import unicam.model.utenti.staff.Staff;
+import unicam.model.utenti.user.User;
+
+import java.util.List;
 
 public class HackathonService {
-    private InMemoryHackathonRepository inMemoryHackathonRepository;
-    private InMemoryStaffRepository inMemoryStaffRepository;
+    private final InMemoryHackathonRepository inMemoryHackathonRepository;
+    private final InMemoryStaffRepository inMemoryStaffRepository;
+    private final RichiestaSupportoRepository richiestaSupportoRepository;
+    private final InMemoryIscrizioniRepository inMemoryIscrizioniRepository;
 
     public HackathonService() {
         this.inMemoryHackathonRepository = new InMemoryHackathonRepository();
         this.inMemoryStaffRepository = new InMemoryStaffRepository();
+        this.richiestaSupportoRepository = new InMemoryRichiestaSupportoRepository();
+        this.inMemoryIscrizioniRepository = new InMemoryIscrizioniRepository();
     }
 
+
     public Hackathon CreaHackathon(DescrizioneHT descrizione, PlacementHT placement, StaffHT staff, String nome, Staff organizzatore) {
-        // Implementation goes here
         if(organizzatore.isOccupato()) throw new IllegalArgumentException("Organizzatore occupato");
         else{
-            //crea hackathon
             Staff g = staff.getGiudice();
             if(g.isOccupato())  throw new IllegalArgumentException("Giudice occupato");
             else{
@@ -54,5 +65,47 @@ public class HackathonService {
 
             return inMemoryHackathonRepository.save(hackathon);
         }
+    }
+
+    public boolean richiediSupporto(Team team, User utente, String descrizione) {
+        if (team == null) {
+            throw new IllegalArgumentException("Team non valido");
+        }
+        if (utente == null) {
+            throw new IllegalArgumentException("Utente non valido");
+        }
+        if (descrizione == null || descrizione.isBlank()) {
+            throw new IllegalArgumentException("Descrizione non valida");
+        }
+        if (!utenteInTeam(team, utente)) {
+            throw new IllegalArgumentException("Utente non appartiene al team");
+        }
+
+        RichiestaSupporto richiesta = new RichiestaSupporto(
+                team.getId(),
+                descrizione,
+                getHackatonByTeam(team)
+        );
+        return richiestaSupportoRepository.save(richiesta) != null;
+    }
+
+    private int getHackatonByTeam(Team team) {
+        return inMemoryIscrizioniRepository.getHackatonByTeam(team);
+    }
+
+    private boolean utenteInTeam(Team team, User utente) {
+        if (team.getCoordinatore() != null && team.getCoordinatore().getId() == utente.getId()) {
+            return true;
+        }
+        List<User> membri = team.getMembri();
+        if (membri == null) {
+            return false;
+        }
+        for (User m : membri) {
+            if (m != null && m.getId() == utente.getId()) {
+                return true;
+            }
+        }
+        return false;
     }
 }
