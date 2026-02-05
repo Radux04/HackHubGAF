@@ -7,7 +7,7 @@ import unicam.model.team.Team;
 import java.util.HashMap;
 import java.util.Map;
 
-public class InMemoryIscrizioniRepository {
+public class InMemoryIscrizioniRepository implements IscrizioneRepository {
     private final Map<Integer, Iscrizione> iscrizioniById = new HashMap<>();
 
     public Iscrizione save(Iscrizione iscrizione) {
