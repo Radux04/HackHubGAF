@@ -9,6 +9,7 @@ import unicam.model.team.Team;
 import unicam.model.team.repository.InMemoryTeamRepository;
 import unicam.model.utenti.user.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class IscrizioneTeamService {
@@ -48,5 +49,20 @@ public class IscrizioneTeamService {
         inMemoryTeamRepository.save(team);
         inMemoryIscrizioniRepository.save(ib.build());
         return ib.build();
+    }
+
+    public List<User> caricaMembriTeam(Team team) {
+        List<User> membriTeam = new ArrayList<>();
+        for(User m : team.getMembri()){
+            membriTeam.add(m);
+        }
+        return membriTeam;
+    }
+
+    public List<User> selezionePartecipanti(List<User> l) {
+        if(l.size() < 2){
+            throw new IllegalArgumentException();
+        }
+        return l;
     }
 }

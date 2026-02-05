@@ -34,13 +34,13 @@ public class TeamService {
         if(coordinatore == null)
         {throw new IllegalArgumentException("errore coordinatore team");}
 
+        coordinatore.setRuolo(Ruoli.COORDINATORE);
         Team team = new TeamBuilder()
                 .buildNome(nome)
                 .buildDescrizione(descrizione)
                 .buildCoordinatore(coordinatore)
                 .build();
 
-        coordinatore.setRuolo(Ruoli.COORDINATORE);
         userRepository.save(coordinatore);
 
         return teamRepository.save(team);
