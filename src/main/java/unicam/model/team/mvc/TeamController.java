@@ -1,10 +1,8 @@
-package unicam.model.team.controller;
+package unicam.model.team.mvc;
 
 import unicam.model.inviti.Invito;
 import unicam.model.team.Team;
-import unicam.model.team.service.TeamService;
 import unicam.model.utenti.user.User;
-import unicam.model.utenti.user.repository.UserRepository;
 
 public class TeamController {
     private TeamService teamService;
