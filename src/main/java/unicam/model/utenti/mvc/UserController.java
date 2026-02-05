@@ -18,6 +18,7 @@ public class UserController {
     }
 
     public boolean nuovoCoordinatore(User membroTeam) {
-        return true;
+        userService.nuovoCoordinatore(membroTeam);
     }
+
 }
