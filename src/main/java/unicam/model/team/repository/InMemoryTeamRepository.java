@@ -35,4 +35,8 @@ public class InMemoryTeamRepository implements TeamRepository {
         }
         return null;
     }
+
+    public Team getTeamById(int id) {
+        return byId.get(id);
+    }
 }

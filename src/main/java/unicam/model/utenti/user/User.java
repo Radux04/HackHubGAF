@@ -1,10 +1,12 @@
 package unicam.model.utenti.user;
 
+import unicam.model.team.Team;
 import unicam.model.utenti.Utente;
 import unicam.model.utenti.staff.RuoliStaff;
 
 public class User extends Utente {
     private Ruoli ruolo;
+    private Team team;
 
 
     public User(String username, String password, String email) {
@@ -18,5 +20,9 @@ public class User extends Utente {
 
     public void setRuolo(Ruoli ruolo) {
         this.ruolo = ruolo;
+    }
+
+    public Team getTeam() {
+        return this.team;
     }
 }
