@@ -15,9 +15,6 @@ public class RichiestaSupporto {
     public RichiestaSupporto() {
     }
 
-    //GETTER AND SETTER
-
-
     public int getId() {
         return id;
     }
