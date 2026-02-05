@@ -30,15 +30,14 @@ public class HackathonService {
         this.inMemoryIscrizioniRepository = new InMemoryIscrizioniRepository();
     }
 
-
     public Hackathon CreaHackathon(DescrizioneHT descrizione, PlacementHT placement, StaffHT staff, String nome, Staff organizzatore) {
-        if(organizzatore.isOccupato()) throw new IllegalArgumentException("Organizzatore occupato");
-        else{
+        if (organizzatore.isOccupato()) throw new IllegalArgumentException("Organizzatore occupato");
+        else {
             Staff g = staff.getGiudice();
-            if(g.isOccupato())  throw new IllegalArgumentException("Giudice occupato");
-            else{
-                for(Staff m : staff.getMentori()){
-                    if(m.isOccupato()){
+            if (g.isOccupato()) throw new IllegalArgumentException("Giudice occupato");
+            else {
+                for (Staff m : staff.getMentori()) {
+                    if (m.isOccupato()) {
                         throw new IllegalArgumentException("Mentore occupato: " + m.getUsername());
                     }
                 }
@@ -52,14 +51,14 @@ public class HackathonService {
             Hackathon hackathon = hackathonBuilder.build();
 
             g.setOccupato(true);
-            for(Staff m : staff.getMentori()){
+            for (Staff m : staff.getMentori()) {
                 m.setOccupato(true);
             }
             organizzatore.setOccupato(true);
 
             inMemoryStaffRepository.save(organizzatore);
             inMemoryStaffRepository.save(g);
-            for(Staff m : staff.getMentori()){
+            for (Staff m : staff.getMentori()) {
                 inMemoryStaffRepository.save(m);
             }
 
@@ -81,10 +80,15 @@ public class HackathonService {
             throw new IllegalArgumentException("Utente non appartiene al team");
         }
 
+        int hackathonId = getHackatonByTeam(team);
+        if (hackathonId < 0) {
+            throw new IllegalArgumentException("Hackaton non valido");
+        }
+
         RichiestaSupporto richiesta = new RichiestaSupporto(
                 team.getId(),
                 descrizione,
-                getHackatonByTeam(team)
+                hackathonId
         );
         return richiestaSupportoRepository.save(richiesta) != null;
     }
