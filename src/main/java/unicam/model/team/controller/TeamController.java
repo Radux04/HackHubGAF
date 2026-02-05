@@ -19,4 +19,8 @@ public class TeamController {
 //        }
         return teamService.creaTeam(nome, descrizione, coordinatore);
     }
+
+    public boolean invita(User user) {
+        return teamService.invita(user);
+    }
 }

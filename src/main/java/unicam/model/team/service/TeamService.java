@@ -47,4 +47,7 @@ public class TeamService {
 
     }
 
+    public boolean invita(User user) {
+
+    }
 }

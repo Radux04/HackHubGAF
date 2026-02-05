@@ -1,4 +1,4 @@
 package unicam.model.utenti.mvc;
 
-public class UtenteService {
+public class UserController {
 }
