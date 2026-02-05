@@ -1,6 +1,7 @@
 package unicam.model.team.mvc;
 
 import unicam.model.inviti.Invito;
+import unicam.model.inviti.repo.InMemoryInvitiRepo;
 import unicam.model.team.Team;
 import unicam.model.team.builder.TeamBuilder;
 import unicam.model.team.repository.InMemoryTeamRepository;
@@ -11,10 +12,11 @@ import unicam.model.utenti.user.repository.InMemoryUserRepository;
 public class TeamService {
     private final InMemoryTeamRepository teamRepository;
     private final InMemoryUserRepository userRepository;
+    private final InMemoryInvitiRepo invitiRepository;
 
-    public TeamService(InMemoryTeamRepository teamRepository, InMemoryUserRepository userRepository) {
+    public TeamService(InMemoryTeamRepository teamRepository, InMemoryUserRepository userRepository, InMemoryInvitiRepo invitiRepository) {
         this.teamRepository = teamRepository;
-
+        this.invitiRepository = invitiRepository;
         this.userRepository = userRepository;
     }
 
@@ -48,6 +50,7 @@ public class TeamService {
 
     public Invito invita(User user, Team mittente) {
         Invito invito = new Invito(mittente.getId(), user.getId());
+        invitiRepository.save(invito);
         return invito;
     }
 }

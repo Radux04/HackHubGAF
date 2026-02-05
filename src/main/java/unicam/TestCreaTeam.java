@@ -1,13 +1,11 @@
 package unicam;
 
 import unicam.model.team.Team;
-import unicam.model.team.controller.TeamController;
+import unicam.model.team.mvc.TeamController;
 import unicam.model.team.repository.InMemoryTeamRepository;
-import unicam.model.team.repository.TeamRepository;
-import unicam.model.team.service.TeamService;
+import unicam.model.team.mvc.TeamService;
 import unicam.model.utenti.user.User;
 import unicam.model.utenti.user.repository.InMemoryUserRepository;
-import unicam.model.utenti.user.repository.UserRepository;
 
 public class TestCreaTeam {
     public static void main(String[] args) {
@@ -15,7 +13,7 @@ public class TestCreaTeam {
         InMemoryTeamRepository teamRepo = new InMemoryTeamRepository();
         InMemoryUserRepository userRepo = new InMemoryUserRepository();
         TeamService teamService = new TeamService(teamRepo, userRepo);
-        TeamController teamController = new TeamController(teamService, userRepo);
+        TeamController teamController = new TeamController(teamService);
 
         // crea utente e salvalo
         User user = new User("mario", "pwd", "mario@mail.com");
@@ -25,7 +23,7 @@ public class TestCreaTeam {
 
         // Test 1: creazione team OK
         try {
-            Team team1 = teamController.creaTeam("Alpha", "Primo team", user.getId());
+            Team team1 = teamController.creaTeam("Alpha", "Primo team", user);
             boolean ok = team1 != null
                     && "Alpha".equals(team1.getNome())
                     && "Primo team".equals(team1.getDescrizione());
@@ -40,7 +38,7 @@ public class TestCreaTeam {
 
         // Test 3: errore se nome team già esistente
         try {
-            teamController.creaTeam("Alpha", "Altro team", user.getId());
+            teamController.creaTeam("Alpha", "Altro team", user);
             printResult(test++, false, "Nome team già esistente");
         } catch (IllegalArgumentException e) {
             printResult(test++, true, "Nome team già esistente (" + e.getMessage() + ")");
