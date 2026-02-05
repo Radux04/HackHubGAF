@@ -25,4 +25,7 @@ public class User extends Utente {
     public Team getTeam() {
         return this.team;
     }
+    public void setTeam(Team team) {
+        this.team = team;
+    }
 }

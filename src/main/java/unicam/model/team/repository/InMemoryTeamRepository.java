@@ -1,6 +1,7 @@
 package unicam.model.team.repository;
 
 import unicam.model.team.Team;
+import unicam.model.utenti.user.User;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,5 +39,9 @@ public class InMemoryTeamRepository implements TeamRepository {
 
     public Team getTeamById(int id) {
         return byId.get(id);
+    }
+
+    public void removeMembro(Team team, User user) {
+        team.getMembri().remove(user);
     }
 }

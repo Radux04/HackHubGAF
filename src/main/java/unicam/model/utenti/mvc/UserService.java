@@ -23,8 +23,18 @@ public class UserService {
         Team mittente = inMemoryTeamRepository.getTeamById(invito.getTeamId());
         //User's role
         Team UserTeam = user.getTeam();
-
-        return risposta;
+        //user is a simple user
+        if(r == Ruoli.UTENTE){
+            if(risposta){
+                aggiungiMembro(mittente, user);
+                return true;
+            }
+        }
+        else if(r == Ruoli.MEMBROTEAM){
+            if(risposta){
+                teamService.cambiaTeam();
+            }
+        }
     }
 
     public boolean nuovoCoordinatore(User membroTeam) {

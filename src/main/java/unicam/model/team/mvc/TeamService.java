@@ -53,4 +53,11 @@ public class TeamService {
         invitiRepository.save(invito);
         return invito;
     }
+
+    public boolean cambiaTeam(User membroTeam, Team teamAttuale, Team nuovoTeam) {
+        teamAttuale.getMembri().remove(membroTeam);
+        membroTeam.setTeam(nuovoTeam);
+        return nuovoTeam.getMembri().add(membroTeam);
+
+    }
 }

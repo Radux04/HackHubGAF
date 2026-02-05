@@ -14,7 +14,7 @@ public class UserController {
     }
 
     public boolean risponde(boolean risposta, Invito invito, User user) {
-        userService.risponde(risposta, invito, user);
+        return userService.risponde(risposta, invito, user);
     }
 
     public boolean nuovoCoordinatore(User membroTeam) {
