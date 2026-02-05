@@ -3,12 +3,10 @@ package unicam.model.inviti;
 public class Invito {
     private int id;
     private int teamId;
-    private int mittente;
     private int destinatario;
 
-    public Invito(int teamId, int mittente, int destinatario) {
+    public Invito(int teamId, int destinatario) {
         this.teamId = teamId;
-        this.mittente = mittente;
         this.destinatario = destinatario;
     }
 
@@ -34,13 +32,5 @@ public class Invito {
 
     public void setDestinatario(int destinatario) {
         this.destinatario = destinatario;
-    }
-
-    public int getMittente() {
-        return mittente;
-    }
-
-    public void setMittente(int mittente) {
-        this.mittente = mittente;
     }
 }

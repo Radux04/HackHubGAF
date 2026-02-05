@@ -1,5 +1,6 @@
 package unicam.model.team.service;
 
+import unicam.model.inviti.Invito;
 import unicam.model.team.Team;
 import unicam.model.team.builder.TeamBuilder;
 import unicam.model.team.repository.InMemoryTeamRepository;
@@ -47,7 +48,8 @@ public class TeamService {
 
     }
 
-    public boolean invita(User user) {
-
+    public Invito invita(User user, Team mittente) {
+        Invito invito = new Invito(mittente.getId(), user.getId());
+        return invito;
     }
 }

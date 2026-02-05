@@ -1,5 +1,6 @@
 package unicam.model.team.controller;
 
+import unicam.model.inviti.Invito;
 import unicam.model.team.Team;
 import unicam.model.team.service.TeamService;
 import unicam.model.utenti.user.User;
@@ -20,7 +21,7 @@ public class TeamController {
         return teamService.creaTeam(nome, descrizione, coordinatore);
     }
 
-    public boolean invita(User user) {
-        return teamService.invita(user);
+    public Invito invita(User user, Team mittente) {
+        return teamService.invita(user, mittente);
     }
 }
