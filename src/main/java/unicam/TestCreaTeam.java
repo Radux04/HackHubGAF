@@ -1,5 +1,6 @@
 package unicam;
 
+import unicam.model.inviti.repo.InMemoryInvitiRepo;
 import unicam.model.team.Team;
 import unicam.model.team.mvc.TeamController;
 import unicam.model.team.repository.InMemoryTeamRepository;
@@ -12,7 +13,9 @@ public class TestCreaTeam {
         // wiring
         InMemoryTeamRepository teamRepo = new InMemoryTeamRepository();
         InMemoryUserRepository userRepo = new InMemoryUserRepository();
-        TeamService teamService = new TeamService(teamRepo, userRepo);
+        InMemoryInvitiRepo invRepo = new InMemoryInvitiRepo();
+
+        TeamService teamService = new TeamService(teamRepo, userRepo, invRepo);
         TeamController teamController = new TeamController(teamService);
 
         // crea utente e salvalo
