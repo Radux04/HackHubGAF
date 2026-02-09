@@ -4,7 +4,7 @@ import unicam.model.utenti.staff.Staff;
 
 import java.util.*;
 
-public class InMemoryStaffRepository {
+public class InMemoryStaffRepository implements StaffRepository {
     private final Map<Integer, Staff> staffById = new HashMap<>();
 
 
