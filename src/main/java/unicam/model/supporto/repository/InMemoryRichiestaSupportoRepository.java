@@ -1,5 +1,6 @@
 package unicam.model.supporto.repository;
 
+import unicam.model.hackathon.mvc.HackathonService;
 import unicam.model.supporto.RichiestaSupporto;
 
 import java.util.ArrayList;
@@ -8,25 +9,23 @@ import java.util.List;
 import java.util.Map;
 
 public class InMemoryRichiestaSupportoRepository implements RichiestaSupportoRepository {
-    private final Map<Integer, RichiestaSupporto> byId = new HashMap<>();
+    //private final Map<Integer, RichiestaSupporto> byId = new HashMap<>();
     private final Map<Integer, List<RichiestaSupporto>> byHackathon = new HashMap<>();
-    private int nextId = 1;
+    //private int nextId = 1;
 
     @Override
     public RichiestaSupporto save(RichiestaSupporto richiesta) {
-        // se la richiesta non ha ancora un id le assegna un nuovo id incrementale
-        if (richiesta.getId() == 0) {
-            richiesta.setId(nextId++);
+        if(byHackathon.get(richiesta.getHackathonId()) != null) {
+            List<RichiestaSupporto> list = byHackathon.get(richiesta.getHackathonId());
+            list.add(richiesta);
+            byHackathon.replace(richiesta.getHackathonId(), list);
         }
-        byId.put(richiesta.getId(), richiesta);
-
-        // se non c'è una lista per questo hackathon creala e mettila nella mappa e restituiscila
-        List<RichiestaSupporto> lista = byHackathon.get(richiesta.getHackathonId());
-        if (lista == null) {
-            lista = new ArrayList<>();
+        else{
+            // se non c'è una lista per questo hackathon creala e mettila nella mappa e restituiscila
+            List<RichiestaSupporto> lista = new ArrayList<>();
+            lista.add(richiesta);
             byHackathon.put(richiesta.getHackathonId(), lista);
         }
-        lista.add(richiesta);
 
         return richiesta;
     }

@@ -7,23 +7,6 @@ import java.util.*;
 public class InMemoryStaffRepository implements StaffRepository {
     private final Map<Integer, Staff> staffById = new HashMap<>();
 
-    @Override
-    public Optional<Staff> findOrganizzatoreById(int id) {
-        Staff s = staffById.get(id);
-        if (s instanceof Staff o) {
-            return Optional.of(o);
-        }
-        return Optional.empty();
-    }
-
-    @Override
-    public Optional<Staff> findGiudiceById(int id) {
-        Staff s = staffById.get(id);
-        if (s instanceof Staff g) {
-            return Optional.of(g);
-        }
-        return Optional.empty();
-    }
 
     @Override
     public Optional<Staff> findMentoreById(int id) {
@@ -32,15 +15,6 @@ public class InMemoryStaffRepository implements StaffRepository {
             return Optional.of(m);
         }
         return Optional.empty();
-    }
-
-    @Override
-    public List<Staff> findMentoriByIds(List<Integer> ids) {
-        List<Staff> result = new ArrayList<>();
-        for (int id : ids) {
-            findMentoreById(id).ifPresent(result::add);
-        }
-        return result;
     }
 
     @Override
