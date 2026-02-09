@@ -1,8 +1,10 @@
-package unicam.model.supporto;
+package unicam.Test;
 
+import unicam.model.hackathon.entity.Hackathon;
 import unicam.model.hackathon.mvc.HackathonService;
 import unicam.model.iscrizione.Iscrizione;
 import unicam.model.iscrizione.repo.InMemoryIscrizioniRepository;
+import unicam.model.supporto.RichiestaSupporto;
 import unicam.model.team.Team;
 import unicam.model.utenti.user.User;
 
@@ -15,6 +17,9 @@ public class TestRichiestaSupporto {
         int test = 1;
 
         HackathonService service = new HackathonService();
+
+        Hackathon hackathon = new Hackathon();
+        hackathon.setId(100);
 
         // Utenti
         User coord = new User("coord", "pwd", "c@mail.com");
@@ -37,7 +42,7 @@ public class TestRichiestaSupporto {
         Iscrizione iscrizione = new Iscrizione();
         iscrizione.setId(1);
         iscrizione.setTeamId(team.getId());
-        iscrizione.setHtId(100);
+        iscrizione.setHtId(hackathon.getId());
         salvaIscrizioneNelService(service, iscrizione);
 
         // Test 1: richiesta OK (coordinatore)
@@ -96,6 +101,34 @@ public class TestRichiestaSupporto {
             printResult(test++, false, "Team non iscritto");
         } catch (IllegalArgumentException e) {
             printResult(test++, true, "Team non iscritto (" + e.getMessage() + ")");
+        }
+
+        // Test 8: visualizza richieste supporto (2 richieste)
+        try {
+            List<RichiestaSupporto> lista = service.visualizzaRichiesteSupporto(hackathon);
+            boolean ok = lista != null && lista.size() == 2;
+            printResult(test++, ok, "Visualizza richieste supporto");
+        } catch (Exception e) {
+            printResult(test++, false, "Visualizza richieste supporto (" + e.getMessage() + ")");
+        }
+
+        // Test 9: hackathon null
+        try {
+            service.visualizzaRichiesteSupporto(null);
+            printResult(test++, false, "Hackathon null");
+        } catch (IllegalArgumentException e) {
+            printResult(test++, true, "Hackathon null (" + e.getMessage() + ")");
+        }
+
+        // Test 10: hackathon senza richieste
+        try {
+            Hackathon hackathonVuoto = new Hackathon();
+            hackathonVuoto.setId(999);
+            List<RichiestaSupporto> lista = service.visualizzaRichiesteSupporto(hackathonVuoto);
+            boolean ok = lista != null && lista.isEmpty();
+            printResult(test++, ok, "Hackathon senza richieste");
+        } catch (Exception e) {
+            printResult(test++, false, "Hackathon senza richieste (" + e.getMessage() + ")");
         }
     }
 

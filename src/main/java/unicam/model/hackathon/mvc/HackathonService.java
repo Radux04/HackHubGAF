@@ -112,4 +112,13 @@ public class HackathonService {
         }
         return false;
     }
+
+
+    public List<RichiestaSupporto> visualizzaRichiesteSupporto(Hackathon hackathon) {
+        if (hackathon == null) {
+            throw new IllegalArgumentException("Hackathon non valido");
+        }
+        return richiestaSupportoRepository.findByHackathonId(hackathon.getId());
+
+    }
 }

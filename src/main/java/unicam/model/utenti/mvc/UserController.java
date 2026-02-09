@@ -18,7 +18,7 @@ public class UserController {
     }
 
     public boolean nuovoCoordinatore(User membroTeam) {
-        userService.nuovoCoordinatore(membroTeam);
+        return userService.nuovoCoordinatore(membroTeam);
     }
 
 }

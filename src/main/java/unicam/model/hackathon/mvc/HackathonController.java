@@ -4,9 +4,12 @@ import unicam.model.hackathon.entity.DescrizioneHT;
 import unicam.model.hackathon.entity.Hackathon;
 import unicam.model.hackathon.entity.PlacementHT;
 import unicam.model.hackathon.entity.StaffHT;
+import unicam.model.supporto.RichiestaSupporto;
 import unicam.model.team.Team;
 import unicam.model.utenti.staff.Staff;
 import unicam.model.utenti.user.User;
+
+import java.util.List;
 
 public class HackathonController {
     private HackathonService hackathonService;
@@ -21,5 +24,9 @@ public class HackathonController {
 
     public boolean richiediSupporto(Team team, User utente, String descrizione) {
         return hackathonService.richiediSupporto(team, utente, descrizione);
+    }
+
+    public List<RichiestaSupporto> visualizzaRichiestaSupporto(Hackathon hackaton) {
+        return hackathonService.visualizzaRichiesteSupporto(hackaton);
     }
 }
