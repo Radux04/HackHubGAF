@@ -6,7 +6,7 @@ import unicam.model.team.Team;
 import java.util.HashMap;
 import java.util.Map;
 
-public class InMemoryHackathonRepository {
+public class InMemoryHackathonRepository implements  HackathonRepository {
     private final Map<Integer, Hackathon> hackathonByID = new HashMap<>();
 
     public Hackathon save(Hackathon hackathon) {
