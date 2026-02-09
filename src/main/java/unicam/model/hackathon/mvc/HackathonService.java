@@ -5,9 +5,12 @@ import unicam.model.hackathon.entity.DescrizioneHT;
 import unicam.model.hackathon.entity.Hackathon;
 import unicam.model.hackathon.entity.PlacementHT;
 import unicam.model.hackathon.entity.StaffHT;
+import unicam.model.hackathon.repo.HackathonRepository;
 import unicam.model.hackathon.repo.InMemoryHackathonRepository;
 import unicam.model.hackathon.repo.InMemoryStaffRepository;
+import unicam.model.hackathon.repo.StaffRepository;
 import unicam.model.iscrizione.repo.InMemoryIscrizioniRepository;
+import unicam.model.iscrizione.repo.IscrizioneRepository;
 import unicam.model.supporto.RichiestaSupporto;
 import unicam.model.supporto.repository.InMemoryRichiestaSupportoRepository;
 import unicam.model.supporto.repository.RichiestaSupportoRepository;
@@ -18,10 +21,10 @@ import unicam.model.utenti.user.User;
 import java.util.List;
 
 public class HackathonService {
-    private final InMemoryHackathonRepository inMemoryHackathonRepository;
-    private final InMemoryStaffRepository inMemoryStaffRepository;
+    private final HackathonRepository inMemoryHackathonRepository;
+    private final StaffRepository inMemoryStaffRepository;
     private final RichiestaSupportoRepository richiestaSupportoRepository;
-    private final InMemoryIscrizioniRepository inMemoryIscrizioniRepository;
+    private final IscrizioneRepository inMemoryIscrizioniRepository;
 
     public HackathonService() {
         this.inMemoryHackathonRepository = new InMemoryHackathonRepository();
