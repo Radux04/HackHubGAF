@@ -10,11 +10,13 @@ import java.util.Map;
 public class InMemoryIscrizioniRepository implements IscrizioneRepository {
     private final Map<Integer, Iscrizione> iscrizioniById = new HashMap<>();
 
+    @Override
     public Iscrizione save(Iscrizione iscrizione) {
         iscrizioniById.put(iscrizione.getId(), iscrizione);
         return iscrizione;
     }
 
+    @Override
     public int getHackatonByTeam(Team team) {
         for(Iscrizione iscrizione : iscrizioniById.values()) {
             if(iscrizione.getTeamId() == team.getId()) {

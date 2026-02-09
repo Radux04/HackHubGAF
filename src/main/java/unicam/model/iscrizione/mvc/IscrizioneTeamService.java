@@ -5,8 +5,10 @@ import unicam.model.hackathon.entity.StatiHackathon;
 import unicam.model.iscrizione.Iscrizione;
 import unicam.model.iscrizione.builder.IscrizioneBuilder;
 import unicam.model.iscrizione.repo.InMemoryIscrizioniRepository;
+import unicam.model.iscrizione.repo.IscrizioneRepository;
 import unicam.model.team.Team;
 import unicam.model.team.repository.InMemoryTeamRepository;
+import unicam.model.team.repository.TeamRepository;
 import unicam.model.utenti.user.User;
 
 import java.util.ArrayList;
@@ -14,11 +16,13 @@ import java.util.List;
 
 public class IscrizioneTeamService {
 
-    InMemoryTeamRepository inMemoryTeamRepository = new InMemoryTeamRepository();
-    InMemoryIscrizioniRepository inMemoryIscrizioniRepository = new InMemoryIscrizioniRepository();
+    private final TeamRepository inMemoryTeamRepository;
+    private final IscrizioneRepository inMemoryIscrizioniRepository;
 
-
-
+    public IscrizioneTeamService(InMemoryTeamRepository inMemoryTeamRepository, InMemoryIscrizioniRepository inMemoryIscrizioniRepository) {
+        this.inMemoryTeamRepository = inMemoryTeamRepository;
+        this.inMemoryIscrizioniRepository = inMemoryIscrizioniRepository;
+    }
 
     public Team controlloTeam(int coordinatoreId){
         Team t = inMemoryTeamRepository.findTeamByCoordinatoreId(coordinatoreId);

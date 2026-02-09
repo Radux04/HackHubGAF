@@ -9,6 +9,7 @@ import java.util.Map;
 public class InMemoryHackathonRepository implements  HackathonRepository {
     private final Map<Integer, Hackathon> hackathonByID = new HashMap<>();
 
+    @Override
     public Hackathon save(Hackathon hackathon) {
         hackathonByID.put(hackathon.getId(), hackathon);
         return hackathon;
