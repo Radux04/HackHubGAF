@@ -4,7 +4,9 @@ import unicam.model.hackathon.entity.DescrizioneHT;
 import unicam.model.hackathon.entity.Hackathon;
 import unicam.model.hackathon.entity.PlacementHT;
 import unicam.model.hackathon.entity.StaffHT;
+import unicam.model.team.Team;
 import unicam.model.utenti.staff.Staff;
+import unicam.model.utenti.user.User;
 
 public class HackathonController {
     private HackathonService hackathonService;
@@ -15,5 +17,9 @@ public class HackathonController {
 
     public Hackathon CreaHackathon(DescrizioneHT descrizione, PlacementHT placement, StaffHT staff, String nome, Staff organizzatore) {
         return hackathonService.CreaHackathon(descrizione, placement, staff, nome, organizzatore);
+    }
+
+    public boolean richiediSupporto(Team team, User utente, String descrizione) {
+        return hackathonService.richiediSupporto(team, utente, descrizione);
     }
 }
