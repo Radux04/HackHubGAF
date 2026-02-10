@@ -5,9 +5,7 @@ import unicam.model.utenti.user.User;
 import unicam.model.utenti.user.repository.UserRepository;
 
 public class UserController {
-
-
-    private UserService userService;
+    private final UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;

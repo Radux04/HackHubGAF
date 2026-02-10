@@ -9,9 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 public class InMemoryRichiestaSupportoRepository implements RichiestaSupportoRepository {
-    //private final Map<Integer, RichiestaSupporto> byId = new HashMap<>();
     private final Map<Integer, List<RichiestaSupporto>> byHackathon = new HashMap<>();
-    //private int nextId = 1;
 
     @Override
     public RichiestaSupporto save(RichiestaSupporto richiesta) {
@@ -32,6 +30,6 @@ public class InMemoryRichiestaSupportoRepository implements RichiestaSupportoRep
 
     @Override
     public List<RichiestaSupporto> findByHackathonId(int hackathonId) {
-        return new ArrayList<>(byHackathon.getOrDefault(hackathonId, new ArrayList<>()));
+        return byHackathon.get(hackathonId);
     }
 }

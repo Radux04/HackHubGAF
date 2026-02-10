@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class IscrizioneTeamController {
-    private IscrizioneTeamService iscrizioneTeamService;
+    private final IscrizioneTeamService iscrizioneTeamService;
 
     public IscrizioneTeamController(IscrizioneTeamService iscrizioneTeamService) {
         this.iscrizioneTeamService = iscrizioneTeamService;

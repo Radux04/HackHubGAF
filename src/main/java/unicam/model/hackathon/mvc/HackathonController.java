@@ -12,10 +12,10 @@ import unicam.model.utenti.user.User;
 import java.util.List;
 
 public class HackathonController {
-    private HackathonService hackathonService;
+    private final HackathonService hackathonService;
 
-    public HackathonController() {
-        this.hackathonService = new HackathonService();
+    public HackathonController(HackathonService hackathonService) {
+        this.hackathonService = hackathonService;
     }
     
     public Hackathon CreaHackathon(DescrizioneHT descrizione, PlacementHT placement, StaffHT staff, String nome, Staff organizzatore) {

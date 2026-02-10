@@ -5,7 +5,7 @@ import unicam.model.team.Team;
 import unicam.model.utenti.user.User;
 
 public class TeamController {
-    private TeamService teamService;
+    private final TeamService teamService;
 
     public TeamController(TeamService teamService) {
         this.teamService = teamService;

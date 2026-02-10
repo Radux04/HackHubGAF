@@ -9,11 +9,12 @@ import unicam.model.utenti.user.User;
 
 public class UserService {
 
-    private TeamService teamService;
-    private InMemoryTeamRepository inMemoryTeamRepository;
+    private final TeamService teamService;
+    private final InMemoryTeamRepository inMemoryTeamRepository;
 
-    public  TeamService getTeamService() {
-        return teamService;
+    public UserService(TeamService teamService, InMemoryTeamRepository inMemoryTeamRepository) {
+        this.teamService = teamService;
+        this.inMemoryTeamRepository = inMemoryTeamRepository;
     }
 
     public boolean risponde(boolean risposta, Invito invito, User user) {
