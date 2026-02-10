@@ -40,18 +40,11 @@ public class UserService {
         //user is a coordinatore of a team
         else if (r == Ruoli.COORDINATORE) {
             if(risposta){
-                nuovoCoordinatore(userTeam.getMembri().get(1));
-                user.setRuolo(Ruoli.MEMBROTEAM);
+                teamService.cambiaCoordinatore(userTeam, userTeam.getMembri().get(1));
                 return teamService.cambiaTeam(user, userTeam,  mittente);
             }
         }
         return false;
-    }
-
-    public boolean nuovoCoordinatore(User membroTeam) {
-        membroTeam.setRuolo(Ruoli.COORDINATORE);
-        membroTeam.getTeam().setCoordinatore(membroTeam);
-        return true;
     }
 
     public boolean aggiungiMembro(Team team, User user) {

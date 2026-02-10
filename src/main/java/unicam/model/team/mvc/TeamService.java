@@ -20,7 +20,6 @@ public class TeamService {
         this.userRepository = userRepository;
     }
 
-
     public Team creaTeam(String nome, String descrizione, User coordinatore)
     {
         if(nome == null || nome.isBlank())
@@ -58,6 +57,10 @@ public class TeamService {
         teamAttuale.getMembri().remove(membroTeam);
         membroTeam.setTeam(nuovoTeam);
         return nuovoTeam.getMembri().add(membroTeam);
+    }
 
+    public void cambiaCoordinatore(Team team, User nuovoCoordinatore) {
+        nuovoCoordinatore.setRuolo(Ruoli.COORDINATORE);
+        team.setCoordinatore(nuovoCoordinatore);
     }
 }

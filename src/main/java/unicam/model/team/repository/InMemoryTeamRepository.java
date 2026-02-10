@@ -8,30 +8,29 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class InMemoryTeamRepository implements TeamRepository {
-    private final Map<Integer, Team> byId = new HashMap<>();
-    private final Map<String, Integer> byNome = new HashMap<>();
-    private final AtomicInteger nextId = new AtomicInteger(1);
+    private final Map<Integer, Team> teamById = new HashMap<>();
 
     @Override
     public boolean existsByNome(String nome) {
-        return nome != null && byNome.containsKey(nome);
+        for(Team t : teamById.values()) {
+            if(t.getNome().equals(nome))
+                return true;
+        }
+        return false;
     }
 
     @Override
     public Team save(Team team) {
         if (team.getId() == 0) {
-            team.setId(nextId.getAndIncrement());
+            team.setId(teamById.size());
         }
-        byId.put(team.getId(), team);
-        if (team.getNome() != null) {
-            byNome.put(team.getNome(), team.getId());
-        }
+        teamById.put(team.getId(), team);
         return team;
     }
 
     @Override
     public Team findTeamByCoordinatoreId(int coordinatoreId) {
-        for(Team t : byId.values()) {
+        for(Team t : teamById.values()) {
             if(t.getCoordinatore().getId() == coordinatoreId)
                 return t;
         }
@@ -40,6 +39,6 @@ public class InMemoryTeamRepository implements TeamRepository {
 
     @Override
     public Team getTeamById(int id) {
-        return byId.get(id);
+        return teamById.get(id);
     }
 }

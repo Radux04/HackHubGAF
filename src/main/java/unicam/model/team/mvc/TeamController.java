@@ -12,10 +12,6 @@ public class TeamController {
     }
 
     public Team creaTeam(String nome, String descrizione, User coordinatore) {
-//        User coordinatore = userRepository.findById(utenteId);
-//        if (coordinatore == null) {
-//            throw new IllegalArgumentException("Utente non trovato: " + utenteId);
-//        }
         return teamService.creaTeam(nome, descrizione, coordinatore);
     }
 
