@@ -27,9 +27,7 @@ public class IscrizioneTeamController {
     }
 
     private List<User> caricaMembri(Team team){
-        List<User> membriTeam = new ArrayList<>();
-        membriTeam = iscrizioneTeamService.caricaMembriTeam(team);
-        return membriTeam;
+        return iscrizioneTeamService.caricaMembriTeam(team);
     }
 
     private List<User> selezionePartecipanti(List<User> l){
