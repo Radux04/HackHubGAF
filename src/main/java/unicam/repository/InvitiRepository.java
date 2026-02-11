@@ -1,4 +1,4 @@
-package unicam.model.inviti.repo;
+package unicam.repository;
 
 import unicam.model.inviti.Invito;
 

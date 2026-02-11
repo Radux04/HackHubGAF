@@ -1,4 +1,4 @@
-package unicam.model.hackathon.repo;
+package unicam.repository;
 
 import unicam.model.hackathon.entity.Hackathon;
 

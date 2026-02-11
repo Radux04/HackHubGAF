@@ -1,4 +1,4 @@
-package unicam.model.iscrizione.repo;
+package unicam.repository;
 
 import unicam.model.iscrizione.Iscrizione;
 import unicam.model.team.Team;

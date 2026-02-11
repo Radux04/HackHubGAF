@@ -1,4 +1,4 @@
-package unicam.model.utenti.user.repository;
+package unicam.repository;
 
 import unicam.model.utenti.user.User;
 

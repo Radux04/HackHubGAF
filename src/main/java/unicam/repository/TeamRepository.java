@@ -1,4 +1,4 @@
-package unicam.model.team.repository;
+package unicam.repository;
 
 
 import unicam.model.team.Team;

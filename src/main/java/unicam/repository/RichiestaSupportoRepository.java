@@ -1,4 +1,4 @@
-package unicam.model.supporto.repository;
+package unicam.repository;
 
 import unicam.model.supporto.RichiestaSupporto;
 

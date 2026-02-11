@@ -1,11 +1,9 @@
-package unicam.model.team.repository;
+package unicam.repository;
 
 import unicam.model.team.Team;
-import unicam.model.utenti.user.User;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class InMemoryTeamRepository implements TeamRepository {
     private final Map<Integer, Team> teamById = new HashMap<>();

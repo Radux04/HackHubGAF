@@ -1,10 +1,9 @@
-package unicam.model.utenti.user.repository;
+package unicam.repository;
 
 import unicam.model.utenti.user.User;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class InMemoryUserRepository implements UserRepository {
     private Map<Integer, User> byId = new HashMap<>();

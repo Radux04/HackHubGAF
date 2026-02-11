@@ -1,6 +1,5 @@
-package unicam.model.supporto.repository;
+package unicam.repository;
 
-import unicam.model.hackathon.mvc.HackathonService;
 import unicam.model.supporto.RichiestaSupporto;
 
 import java.util.ArrayList;
