@@ -18,12 +18,10 @@ public class IscrizioneTeamController {
 
     
     public Iscrizione iscriviTeam(int coordinatoreId, Hackathon h){
-        Team t = iscrizioneTeamService.controlloTeam(coordinatoreId);
-        List<User> membri = this.caricaMembri(t);
 
-        membri = selezionePartecipanti(membri);
-
-        return iscrizioneTeamService.iscriviTeam(membri, h, t);
+        return iscrizioneTeamService.iscriviTeam(selezionePartecipanti(
+                this.caricaMembri(
+                        iscrizioneTeamService.controlloTeam(coordinatoreId))), h, iscrizioneTeamService.controlloTeam(coordinatoreId));
     }
 
     private List<User> caricaMembri(Team team){
