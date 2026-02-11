@@ -1,14 +1,14 @@
-package unicam.model.iscrizione.mvc;
+package unicam.service;
 
 import unicam.model.hackathon.entity.Hackathon;
 import unicam.model.hackathon.entity.StatiHackathon;
 import unicam.model.iscrizione.Iscrizione;
 import unicam.model.iscrizione.builder.IscrizioneBuilder;
-import unicam.model.iscrizione.repo.InMemoryIscrizioniRepository;
-import unicam.model.iscrizione.repo.IscrizioneRepository;
+import unicam.repository.InMemoryIscrizioniRepository;
+import unicam.repository.IscrizioneRepository;
 import unicam.model.team.Team;
-import unicam.model.team.repository.InMemoryTeamRepository;
-import unicam.model.team.repository.TeamRepository;
+import unicam.repository.InMemoryTeamRepository;
+import unicam.repository.TeamRepository;
 import unicam.model.utenti.user.User;
 
 import java.util.ArrayList;

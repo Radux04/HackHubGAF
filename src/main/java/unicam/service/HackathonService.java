@@ -1,16 +1,16 @@
-package unicam.model.hackathon.mvc;
+package unicam.service;
 
 import unicam.model.hackathon.builder.HackathonBuilder;
 import unicam.model.hackathon.entity.*;
-import unicam.model.hackathon.repo.HackathonRepository;
-import unicam.model.hackathon.repo.InMemoryHackathonRepository;
-import unicam.model.hackathon.repo.InMemoryStaffRepository;
-import unicam.model.hackathon.repo.StaffRepository;
-import unicam.model.iscrizione.repo.InMemoryIscrizioniRepository;
-import unicam.model.iscrizione.repo.IscrizioneRepository;
+import unicam.repository.HackathonRepository;
+import unicam.repository.InMemoryHackathonRepository;
+import unicam.repository.InMemoryStaffRepository;
+import unicam.repository.StaffRepository;
+import unicam.repository.InMemoryIscrizioniRepository;
+import unicam.repository.IscrizioneRepository;
 import unicam.model.supporto.RichiestaSupporto;
-import unicam.model.supporto.repository.InMemoryRichiestaSupportoRepository;
-import unicam.model.supporto.repository.RichiestaSupportoRepository;
+import unicam.repository.InMemoryRichiestaSupportoRepository;
+import unicam.repository.RichiestaSupportoRepository;
 import unicam.model.team.Team;
 import unicam.model.utenti.staff.Staff;
 import unicam.model.utenti.user.User;

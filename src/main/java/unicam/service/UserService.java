@@ -1,9 +1,8 @@
-package unicam.model.utenti.mvc;
+package unicam.service;
 
 import unicam.model.inviti.Invito;
 import unicam.model.team.Team;
-import unicam.model.team.repository.InMemoryTeamRepository;
-import unicam.model.team.mvc.TeamService;
+import unicam.repository.InMemoryTeamRepository;
 import unicam.model.utenti.user.Ruoli;
 import unicam.model.utenti.user.User;
 

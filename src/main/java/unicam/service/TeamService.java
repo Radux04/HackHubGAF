@@ -1,13 +1,13 @@
-package unicam.model.team.mvc;
+package unicam.service;
 
 import unicam.model.inviti.Invito;
-import unicam.model.inviti.repo.InMemoryInvitiRepo;
+import unicam.repository.InMemoryInvitiRepo;
 import unicam.model.team.Team;
 import unicam.model.team.builder.TeamBuilder;
-import unicam.model.team.repository.InMemoryTeamRepository;
+import unicam.repository.InMemoryTeamRepository;
 import unicam.model.utenti.user.Ruoli;
 import unicam.model.utenti.user.User;
-import unicam.model.utenti.user.repository.InMemoryUserRepository;
+import unicam.repository.InMemoryUserRepository;
 
 public class TeamService {
     private final InMemoryTeamRepository teamRepository;
