@@ -2,6 +2,9 @@ package unicam.model.hackathon.entity;
 
 import unicam.model.utenti.staff.Staff;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Hackathon {
     private int id;
     private String nome;
@@ -10,8 +13,19 @@ public class Hackathon {
     private StaffHT staff;
     private StatiHackathon stato;
     private Staff organizzatore;
+    public List<Sottomissione> sottomissioni;
 
     public Hackathon() {}
+
+    public Hackathon(String nome, DescrizioneHT descrizione, PlacementHT placement, StaffHT staff, StatiHackathon stato, Staff organizzatore) {
+        this.nome = nome;
+        this.descrizione = descrizione;
+        this.placement = placement;
+        this.staff = staff;
+        this.stato = stato;
+        this.organizzatore = organizzatore;
+        this.sottomissioni = new ArrayList<>();
+    }
 
     public int getId() {
         return id;
@@ -67,5 +81,13 @@ public class Hackathon {
 
     public void setOrganizzatore(Staff organizzatore) {
         this.organizzatore = organizzatore;
+    }
+
+    public List<Sottomissione> getSottomissioni() {
+        return sottomissioni;
+    }
+
+    public void setSottomissioni(List<Sottomissione> sottomissioni) {
+        this.sottomissioni = sottomissioni;
     }
 }

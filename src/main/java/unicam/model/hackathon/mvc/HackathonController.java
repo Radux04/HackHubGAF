@@ -9,6 +9,7 @@ import unicam.model.team.Team;
 import unicam.model.utenti.staff.Staff;
 import unicam.model.utenti.user.User;
 
+import java.io.File;
 import java.util.List;
 
 public class HackathonController {
@@ -28,5 +29,9 @@ public class HackathonController {
 
     public List<RichiestaSupporto> visualizzaRichiestaSupporto(Hackathon hackaton) {
         return hackathonService.visualizzaRichiesteSupporto(hackaton);
+    }
+
+    public void creaSottomissione(File file, String descrizione, String titolo, Hackathon hackaton) {
+        hackathonService.creaSottomissione(file, descrizione, titolo, hackaton);
     }
 }

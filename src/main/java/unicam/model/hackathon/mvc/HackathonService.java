@@ -1,10 +1,7 @@
 package unicam.model.hackathon.mvc;
 
 import unicam.model.hackathon.builder.HackathonBuilder;
-import unicam.model.hackathon.entity.DescrizioneHT;
-import unicam.model.hackathon.entity.Hackathon;
-import unicam.model.hackathon.entity.PlacementHT;
-import unicam.model.hackathon.entity.StaffHT;
+import unicam.model.hackathon.entity.*;
 import unicam.model.hackathon.repo.HackathonRepository;
 import unicam.model.hackathon.repo.InMemoryHackathonRepository;
 import unicam.model.hackathon.repo.InMemoryStaffRepository;
@@ -18,6 +15,7 @@ import unicam.model.team.Team;
 import unicam.model.utenti.staff.Staff;
 import unicam.model.utenti.user.User;
 
+import java.io.File;
 import java.util.List;
 
 public class HackathonService {
@@ -56,8 +54,10 @@ public class HackathonService {
             g.setOccupato(true);
             for (Staff m : staff.getMentori()) {
                 m.setOccupato(true);
+                m.setHt(hackathon);
             }
             organizzatore.setOccupato(true);
+            organizzatore.setHt(hackathon);
 
             inMemoryStaffRepository.save(organizzatore);
             inMemoryStaffRepository.save(g);
@@ -123,5 +123,25 @@ public class HackathonService {
         }
         return richiestaSupportoRepository.findByHackathonId(hackathon.getId());
 
+    }
+
+    public void creaSottomissione(File file, String descrizione, String titolo, Hackathon hackathon) {
+        if (descrizione == null || descrizione.isBlank()) {
+            throw new IllegalArgumentException("Descrizione non valida");
+        }
+        if (titolo == null || titolo.isBlank()) {
+            throw new IllegalArgumentException("Titolo non valido");
+        }
+        if (hackathon == null) {
+            throw new IllegalArgumentException("Hackathon non valido");
+        }
+        // Logica per creare la sottomissione e associarla all'hackathon
+
+        if(hackathon.getSottomissioni().size() == 10)
+            throw new IllegalArgumentException("Limite massimo di sottomissioni raggiunto");
+
+        Sottomissione sottomissione = new Sottomissione(titolo, descrizione, file);
+        hackathon.getSottomissioni().add(sottomissione);
+        inMemoryHackathonRepository.save(hackathon);
     }
 }
