@@ -3,6 +3,8 @@ package unicam.model.hackathon.builder;
 import unicam.model.hackathon.entity.*;
 import unicam.model.utenti.staff.Staff;
 
+import java.util.ArrayList;
+
 public class HackathonBuilder {
     private Hackathon hackathon = new Hackathon();
 
@@ -37,6 +39,7 @@ public class HackathonBuilder {
 
     public Hackathon build(){
         hackathon.setStato(StatiHackathon.IN_ISCRIZIONE);
+        hackathon.setSottomissioni(new ArrayList<>());
         return hackathon;
     }
 

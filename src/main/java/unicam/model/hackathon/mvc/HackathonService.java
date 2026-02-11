@@ -136,7 +136,8 @@ public class HackathonService {
             throw new IllegalArgumentException("Hackathon non valido");
         }
         // Logica per creare la sottomissione e associarla all'hackathon
-
+        if(hackathon.getStato() != StatiHackathon.IN_ISCRIZIONE)
+            throw new IllegalArgumentException("Hackathon non in fase di iscrizione");
         if(hackathon.getSottomissioni().size() == 10)
             throw new IllegalArgumentException("Limite massimo di sottomissioni raggiunto");
 
