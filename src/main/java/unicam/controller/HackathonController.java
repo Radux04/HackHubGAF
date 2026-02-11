@@ -1,9 +1,10 @@
-package unicam.model.hackathon.mvc;
+package unicam.controller;
 
 import unicam.model.hackathon.entity.DescrizioneHT;
 import unicam.model.hackathon.entity.Hackathon;
 import unicam.model.hackathon.entity.PlacementHT;
 import unicam.model.hackathon.entity.StaffHT;
+import unicam.service.HackathonService;
 import unicam.model.supporto.RichiestaSupporto;
 import unicam.model.team.Team;
 import unicam.model.utenti.staff.Staff;

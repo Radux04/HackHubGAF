@@ -1,8 +1,8 @@
-package unicam.model.utenti.mvc;
+package unicam.controller;
 
 import unicam.model.inviti.Invito;
+import unicam.service.UserService;
 import unicam.model.utenti.user.User;
-import unicam.model.utenti.user.repository.UserRepository;
 
 public class UserController {
     private final UserService userService;
