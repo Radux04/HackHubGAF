@@ -1,21 +1,22 @@
 package unicam.model.consegna;
 
+import unicam.model.hackathon.entity.Sottomissione;
+
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Consegna {
 
     private int id;
-    private String titolo;
     private String descrizione;
-    private File file;
+    private Map<Sottomissione, File> risposte;
     public int idIscrizione;
 
 
-    public Consegna(int id, String titolo, String descrizione, File file, int idIscrizione) {
-        this.id = id;
-        this.titolo = titolo;
+    public Consegna(int idIscrizione) {
         this.descrizione = descrizione;
-        this.file = file;
+        this.risposte = new HashMap<>();
         this.idIscrizione = idIscrizione;
     }
 
@@ -27,14 +28,6 @@ public class Consegna {
         this.id = id;
     }
 
-    public String getTitolo() {
-        return titolo;
-    }
-
-    public void setTitolo(String titolo) {
-        this.titolo = titolo;
-    }
-
     public String getDescrizione() {
         return descrizione;
     }
@@ -43,19 +36,19 @@ public class Consegna {
         this.descrizione = descrizione;
     }
 
-    public File getFile() {
-        return file;
-    }
-
-    public void setFile(File file) {
-        this.file = file;
-    }
-
     public int getIdIscrizione() {
         return idIscrizione;
     }
 
     public void setIdIscrizione(int idIscrizione) {
         this.idIscrizione = idIscrizione;
+    }
+
+    public Map<Sottomissione, File> getRisposte() {
+        return risposte;
+    }
+
+    public void setRisposte(Map<Sottomissione, File> risposte) {
+        this.risposte = risposte;
     }
 }
