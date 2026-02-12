@@ -12,18 +12,18 @@ public class Hackathon {
     private PlacementHT placement;
     private StaffHT staff;
     private StatiHackathon stato;
-    private Staff organizzatore;
-    public List<Sottomissione> sottomissioni;
+    private int idOrganizzatore;
+    private List<Integer> sottomissioni;
 
     public Hackathon() {}
 
-    public Hackathon(String nome, DescrizioneHT descrizione, PlacementHT placement, StaffHT staff, StatiHackathon stato, Staff organizzatore) {
+    public Hackathon(String nome, DescrizioneHT descrizione, PlacementHT placement, StaffHT staff, StatiHackathon stato, int idOrganizzatore) {
         this.nome = nome;
         this.descrizione = descrizione;
         this.placement = placement;
         this.staff = staff;
         this.stato = stato;
-        this.organizzatore = organizzatore;
+        this.idOrganizzatore = idOrganizzatore;
         this.sottomissioni = new ArrayList<>();
     }
 
@@ -75,19 +75,19 @@ public class Hackathon {
         this.stato = stato;
     }
 
-    public Staff getOrganizzatore() {
-        return organizzatore;
+    public int getIdOrganizzatore() {
+        return idOrganizzatore;
     }
 
-    public void setOrganizzatore(Staff organizzatore) {
-        this.organizzatore = organizzatore;
+    public void setIdOrganizzatore(int idOrganizzatore) {
+        this.idOrganizzatore = idOrganizzatore;
     }
 
-    public List<Sottomissione> getSottomissioni() {
+    public List<Integer> getSottomissioni() {
         return sottomissioni;
     }
 
-    public void setSottomissioni(List<Sottomissione> sottomissioni) {
+    public void setSottomissioni(List<Integer> sottomissioni) {
         this.sottomissioni = sottomissioni;
     }
 }

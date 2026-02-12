@@ -5,22 +5,28 @@ import unicam.model.utenti.staff.Staff;
 import java.util.List;
 
 public class StaffHT {
-    private Staff giudice;
-    private List<Staff> mentori;
+    private int idGiudice;
+    private List<Integer> mentori;
 
-    public Staff getGiudice() {
-        return giudice;
+    public StaffHT(int idGiudice, List<Integer> mentori) {
+        this.idGiudice = idGiudice;
+        this.mentori = mentori;
     }
 
-    public void setGiudice(Staff giudice) {
-        this.giudice = giudice;
+    public int getIdGiudice() {
+        return idGiudice;
     }
 
-    public List<Staff> getMentori() {
+    public void setIdGiudice(int idGiudice) {
+        this.idGiudice = idGiudice;
+    }
+
+    public List<Integer> getMentori() {
         return mentori;
     }
 
-    public void setMentori(List<Staff> mentori) {
+    public void setMentori(List<Integer> mentori) {
         this.mentori = mentori;
     }
+
 }
