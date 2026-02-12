@@ -16,6 +16,5 @@ public class InMemoryConsegnaRepo implements  ConsegnaRepository {
     @Override
     public Consegna save(Consegna consegna) {
         return consegne.put(consegna.getId(), consegna);
-
     }
 }
