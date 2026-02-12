@@ -13,7 +13,7 @@ public class ConsegnaService {
 
     }
 
-    public boolean caricaSottomissione(Sottomissione sottomissione, String descrizione, int idIscrizione){
+    public boolean caricaSottomissione(int sottomissione, String descrizione, int idIscrizione){
         Consegna c = new Consegna(idIscrizione, descrizione, sottomissione);
         if(consegnaRepository.contains(c)){
             return false;

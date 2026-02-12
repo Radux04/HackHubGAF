@@ -10,15 +10,15 @@ public class Consegna {
 
     private int id;
     private String descrizione;
-    private Sottomissione sottomissione;
-    public int idIscrizione;
+    private int idSottomissione;
+    private int idIscrizione;
     private int voto;
 
 
-    public Consegna(int idIscrizione, String  descrizione, Sottomissione sottomissione) {
+    public Consegna(int idIscrizione, String  descrizione, int sottomissione) {
         this.descrizione = descrizione;
         this.idIscrizione = idIscrizione;
-        this.sottomissione = sottomissione;
+        this.idSottomissione = sottomissione;
         voto = 0;
 
     }
@@ -47,12 +47,12 @@ public class Consegna {
         this.idIscrizione = idIscrizione;
     }
 
-    public Sottomissione getSottomissione() {
-        return sottomissione;
+    public int getSottomissione() {
+        return idSottomissione;
     }
 
-    public void setSottomissione(Sottomissione sottomissione) {
-        this.sottomissione = sottomissione;
+    public void setSottomissione(int sottomissione) {
+        this.idSottomissione = sottomissione;
     }
 
     public int getVoto() {

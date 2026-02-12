@@ -23,7 +23,7 @@ public class InMemoryConsegnaRepo implements ConsegnaRepository {
     @Override
     public boolean contains(Consegna consegna) {
         for (Consegna c : consegne.values()) {
-            if (c.getSottomissione().equals(consegna.getSottomissione()) && c.getIdIscrizione() == consegna.getIdIscrizione()) {
+            if (c.getSottomissione() == consegna.getSottomissione() && c.getIdIscrizione() == consegna.getIdIscrizione()) {
                 return true;
             }
         }
