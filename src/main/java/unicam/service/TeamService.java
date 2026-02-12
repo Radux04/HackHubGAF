@@ -20,47 +20,45 @@ public class TeamService {
         this.userRepository = userRepository;
     }
 
-    public Team creaTeam(String nome, String descrizione, User coordinatore)
+    public Team creaTeam(String nome, String descrizione, int idCoordinatore)
     {
         if(nome == null || nome.isBlank())
         {throw new IllegalArgumentException("errore nome team");}
 
-        if(descrizione == null || descrizione.isBlank())
-        {throw new IllegalArgumentException("errore descrizione team");}
 
         if (teamRepository.existsByNome(nome))
         {throw new IllegalArgumentException("errore nome team già esistente");}
 
-        if(coordinatore == null)
-        {throw new IllegalArgumentException("errore coordinatore team");}
 
-        coordinatore.setRuolo(Ruoli.COORDINATORE);
+        User c = userRepository.findById(idCoordinatore);
+
+        c.setRuolo(Ruoli.COORDINATORE);
         Team team = new TeamBuilder()
                 .buildNome(nome)
                 .buildDescrizione(descrizione)
-                .buildCoordinatore(coordinatore)
+                .buildCoordinatore(idCoordinatore)
                 .build();
 
-        userRepository.save(coordinatore);
+        userRepository.save(c);
 
         return teamRepository.save(team);
 
     }
 
-    public Invito invita(User user, Team mittente) {
-        Invito invito = new Invito(mittente.getId(), user.getId());
+    public Invito invita(int idUser, int idTeamMittente) {
+        Invito invito = new Invito(idTeamMittente, idUser);
         invitiRepository.save(invito);
         return invito;
     }
 
-    public boolean cambiaTeam(User membroTeam, Team teamAttuale, Team nuovoTeam) {
-        teamAttuale.getMembri().remove(membroTeam);
-        membroTeam.setTeam(nuovoTeam);
-        return nuovoTeam.getMembri().add(membroTeam);
+    public boolean cambiaTeam(int idMembroTeam, int idTeamAttuale, int idNuovoTeam) {
+        teamRepository.getTeamById(idTeamAttuale).getMembri().remove(idMembroTeam);
+        userRepository.findById(idMembroTeam).setIdTeam(idNuovoTeam);
+        return teamRepository.getTeamById(idNuovoTeam).getMembri().add(idMembroTeam);
     }
 
-    public void cambiaCoordinatore(Team team, User nuovoCoordinatore) {
-        nuovoCoordinatore.setRuolo(Ruoli.COORDINATORE);
-        team.setCoordinatore(nuovoCoordinatore);
+    public void cambiaCoordinatore(int idTeam, int idNuovoCoordinatore) {
+        userRepository.findById(idNuovoCoordinatore).setRuolo(Ruoli.COORDINATORE);
+        teamRepository.getTeamById(idTeam).setCoordinatore(idNuovoCoordinatore);
     }
 }

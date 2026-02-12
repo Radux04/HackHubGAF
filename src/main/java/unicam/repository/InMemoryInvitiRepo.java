@@ -13,4 +13,9 @@ public class InMemoryInvitiRepo implements InvitiRepository {
         invites.put(invito.getId(), invito);
         return invito;
     }
+
+    @Override
+    public Invito findById(long id) {
+        return invites.get(id);
+    }
 }

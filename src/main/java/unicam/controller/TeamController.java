@@ -12,11 +12,11 @@ public class TeamController {
         this.teamService = teamService;
     }
 
-    public Team creaTeam(String nome, String descrizione, User coordinatore) {
-        return teamService.creaTeam(nome, descrizione, coordinatore);
+    public Team creaTeam(String nome, String descrizione, int idCoordinatore) {
+        return teamService.creaTeam(nome, descrizione, idCoordinatore);
     }
 
-    public Invito invita(User user, Team mittente) {
-        return teamService.invita(user, mittente);
+    public Invito invita(int idUser, int idTeamMittente) {
+        return teamService.invita(idUser, idTeamMittente);
     }
 }

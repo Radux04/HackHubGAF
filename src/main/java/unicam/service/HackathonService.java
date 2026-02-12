@@ -2,14 +2,9 @@ package unicam.service;
 
 import unicam.model.hackathon.builder.HackathonBuilder;
 import unicam.model.hackathon.entity.*;
-import unicam.model.utenti.Utente;
 import unicam.repository.*;
 import unicam.model.supporto.RichiestaSupporto;
-import unicam.model.team.Team;
 import unicam.model.utenti.staff.Staff;
-import unicam.model.utenti.user.User;
-
-import java.io.File;
 import java.util.List;
 
 public class HackathonService {
@@ -68,10 +63,7 @@ public class HackathonService {
     }
 
     public boolean richiediSupporto(int idTeam, String descrizione) {
-
         int hackathonId = this.getHackatonByTeam(idTeam);
-        Hackathon hackathon =  inMemoryHackathonRepository.getHackathonById(hackathonId);
-
         RichiestaSupporto richiesta = new RichiestaSupporto(idTeam, descrizione, hackathonId);
         return richiestaSupportoRepository.save(richiesta) != null;
     }

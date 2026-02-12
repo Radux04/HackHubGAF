@@ -1,12 +1,8 @@
 package unicam.controller;
 
-import unicam.model.hackathon.entity.Hackathon;
+
 import unicam.model.iscrizione.Iscrizione;
 import unicam.service.IscrizioneTeamService;
-import unicam.model.team.Team;
-import unicam.model.utenti.user.User;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class IscrizioneTeamController {
