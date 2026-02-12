@@ -6,11 +6,9 @@ public class Sottomissione {
     private int id;
     private String titolo;
     private String descrizione;
-    private File file;
 
-    public Sottomissione(String titolo, String descrizione, File file) {
+    public Sottomissione(String titolo, String descrizione) {
         this.titolo = titolo;
         this.descrizione = descrizione;
-        this.file = file;
     }
 }

@@ -32,7 +32,7 @@ public class HackathonController {
         return hackathonService.visualizzaRichiesteSupporto(hackaton);
     }
 
-    public void creaSottomissione(File file, String descrizione, String titolo, Hackathon hackaton) {
-        hackathonService.creaSottomissione(file, descrizione, titolo, hackaton);
+    public void creaSottomissione(String descrizione, String titolo, Hackathon hackaton) {
+        hackathonService.creaSottomissione(descrizione, titolo, hackaton);
     }
 }

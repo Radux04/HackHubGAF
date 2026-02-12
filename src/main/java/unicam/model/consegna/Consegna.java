@@ -10,13 +10,13 @@ public class Consegna {
 
     private int id;
     private String descrizione;
-    private Map<Sottomissione, File> risposte;
+    private Sottomissione sottomissione;
     public int idIscrizione;
+    private int voto;
 
 
     public Consegna(int idIscrizione) {
-        this.descrizione = descrizione;
-        this.risposte = new HashMap<>();
+        this.descrizione = null;
         this.idIscrizione = idIscrizione;
     }
 
@@ -42,13 +42,5 @@ public class Consegna {
 
     public void setIdIscrizione(int idIscrizione) {
         this.idIscrizione = idIscrizione;
-    }
-
-    public Map<Sottomissione, File> getRisposte() {
-        return risposte;
-    }
-
-    public void setRisposte(Map<Sottomissione, File> risposte) {
-        this.risposte = risposte;
     }
 }

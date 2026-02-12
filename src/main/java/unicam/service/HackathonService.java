@@ -125,7 +125,7 @@ public class HackathonService {
 
     }
 
-    public void creaSottomissione(File file, String descrizione, String titolo, Hackathon hackathon) {
+    public void creaSottomissione(String descrizione, String titolo, Hackathon hackathon) {
         if (descrizione == null || descrizione.isBlank()) {
             throw new IllegalArgumentException("Descrizione non valida");
         }
@@ -136,12 +136,10 @@ public class HackathonService {
             throw new IllegalArgumentException("Hackathon non valido");
         }
         // Logica per creare la sottomissione e associarla all'hackathon
-        if(hackathon.getStato() != StatiHackathon.IN_ISCRIZIONE)
-            throw new IllegalArgumentException("Hackathon non in fase di iscrizione");
         if(hackathon.getSottomissioni().size() == 10)
             throw new IllegalArgumentException("Limite massimo di sottomissioni raggiunto");
 
-        Sottomissione sottomissione = new Sottomissione(titolo, descrizione, file);
+        Sottomissione sottomissione = new Sottomissione(titolo, descrizione);
         hackathon.getSottomissioni().add(sottomissione);
         inMemoryHackathonRepository.save(hackathon);
     }
