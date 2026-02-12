@@ -6,9 +6,6 @@ import unicam.model.iscrizione.Iscrizione;
 import unicam.model.iscrizione.builder.IscrizioneBuilder;
 import unicam.repository.*;
 import unicam.model.team.Team;
-import unicam.model.utenti.user.User;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class IscrizioneTeamService {
@@ -16,11 +13,13 @@ public class IscrizioneTeamService {
     private final TeamRepository inMemoryTeamRepository;
     private final IscrizioneRepository inMemoryIscrizioniRepository;
     private final HackathonRepository inMemoryHackathonRepository;
+    private final UserRepository inMemoryUserRepository;
 
-    public IscrizioneTeamService(InMemoryTeamRepository inMemoryTeamRepository, InMemoryIscrizioniRepository inMemoryIscrizioniRepository, InMemoryHackathonRepository inMemoryHackathonRepository) {
+    public IscrizioneTeamService(InMemoryTeamRepository inMemoryTeamRepository, InMemoryIscrizioniRepository inMemoryIscrizioniRepository, InMemoryHackathonRepository inMemoryHackathonRepository,  InMemoryUserRepository inMemoryUserRepository) {
         this.inMemoryTeamRepository = inMemoryTeamRepository;
         this.inMemoryIscrizioniRepository = inMemoryIscrizioniRepository;
         this.inMemoryHackathonRepository = inMemoryHackathonRepository;
+        this.inMemoryUserRepository = inMemoryUserRepository;
     }
 
     public int controlloTeam(int coordinatoreId){
@@ -49,8 +48,8 @@ public class IscrizioneTeamService {
         ib.buildPartecipanti(l);
         ib.buildHTId(idHackathon);
         team.setOccupato(true);
-        for(User u : team.getMembri()){
-            u.setOccupato(true);
+        for(int u : team.getMembri()){
+            inMemoryUserRepository.findById(u).setOccupato(true);
         }
         inMemoryTeamRepository.save(team);
         inMemoryIscrizioniRepository.save(ib.build());
@@ -58,11 +57,7 @@ public class IscrizioneTeamService {
     }
 
     public List<Integer> caricaMembriTeam(int idTeam) {
-        List<Integer> membriTeamId = new ArrayList<>();
-        for(int m : inMemoryTeamRepository.getTeamById(idTeam).getMembri()){
-            membriTeamId.add(m);
-        }
-        return membriTeamId;
+        return inMemoryTeamRepository.getTeamById(idTeam).getMembri();
     }
 
     public List<Integer> selezionePartecipanti(List<Integer> l) {
