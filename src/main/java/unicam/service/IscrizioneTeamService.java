@@ -4,11 +4,8 @@ import unicam.model.hackathon.entity.Hackathon;
 import unicam.model.hackathon.entity.StatiHackathon;
 import unicam.model.iscrizione.Iscrizione;
 import unicam.model.iscrizione.builder.IscrizioneBuilder;
-import unicam.repository.InMemoryIscrizioniRepository;
-import unicam.repository.IscrizioneRepository;
+import unicam.repository.*;
 import unicam.model.team.Team;
-import unicam.repository.InMemoryTeamRepository;
-import unicam.repository.TeamRepository;
 import unicam.model.utenti.user.User;
 
 import java.util.ArrayList;
@@ -18,36 +15,41 @@ public class IscrizioneTeamService {
 
     private final TeamRepository inMemoryTeamRepository;
     private final IscrizioneRepository inMemoryIscrizioniRepository;
+    private final HackathonRepository inMemoryHackathonRepository;
 
-    public IscrizioneTeamService(InMemoryTeamRepository inMemoryTeamRepository, InMemoryIscrizioniRepository inMemoryIscrizioniRepository) {
+    public IscrizioneTeamService(InMemoryTeamRepository inMemoryTeamRepository, InMemoryIscrizioniRepository inMemoryIscrizioniRepository, InMemoryHackathonRepository inMemoryHackathonRepository) {
         this.inMemoryTeamRepository = inMemoryTeamRepository;
         this.inMemoryIscrizioniRepository = inMemoryIscrizioniRepository;
+        this.inMemoryHackathonRepository = inMemoryHackathonRepository;
     }
 
-    public Team controlloTeam(int coordinatoreId){
+    public int controlloTeam(int coordinatoreId){
         Team t = inMemoryTeamRepository.findTeamByCoordinatoreId(coordinatoreId);
         if(t.isOccupato()){
             throw new IllegalArgumentException();
         }
         else {
-            return t;
+            return t.getId();
         }
     }
 
-    public Iscrizione iscriviTeam(List<User> l, Hackathon h, Team team){
+    public Iscrizione iscriviTeam(List<Integer> l, int idHackathon, int idTeam){
+        Hackathon hackathon = inMemoryHackathonRepository.getHackathonById(idHackathon);
 
-        if(h.getStato() != StatiHackathon.IN_ISCRIZIONE){
+        Team team = inMemoryTeamRepository.findTeamById(idTeam);
+
+        if(hackathon.getStato() != StatiHackathon.IN_ISCRIZIONE){
             throw new IllegalArgumentException();
         }
-        if(h.getDescrizione().getMaxSize() < l.size() || l.size() < 2){
+        if(hackathon.getDescrizione().getMaxSize() < l.size() || l.size() < 2){
             throw new IllegalArgumentException();
         }
         IscrizioneBuilder ib = new IscrizioneBuilder();
-        ib.buildTeamId(team.getId());
+        ib.buildTeamId(idTeam);
         ib.buildPartecipanti(l);
-        ib.buildHTId(h.getId());
+        ib.buildHTId(idHackathon);
         team.setOccupato(true);
-        for(User u : l){
+        for(User u : team.getMembri()){
             u.setOccupato(true);
         }
         inMemoryTeamRepository.save(team);
@@ -55,15 +57,15 @@ public class IscrizioneTeamService {
         return ib.build();
     }
 
-    public List<User> caricaMembriTeam(Team team) {
-        List<User> membriTeam = new ArrayList<>();
-        for(User m : team.getMembri()){
-            membriTeam.add(m);
+    public List<Integer> caricaMembriTeam(int idTeam) {
+        List<Integer> membriTeamId = new ArrayList<>();
+        for(int m : inMemoryTeamRepository.getTeamById(idTeam).getMembri()){
+            membriTeamId.add(m);
         }
-        return membriTeam;
+        return membriTeamId;
     }
 
-    public List<User> selezionePartecipanti(List<User> l) {
+    public List<Integer> selezionePartecipanti(List<Integer> l) {
         if(l.size() < 2){
             throw new IllegalArgumentException();
         }

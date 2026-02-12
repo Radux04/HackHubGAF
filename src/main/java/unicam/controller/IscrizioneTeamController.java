@@ -17,18 +17,15 @@ public class IscrizioneTeamController {
     }
 
     
-    public Iscrizione iscriviTeam(int coordinatoreId, Hackathon h){
-
-        return iscrizioneTeamService.iscriviTeam(selezionePartecipanti(
-                this.caricaMembri(
-                        iscrizioneTeamService.controlloTeam(coordinatoreId))), h, iscrizioneTeamService.controlloTeam(coordinatoreId));
+    public Iscrizione iscriviTeam(int coordinatoreId, int idHackaton) {
+        return iscrizioneTeamService.iscriviTeam(selezionePartecipanti(this.caricaMembri(iscrizioneTeamService.controlloTeam(coordinatoreId))), idHackaton, iscrizioneTeamService.controlloTeam(coordinatoreId));
     }
 
-    private List<User> caricaMembri(Team team){
-        return iscrizioneTeamService.caricaMembriTeam(team);
+    private List<Integer> caricaMembri(int idTeam){
+        return iscrizioneTeamService.caricaMembriTeam(idTeam);
     }
 
-    private List<User> selezionePartecipanti(List<User> l){
+    private List<Integer> selezionePartecipanti(List<Integer> l){
         return iscrizioneTeamService.selezionePartecipanti(l);
     }
 }

@@ -39,4 +39,9 @@ public class InMemoryTeamRepository implements TeamRepository {
     public Team getTeamById(int id) {
         return teamById.get(id);
     }
+
+    @Override
+    public Team findTeamById(int id) {
+        return teamById.get(id);
+    }
 }
