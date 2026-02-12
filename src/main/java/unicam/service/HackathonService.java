@@ -17,25 +17,26 @@ public class HackathonService {
     private final StaffRepository inMemoryStaffRepository;
     private final RichiestaSupportoRepository richiestaSupportoRepository;
     private final IscrizioneRepository inMemoryIscrizioniRepository;
-    private final TeamRepository inMemoryTeamRepository;
 
-    public HackathonService() {
-        this.inMemoryHackathonRepository = new InMemoryHackathonRepository();
-        this.inMemoryStaffRepository = new InMemoryStaffRepository();
-        this.richiestaSupportoRepository = new InMemoryRichiestaSupportoRepository();
-        this.inMemoryIscrizioniRepository = new InMemoryIscrizioniRepository();
-        this.inMemoryTeamRepository = new InMemoryTeamRepository();
+    public HackathonService(InMemoryHackathonRepository inMemoryHackathonRepository, InMemoryStaffRepository inMemoryStaffRepository, InMemoryRichiestaSupportoRepository inMemoryRichiestaSupportoRepository, InMemoryIscrizioniRepository inMemoryIscrizioniRepository) {
+        this.inMemoryHackathonRepository = inMemoryHackathonRepository;
+        this.inMemoryStaffRepository = inMemoryStaffRepository;
+        this.richiestaSupportoRepository = inMemoryRichiestaSupportoRepository;
+        this.inMemoryIscrizioniRepository = inMemoryIscrizioniRepository;
     }
 
-    public Hackathon CreaHackathon(DescrizioneHT descrizione, PlacementHT placement, StaffHT staff, String nome, Staff organizzatore) {
-        if (organizzatore.isOccupato()) throw new IllegalArgumentException("Organizzatore occupato");
+    public Hackathon CreaHackathon(DescrizioneHT descrizione, PlacementHT placement, StaffHT staff, String nome, int idOrganizzatore) {
+
+        Staff s =  inMemoryStaffRepository.findStaff(idOrganizzatore);
+
+        if (s.isOccupato()) throw new IllegalArgumentException("Organizzatore occupato");
         else {
-            Staff g = staff.getGiudice();
+            Staff g = inMemoryStaffRepository.findStaff(staff.getIdGiudice());
             if (g.isOccupato()) throw new IllegalArgumentException("Giudice occupato");
             else {
-                for (Staff m : staff.getMentori()) {
-                    if (m.isOccupato()) {
-                        throw new IllegalArgumentException("Mentore occupato: " + m.getUsername());
+                for (int m : staff.getMentori()) {
+                    if (inMemoryStaffRepository.findStaff(m).isOccupato()) {
+                        throw new IllegalArgumentException("un mentore è occupato");
                     }
                 }
             }
@@ -44,21 +45,22 @@ public class HackathonService {
                     .buildDescrizione(descrizione)
                     .buildPlacement(placement)
                     .buildStaff(staff)
-                    .buildOrganizzatore(organizzatore);
+                    .buildOrganizzatore(idOrganizzatore);
             Hackathon hackathon = hackathonBuilder.build();
 
             g.setOccupato(true);
-            for (Staff m : staff.getMentori()) {
-                m.setOccupato(true);
-                m.setHt(hackathon);
+            for (int m : staff.getMentori()) {
+                inMemoryStaffRepository.findStaff(m).setOccupato(true);
+                inMemoryStaffRepository.findStaff(m).setIdHackathon(hackathon.getId());
             }
-            organizzatore.setOccupato(true);
-            organizzatore.setHt(hackathon);
 
-            inMemoryStaffRepository.save(organizzatore);
+            s.setOccupato(true);
+            s.setIdHackathon(hackathon.getId());
+
+            inMemoryStaffRepository.save(s);
             inMemoryStaffRepository.save(g);
-            for (Staff m : staff.getMentori()) {
-                inMemoryStaffRepository.save(m);
+            for (int m : staff.getMentori()) {
+                inMemoryStaffRepository.save(inMemoryStaffRepository.findStaff(m));
             }
 
             return inMemoryHackathonRepository.save(hackathon);
@@ -78,23 +80,6 @@ public class HackathonService {
         return inMemoryIscrizioniRepository.getHackatonByTeam(idTeam);
     }
 
-    private boolean utenteInTeam(int idTeam, int idUtente) {
-        Team team = inMemoryTeamRepository.getTeamById(idTeam);
-        Utente utente = team.getMembri().get(idUtente);
-
-        List<User> membri = team.getMembri();
-        if (membri == null) {
-            return false;
-        }
-        for (User m : membri) {
-            if (m.getId() == utente.getId()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-
     public List<RichiestaSupporto> visualizzaRichiesteSupporto(int idHackathon) {
 
         return richiestaSupportoRepository.findByHackathonId(idHackathon);
@@ -106,7 +91,7 @@ public class HackathonService {
             throw new IllegalArgumentException("Limite massimo di sottomissioni raggiunto");
 
         Sottomissione sottomissione = new Sottomissione(titolo, descrizione);
-        inMemoryHackathonRepository.getHackathonById(idHackathon).getSottomissioni().add(sottomissione);
+        inMemoryHackathonRepository.getHackathonById(idHackathon).getSottomissioni().add(sottomissione.getId());
         inMemoryHackathonRepository.save(inMemoryHackathonRepository.getHackathonById(idHackathon));
     }
 }

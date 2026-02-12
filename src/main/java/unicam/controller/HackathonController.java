@@ -20,8 +20,8 @@ public class HackathonController {
         this.hackathonService = hackathonService;
     }
     
-    public Hackathon CreaHackathon(DescrizioneHT descrizione, PlacementHT placement, StaffHT staff, String nome, Staff organizzatore) {
-        return hackathonService.CreaHackathon(descrizione, placement, staff, nome, organizzatore);
+    public Hackathon CreaHackathon(DescrizioneHT descrizione, PlacementHT placement, StaffHT staff, String nome, int idOrganizzatore) {
+        return hackathonService.CreaHackathon(descrizione, placement, staff, nome, idOrganizzatore);
     }
 
     public boolean richiestaSupporto(int idTeam, String descrizione) {

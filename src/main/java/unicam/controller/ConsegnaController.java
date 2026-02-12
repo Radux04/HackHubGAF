@@ -1,7 +1,5 @@
 package unicam.controller;
 
-import unicam.model.hackathon.entity.Sottomissione;
-import unicam.repository.ConsegnaRepository;
 import unicam.service.ConsegnaService;
 
 public class ConsegnaController {

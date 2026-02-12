@@ -22,4 +22,9 @@ public class InMemoryStaffRepository implements StaffRepository {
         staffById.put(staff.getId(), staff);
     }
 
+    @Override
+    public Staff findStaff(int id) {
+        return staffById.get(id);
+    }
+
 }

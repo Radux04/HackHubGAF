@@ -9,4 +9,5 @@ public interface StaffRepository {
     Optional<Staff> findMentoreById(int id);
 
     void save(Staff staff);
+    Staff findStaff(int id);
 }
