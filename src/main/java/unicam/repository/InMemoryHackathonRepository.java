@@ -13,4 +13,9 @@ public class InMemoryHackathonRepository implements  HackathonRepository {
         hackathonByID.put(hackathon.getId(), hackathon);
         return hackathon;
     }
+
+    @Override
+    public Hackathon getHackathonById(int id) {
+        return hackathonByID.get(id);
+    }
 }

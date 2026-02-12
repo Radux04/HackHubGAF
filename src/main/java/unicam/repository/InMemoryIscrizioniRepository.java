@@ -16,9 +16,9 @@ public class InMemoryIscrizioniRepository implements IscrizioneRepository {
     }
 
     @Override
-    public int getHackatonByTeam(Team team) {
+    public int getHackatonByTeam(int idTeam) {
         for(Iscrizione iscrizione : iscrizioniById.values()) {
-            if(iscrizione.getTeamId() == team.getId()) {
+            if(iscrizione.getTeamId() == idTeam) {
                 return iscrizione.getHtId();
             }
         }

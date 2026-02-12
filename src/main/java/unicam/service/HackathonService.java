@@ -2,15 +2,9 @@ package unicam.service;
 
 import unicam.model.hackathon.builder.HackathonBuilder;
 import unicam.model.hackathon.entity.*;
-import unicam.repository.HackathonRepository;
-import unicam.repository.InMemoryHackathonRepository;
-import unicam.repository.InMemoryStaffRepository;
-import unicam.repository.StaffRepository;
-import unicam.repository.InMemoryIscrizioniRepository;
-import unicam.repository.IscrizioneRepository;
+import unicam.model.utenti.Utente;
+import unicam.repository.*;
 import unicam.model.supporto.RichiestaSupporto;
-import unicam.repository.InMemoryRichiestaSupportoRepository;
-import unicam.repository.RichiestaSupportoRepository;
 import unicam.model.team.Team;
 import unicam.model.utenti.staff.Staff;
 import unicam.model.utenti.user.User;
@@ -23,12 +17,14 @@ public class HackathonService {
     private final StaffRepository inMemoryStaffRepository;
     private final RichiestaSupportoRepository richiestaSupportoRepository;
     private final IscrizioneRepository inMemoryIscrizioniRepository;
+    private final TeamRepository inMemoryTeamRepository;
 
     public HackathonService() {
         this.inMemoryHackathonRepository = new InMemoryHackathonRepository();
         this.inMemoryStaffRepository = new InMemoryStaffRepository();
         this.richiestaSupportoRepository = new InMemoryRichiestaSupportoRepository();
         this.inMemoryIscrizioniRepository = new InMemoryIscrizioniRepository();
+        this.inMemoryTeamRepository = new InMemoryTeamRepository();
     }
 
     public Hackathon CreaHackathon(DescrizioneHT descrizione, PlacementHT placement, StaffHT staff, String nome, Staff organizzatore) {
@@ -69,47 +65,29 @@ public class HackathonService {
         }
     }
 
-    public boolean richiediSupporto(Team team, User utente, String descrizione) {
-        if (team == null) {
-            throw new IllegalArgumentException("Team non valido");
-        }
-        if (utente == null) {
-            throw new IllegalArgumentException("Utente non valido");
-        }
-        if (descrizione == null || descrizione.isBlank()) {
-            throw new IllegalArgumentException("Descrizione non valida");
-        }
-        if (!utenteInTeam(team, utente)) {
-            throw new IllegalArgumentException("Utente non appartiene al team");
-        }
+    public boolean richiediSupporto(int idTeam, String descrizione) {
 
-        int hackathonId = getHackatonByTeam(team);
-        if (hackathonId < 0) {
-            throw new IllegalArgumentException("Hackaton non valido");
-        }
+        int hackathonId = this.getHackatonByTeam(idTeam);
+        Hackathon hackathon =  inMemoryHackathonRepository.getHackathonById(hackathonId);
 
-        RichiestaSupporto richiesta = new RichiestaSupporto(
-                team.getId(),
-                descrizione,
-                hackathonId
-        );
+        RichiestaSupporto richiesta = new RichiestaSupporto(idTeam, descrizione, hackathonId);
         return richiestaSupportoRepository.save(richiesta) != null;
     }
 
-    private int getHackatonByTeam(Team team) {
-        return inMemoryIscrizioniRepository.getHackatonByTeam(team);
+    private int getHackatonByTeam(int idTeam) {
+        return inMemoryIscrizioniRepository.getHackatonByTeam(idTeam);
     }
 
-    private boolean utenteInTeam(Team team, User utente) {
-        if (team.getCoordinatore() != null && team.getCoordinatore().getId() == utente.getId()) {
-            return true;
-        }
+    private boolean utenteInTeam(int idTeam, int idUtente) {
+        Team team = inMemoryTeamRepository.getTeamById(idTeam);
+        Utente utente = team.getMembri().get(idUtente);
+
         List<User> membri = team.getMembri();
         if (membri == null) {
             return false;
         }
         for (User m : membri) {
-            if (m != null && m.getId() == utente.getId()) {
+            if (m.getId() == utente.getId()) {
                 return true;
             }
         }
@@ -117,30 +95,18 @@ public class HackathonService {
     }
 
 
-    public List<RichiestaSupporto> visualizzaRichiesteSupporto(Hackathon hackathon) {
-        if (hackathon == null) {
-            throw new IllegalArgumentException("Hackathon non valido");
-        }
-        return richiestaSupportoRepository.findByHackathonId(hackathon.getId());
+    public List<RichiestaSupporto> visualizzaRichiesteSupporto(int idHackathon) {
+
+        return richiestaSupportoRepository.findByHackathonId(idHackathon);
 
     }
 
-    public void creaSottomissione(String descrizione, String titolo, Hackathon hackathon) {
-        if (descrizione == null || descrizione.isBlank()) {
-            throw new IllegalArgumentException("Descrizione non valida");
-        }
-        if (titolo == null || titolo.isBlank()) {
-            throw new IllegalArgumentException("Titolo non valido");
-        }
-        if (hackathon == null) {
-            throw new IllegalArgumentException("Hackathon non valido");
-        }
-        // Logica per creare la sottomissione e associarla all'hackathon
-        if(hackathon.getSottomissioni().size() == 10)
+    public void creaSottomissione(String descrizione, String titolo, int idHackathon) {
+        if(inMemoryHackathonRepository.getHackathonById(idHackathon).getSottomissioni().size() == 10)
             throw new IllegalArgumentException("Limite massimo di sottomissioni raggiunto");
 
         Sottomissione sottomissione = new Sottomissione(titolo, descrizione);
-        hackathon.getSottomissioni().add(sottomissione);
-        inMemoryHackathonRepository.save(hackathon);
+        inMemoryHackathonRepository.getHackathonById(idHackathon).getSottomissioni().add(sottomissione);
+        inMemoryHackathonRepository.save(inMemoryHackathonRepository.getHackathonById(idHackathon));
     }
 }

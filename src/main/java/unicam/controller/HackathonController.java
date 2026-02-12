@@ -24,15 +24,15 @@ public class HackathonController {
         return hackathonService.CreaHackathon(descrizione, placement, staff, nome, organizzatore);
     }
 
-    public boolean richiediSupporto(Team team, User utente, String descrizione) {
-        return hackathonService.richiediSupporto(team, utente, descrizione);
+    public boolean richiestaSupporto(int idTeam, String descrizione) {
+        return hackathonService.richiediSupporto(idTeam, descrizione);
     }
 
-    public List<RichiestaSupporto> visualizzaRichiestaSupporto(Hackathon hackaton) {
-        return hackathonService.visualizzaRichiesteSupporto(hackaton);
+    public List<RichiestaSupporto> visualizzaRichiestaSupporto(int idHackaton) {
+        return hackathonService.visualizzaRichiesteSupporto(idHackaton);
     }
 
-    public void creaSottomissione(String descrizione, String titolo, Hackathon hackaton) {
-        hackathonService.creaSottomissione(descrizione, titolo, hackaton);
+    public void creaSottomissione(String descrizione, String titolo, int idHackaton) {
+        hackathonService.creaSottomissione(descrizione, titolo, idHackaton);
     }
 }
