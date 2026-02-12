@@ -8,9 +8,9 @@ public class Iscrizione {
     private int id;
     private int htId;
     private int teamId;
-    private List<User> participanti;
+    private List<Integer> participanti;
 
-    public Iscrizione(int htId, int teamId, List<User> participanti) {
+    public Iscrizione(int htId, int teamId, List<Integer> participanti) {
         this.htId = htId;
         this.teamId = teamId;
         this.participanti = participanti;
@@ -44,11 +44,11 @@ public class Iscrizione {
         this.teamId = teamId;
     }
 
-    public List<User> getParticipant() {
+    public List<Integer> getParticipant() {
         return participanti;
     }
 
-    public void setParticipant(List<User> participanti) {
+    public void setParticipant(List<Integer> participanti) {
         this.participanti = participanti;
     }
 }

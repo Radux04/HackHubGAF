@@ -6,12 +6,13 @@ import unicam.model.utenti.staff.RuoliStaff;
 
 public class User extends Utente {
     private Ruoli ruolo;
-    private Team team;
+    private int idTeam;
 
 
     public User(String username, String password, String email) {
         super(username, password, email);
         this.ruolo = Ruoli.UTENTE;
+        idTeam = -1;
     }
 
     public Ruoli getRuolo() {
@@ -22,10 +23,11 @@ public class User extends Utente {
         this.ruolo = ruolo;
     }
 
-    public Team getTeam() {
-        return this.team;
+    public int getIdTeam() {
+        return idTeam;
     }
-    public void setTeam(Team team) {
-        this.team = team;
+
+    public void setIdTeam(int idTeam) {
+        this.idTeam = idTeam;
     }
 }

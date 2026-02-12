@@ -8,11 +8,11 @@ public class Team {
     private int id;
     private String nome;
     private String descrizione;
-    private User coordinatore;
+    private int coordinatore;
     private boolean occupato;
-    private List<User> membri;
+    private List<Integer> membri;
 
-    public Team(String nome, String descrizione, User coordinatore, List<User> membri) {
+    public Team(String nome, String descrizione, int coordinatore, List<Integer> membri) {
         this.nome = nome;
         this.descrizione = descrizione;
         this.coordinatore = coordinatore;
@@ -20,8 +20,7 @@ public class Team {
         this.occupato = false;
     }
 
-    public Team() { this.occupato = false;
-    }
+        public Team() {}
 
     public int getId() {
         return id;
@@ -47,11 +46,11 @@ public class Team {
         this.descrizione = descrizione;
     }
 
-    public User getCoordinatore() {
+    public int getCoordinatore() {
         return coordinatore;
     }
 
-    public void setCoordinatore(User coordinatore) {
+    public void setCoordinatore(int coordinatore) {
         this.coordinatore = coordinatore;
     }
 
@@ -63,11 +62,11 @@ public class Team {
         this.occupato = occupato;
     }
 
-    public List<User> getMembri() {
+    public List<Integer> getMembri() {
         return membri;
     }
 
-    public void setMembri(List<User> membri) {
+    public void setMembri(List<Integer> membri) {
         this.membri = membri;
     }
 }

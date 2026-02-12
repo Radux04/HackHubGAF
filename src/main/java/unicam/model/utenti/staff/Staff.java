@@ -5,12 +5,12 @@ import unicam.model.utenti.Utente;
 
 public class Staff extends Utente {
     private RuoliStaff ruolo;
-    private Hackathon ht;
+    private int idHackathon;
 
     public Staff(String username, String password, String email, RuoliStaff ruolo) {
         super(username, password, email);
         this.ruolo = ruolo;
-        ht = null;
+        idHackathon = -1;
     }
 
     public RuoliStaff getRuolo() {
@@ -21,11 +21,11 @@ public class Staff extends Utente {
         this.ruolo = ruolo;
     }
 
-    public Hackathon getHt() {
-        return ht;
+    public int getIdHackathon() {
+        return idHackathon;
     }
 
-    public void setHt(Hackathon ht) {
-        this.ht = ht;
+    public void setIdHackathon(int idHackathon) {
+        this.idHackathon = idHackathon;
     }
 }

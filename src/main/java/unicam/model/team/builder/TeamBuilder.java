@@ -25,7 +25,7 @@ public class TeamBuilder {
         return this;
     }
 
-    public TeamBuilder buildCoordinatore(User coordinatore) {
+    public TeamBuilder buildCoordinatore(int coordinatore) {
         team.setCoordinatore(coordinatore);
         return this;
     }

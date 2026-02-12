@@ -29,7 +29,7 @@ public class IscrizioneBuilder {
         return this;
     }
 
-    public IscrizioneBuilder buildPartecipanti(List<User> l){
+    public IscrizioneBuilder buildPartecipanti(List<Integer> l){
         i.setParticipant(l);
         return this;
     }

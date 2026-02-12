@@ -32,8 +32,8 @@ public class HackathonBuilder {
         return this;
     }
 
-    public HackathonBuilder buildOrganizzatore(Staff org) {
-        hackathon.setOrganizzatore(org);
+    public HackathonBuilder buildOrganizzatore(int org) {
+        hackathon.setIdOrganizzatore(org);
         return this;
     }
 
