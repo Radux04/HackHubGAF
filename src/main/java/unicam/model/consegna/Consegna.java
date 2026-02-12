@@ -19,7 +19,7 @@ public class Consegna {
         this.descrizione = descrizione;
         this.idIscrizione = idIscrizione;
         this.sottomissione = sottomissione;
-        voto = -1;
+        voto = 0;
 
     }
 
