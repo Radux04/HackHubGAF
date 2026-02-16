@@ -26,12 +26,14 @@ public class TeamService {
         if(nome == null || nome.isBlank())
         {throw new IllegalArgumentException("errore nome team");}
 
-
         if (teamRepository.existsByNome(nome))
         {throw new IllegalArgumentException("errore nome team già esistente");}
 
-
         User c = userRepository.findById(idCoordinatore);
+
+        if(c.getRuolo() != Ruoli.UTENTE){
+            throw  new IllegalArgumentException("errore ruolo team");
+        }
 
         c.setRuolo(Ruoli.COORDINATORE);
         Team team = new TeamBuilder()

@@ -84,6 +84,5 @@ public class HackathonService {
 
         Sottomissione sottomissione = new Sottomissione(titolo, descrizione);
         inMemoryHackathonRepository.getHackathonById(idHackathon).getSottomissioni().add(sottomissione.getId());
-        inMemoryHackathonRepository.save(inMemoryHackathonRepository.getHackathonById(idHackathon));
     }
 }

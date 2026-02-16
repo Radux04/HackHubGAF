@@ -1,7 +1,6 @@
 package unicam.repository;
 
 import unicam.model.consegna.Consegna;
-import unicam.model.hackathon.entity.Sottomissione;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +30,7 @@ public class InMemoryConsegnaRepo implements ConsegnaRepository {
     }
 
     @Override
-    public boolean remove(int idConsegna) {
-        return consegne.remove(idConsegna) != null;
+    public void remove(int idConsegna) {
+        consegne.remove(idConsegna);
     }
 }

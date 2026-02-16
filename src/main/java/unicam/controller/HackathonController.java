@@ -6,11 +6,7 @@ import unicam.model.hackathon.entity.PlacementHT;
 import unicam.model.hackathon.entity.StaffHT;
 import unicam.service.HackathonService;
 import unicam.model.supporto.RichiestaSupporto;
-import unicam.model.team.Team;
-import unicam.model.utenti.staff.Staff;
-import unicam.model.utenti.user.User;
 
-import java.io.File;
 import java.util.List;
 
 public class HackathonController {

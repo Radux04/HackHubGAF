@@ -15,7 +15,7 @@ public class ConsegnaController {
     }
 
 
-    public boolean ritiraSottomissione(int idConsegna) {
-        return this.consegnaService.ritiraSottomissione(idConsegna);
+    public void ritiraSottomissione(int idConsegna) {
+        this.consegnaService.ritiraSottomissione(idConsegna);
     }
 }

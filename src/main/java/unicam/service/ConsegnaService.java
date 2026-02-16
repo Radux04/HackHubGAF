@@ -1,7 +1,6 @@
 package unicam.service;
 
 import unicam.model.consegna.Consegna;
-import unicam.model.hackathon.entity.Sottomissione;
 import unicam.repository.ConsegnaRepository;
 
 public class ConsegnaService {
@@ -23,8 +22,8 @@ public class ConsegnaService {
         return true;
     }
 
-    public boolean ritiraSottomissione(int idConsegna) {
-        return consegnaRepository.remove(idConsegna);
+    public void ritiraSottomissione(int idConsegna) {
+        consegnaRepository.remove(idConsegna);
 
     }
 }
