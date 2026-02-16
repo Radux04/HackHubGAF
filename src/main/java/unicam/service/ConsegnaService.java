@@ -22,4 +22,9 @@ public class ConsegnaService {
         this.consegnaRepository.save(c);
         return true;
     }
+
+    public boolean ritiraSottomissione(int idConsegna) {
+        return consegnaRepository.remove(idConsegna);
+
+    }
 }
