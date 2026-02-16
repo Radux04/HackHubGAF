@@ -29,4 +29,9 @@ public class InMemoryConsegnaRepo implements ConsegnaRepository {
         }
         return false;
     }
+
+    @Override
+    public boolean remove(int idConsegna) {
+        return consegne.remove(idConsegna) != null;
+    }
 }

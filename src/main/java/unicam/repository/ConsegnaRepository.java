@@ -6,4 +6,5 @@ import unicam.model.hackathon.entity.Sottomissione;
 public interface ConsegnaRepository {
     Consegna save(Consegna consegna);
     boolean contains(Consegna consegna);
+    boolean remove(int idConsegna);
 }
