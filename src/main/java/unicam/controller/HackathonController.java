@@ -20,7 +20,7 @@ public class HackathonController {
         return hackathonService.CreaHackathon(descrizione, placement, staff, nome, idOrganizzatore);
     }
 
-    public boolean richiestaSupporto(int idTeam, String descrizione) {
+    public RichiestaSupporto richiestaSupporto(int idTeam, String descrizione) {
         return hackathonService.richiediSupporto(idTeam, descrizione);
     }
 

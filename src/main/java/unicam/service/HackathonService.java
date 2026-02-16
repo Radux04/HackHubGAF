@@ -74,10 +74,10 @@ public class HackathonService {
         }
     }
 
-    public boolean richiediSupporto(int idTeam, String descrizione) {
+    public RichiestaSupporto richiediSupporto(int idTeam, String descrizione) {
         int hackathonId = inMemoryIscrizioniRepository.getHackatonByTeam(idTeam);
         RichiestaSupporto richiesta = new RichiestaSupporto(idTeam, descrizione, hackathonId);
-        return richiestaSupportoRepository.save(richiesta) != null;
+        return richiestaSupportoRepository.save(richiesta);
     }
 
 
