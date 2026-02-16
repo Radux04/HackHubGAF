@@ -46,8 +46,11 @@ public class TeamService {
 
     }
 
-    public Invito invita(int idUser, int idTeamMittente) {
-        Invito invito = new Invito(idTeamMittente, idUser);
+    public Invito invita(int idUser, int idCoordinatore) {
+        User u = userRepository.findById(idCoordinatore);
+
+        if(u.getRuolo() != Ruoli.COORDINATORE) { throw new IllegalArgumentException("errore non sei coordinatore");}
+        Invito invito = new Invito(u.getIdTeam(), idUser);
         invitiRepository.save(invito);
         return invito;
     }
@@ -59,6 +62,7 @@ public class TeamService {
     }
 
     public void cambiaCoordinatore(int idTeam, int idNuovoCoordinatore) {
+        //momentaneamente questo metodo funge solo se un cordinatore decide di accettare l'invito di un altro team.
         userRepository.findById(idNuovoCoordinatore).setRuolo(Ruoli.COORDINATORE);
         teamRepository.getTeamById(idTeam).setCoordinatore(idNuovoCoordinatore);
     }

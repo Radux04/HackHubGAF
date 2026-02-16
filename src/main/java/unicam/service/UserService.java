@@ -31,7 +31,7 @@ public class UserService {
         //user is a simple user
         if(r == Ruoli.UTENTE){
             if(risposta){
-                return aggiungiMembro(mittente.getId(), idUser);
+                return diventaMembro(mittente.getId(), idUser);
             }
         }
         //user is already a member of a team
@@ -50,7 +50,7 @@ public class UserService {
         return false;
     }
 
-    public boolean aggiungiMembro(int idTeam, int idUser) {
+    public boolean diventaMembro(int idTeam, int idUser) {
         inMemoryUserRepository.findById(idUser).setIdTeam(idTeam);
         return inMemoryTeamRepository.getTeamById(idTeam).getMembri().add(idUser);
     }

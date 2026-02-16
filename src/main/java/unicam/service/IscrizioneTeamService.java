@@ -4,6 +4,8 @@ import unicam.model.hackathon.entity.Hackathon;
 import unicam.model.hackathon.entity.StatiHackathon;
 import unicam.model.iscrizione.Iscrizione;
 import unicam.model.iscrizione.builder.IscrizioneBuilder;
+import unicam.model.utenti.user.Ruoli;
+import unicam.model.utenti.user.User;
 import unicam.repository.*;
 import unicam.model.team.Team;
 import java.util.List;
@@ -32,7 +34,7 @@ public class IscrizioneTeamService {
         }
     }
 
-    public Iscrizione iscriviTeam(List<Integer> l, int idHackathon, int idTeam){
+    public Iscrizione iscriviTeam(List<Integer> l, int idHackathon, int idTeam, int idCordinatore){
         Hackathon hackathon = inMemoryHackathonRepository.getHackathonById(idHackathon);
 
         Team team = inMemoryTeamRepository.findTeamById(idTeam);
@@ -43,6 +45,10 @@ public class IscrizioneTeamService {
         if(hackathon.getDescrizione().getMaxSize() < l.size() || l.size() < 2){
             throw new IllegalArgumentException();
         }
+        User us = inMemoryUserRepository.findById(idCordinatore);
+
+        if(us.getRuolo()!= Ruoli.COORDINATORE) { throw new IllegalArgumentException("Non puoi fare questa azione, non sei Coordinatore"); }
+
         IscrizioneBuilder ib = new IscrizioneBuilder();
         ib.buildTeamId(idTeam);
         ib.buildPartecipanti(l);
