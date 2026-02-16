@@ -29,7 +29,7 @@ public class InMemoryTeamRepository implements TeamRepository {
     @Override
     public Team findTeamByCoordinatoreId(int coordinatoreId) {
         for(Team t : teamById.values()) {
-            if(t.getCoordinatore().getId() == coordinatoreId)
+            if(t.getCoordinatore() == coordinatoreId)
                 return t;
         }
         return null;
