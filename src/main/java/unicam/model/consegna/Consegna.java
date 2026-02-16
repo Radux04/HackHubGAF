@@ -1,11 +1,5 @@
 package unicam.model.consegna;
 
-import unicam.model.hackathon.entity.Sottomissione;
-
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-
 public class Consegna {
 
     private int id;
@@ -20,7 +14,6 @@ public class Consegna {
         this.idIscrizione = idIscrizione;
         this.idSottomissione = sottomissione;
         voto = 0;
-
     }
 
     public int getId() {
