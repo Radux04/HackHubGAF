@@ -8,6 +8,7 @@ import unicam.repository.InMemoryTeamRepository;
 import unicam.model.utenti.user.Ruoli;
 import unicam.model.utenti.user.User;
 import unicam.repository.InMemoryUserRepository;
+import unicam.repository.UserRepository;
 
 public class TeamService {
     private final InMemoryTeamRepository teamRepository;
@@ -60,5 +61,20 @@ public class TeamService {
     public void cambiaCoordinatore(int idTeam, int idNuovoCoordinatore) {
         userRepository.findById(idNuovoCoordinatore).setRuolo(Ruoli.COORDINATORE);
         teamRepository.getTeamById(idTeam).setCoordinatore(idNuovoCoordinatore);
+    }
+
+
+    public boolean removeMemberById(int memberId, int idCordinatore){
+        //controllo se l'utente è un cordinatore
+        User u = userRepository.findById(idCordinatore);
+        if(u.getRuolo() != Ruoli.COORDINATORE) { return false; }
+        //controllo a quale team il cordinatore che sta cercando di effettuare l'operazione appartiene
+        Team t = teamRepository.findTeamByCoordinatoreId(idCordinatore);
+
+        t.getMembri().remove(memberId);
+        u = userRepository.findById(memberId);
+        u.setIdTeam(-1);
+        teamRepository.save(t);
+        return true;
     }
 }
