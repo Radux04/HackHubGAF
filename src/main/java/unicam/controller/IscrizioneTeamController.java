@@ -13,8 +13,9 @@ public class IscrizioneTeamController {
     }
 
     
-    public Iscrizione iscriviTeam(int coordinatoreId, int idHackaton) {
-        return iscrizioneTeamService.iscriviTeam(selezionePartecipanti(this.caricaMembri(iscrizioneTeamService.controlloTeam(coordinatoreId))), idHackaton, iscrizioneTeamService.controlloTeam(coordinatoreId));
+    public Iscrizione iscriviTeam(int coordinatoreId, int idHackathon) {
+        int teamid = iscrizioneTeamService.controlloTeam(coordinatoreId);
+        return iscrizioneTeamService.iscriviTeam(coordinatoreId, idHackathon, teamid);
     }
 
     private List<Integer> caricaMembri(int idTeam){

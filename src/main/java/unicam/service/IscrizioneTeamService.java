@@ -24,6 +24,7 @@ public class IscrizioneTeamService {
         this.inMemoryUserRepository = inMemoryUserRepository;
     }
 
+    //controlla se un team è impegnato in un hackaton restituendo l'id del team in questione
     public int controlloTeam(int coordinatoreId){
         Team t = inMemoryTeamRepository.findTeamByCoordinatoreId(coordinatoreId);
         if(t.isOccupato()){
@@ -34,24 +35,27 @@ public class IscrizioneTeamService {
         }
     }
 
-    public Iscrizione iscriviTeam(List<Integer> l, int idHackathon, int idTeam, int idCordinatore){
-        Hackathon hackathon = inMemoryHackathonRepository.getHackathonById(idHackathon);
+    public Iscrizione iscriviTeam(int coordinatoreId, int idHackathon, int idTeam){
 
-        Team team = inMemoryTeamRepository.findTeamById(idTeam);
+        Hackathon hackathon = inMemoryHackathonRepository.getHackathonById(idHackathon);
 
         if(hackathon.getStato() != StatiHackathon.IN_ISCRIZIONE){
             throw new IllegalArgumentException();
         }
-        if(hackathon.getDescrizione().getMaxSize() < l.size() || l.size() < 2){
+
+        Team team = inMemoryTeamRepository.findTeamById(idTeam);
+
+
+        if(hackathon.getDescrizione().getMaxSize() < team.getMembri().size()){
             throw new IllegalArgumentException();
         }
-        User us = inMemoryUserRepository.findById(idCordinatore);
+        User us = inMemoryUserRepository.findById(coordinatoreId);
 
         if(us.getRuolo()!= Ruoli.COORDINATORE) { throw new IllegalArgumentException("Non puoi fare questa azione, non sei Coordinatore"); }
 
         IscrizioneBuilder ib = new IscrizioneBuilder();
         ib.buildTeamId(idTeam);
-        ib.buildPartecipanti(l);
+        ib.buildPartecipanti(team.getMembri());
         ib.buildHTId(idHackathon);
         team.setOccupato(true);
         for(int u : team.getMembri()){
