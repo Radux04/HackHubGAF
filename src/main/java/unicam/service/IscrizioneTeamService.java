@@ -66,14 +66,4 @@ public class IscrizioneTeamService {
         return ib.build();
     }
 
-    public List<Integer> caricaMembriTeam(int idTeam) {
-        return inMemoryTeamRepository.getTeamById(idTeam).getMembri();
-    }
-
-    public List<Integer> selezionePartecipanti(List<Integer> l) {
-        if(l.size() < 2){
-            throw new IllegalArgumentException();
-        }
-        return l;
-    }
 }

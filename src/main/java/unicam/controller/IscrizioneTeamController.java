@@ -18,11 +18,4 @@ public class IscrizioneTeamController {
         return iscrizioneTeamService.iscriviTeam(coordinatoreId, idHackathon, teamid);
     }
 
-    private List<Integer> caricaMembri(int idTeam){
-        return iscrizioneTeamService.caricaMembriTeam(idTeam);
-    }
-
-    private List<Integer> selezionePartecipanti(List<Integer> l){
-        return iscrizioneTeamService.selezionePartecipanti(l);
-    }
 }
