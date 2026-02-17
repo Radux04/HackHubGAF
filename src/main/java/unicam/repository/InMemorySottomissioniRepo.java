@@ -13,9 +13,5 @@ public class InMemorySottomissioniRepo implements SottomissioniRepository {
         sottomissioniByid = new HashMap<>();
     }
 
-    @Override
-    public Sottomissione findbyid(int id) {
-        return sottomissioniByid.get(id);
-    }
 
 }

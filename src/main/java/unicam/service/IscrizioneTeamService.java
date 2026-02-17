@@ -43,7 +43,7 @@ public class IscrizioneTeamService {
             throw new IllegalArgumentException();
         }
 
-        Team team = inMemoryTeamRepository.findTeamById(idTeam);
+        Team team = inMemoryTeamRepository.getTeamById(idTeam);
 
 
         if(hackathon.getDescrizione().getMaxSize() < team.getMembri().size()){
@@ -55,7 +55,6 @@ public class IscrizioneTeamService {
 
         IscrizioneBuilder ib = new IscrizioneBuilder();
         ib.buildTeamId(idTeam);
-        ib.buildPartecipanti(team.getMembri());
         ib.buildHTId(idHackathon);
         team.setOccupato(true);
         for(int u : team.getMembri()){

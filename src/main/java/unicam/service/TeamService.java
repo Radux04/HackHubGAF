@@ -8,7 +8,6 @@ import unicam.repository.InMemoryTeamRepository;
 import unicam.model.utenti.user.Ruoli;
 import unicam.model.utenti.user.User;
 import unicam.repository.InMemoryUserRepository;
-import unicam.repository.UserRepository;
 
 public class TeamService {
     private final InMemoryTeamRepository teamRepository;

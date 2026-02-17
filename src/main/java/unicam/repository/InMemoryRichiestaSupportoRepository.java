@@ -8,20 +8,20 @@ import java.util.List;
 import java.util.Map;
 
 public class InMemoryRichiestaSupportoRepository implements RichiestaSupportoRepository {
-    private final Map<Integer, List<RichiestaSupporto>> byHackathon = new HashMap<>();
+    private final Map<Integer, List<RichiestaSupporto>> RichiesteSupportoByHackathonId = new HashMap<>();
 
     @Override
     public RichiestaSupporto save(RichiestaSupporto richiesta) {
-        if(byHackathon.get(richiesta.getHackathonId()) != null) {
-            List<RichiestaSupporto> list = byHackathon.get(richiesta.getHackathonId());
+        if(RichiesteSupportoByHackathonId.get(richiesta.getHackathonId()) != null) {
+            List<RichiestaSupporto> list = RichiesteSupportoByHackathonId.get(richiesta.getHackathonId());
             list.add(richiesta);
-            byHackathon.replace(richiesta.getHackathonId(), list);
+            RichiesteSupportoByHackathonId.replace(richiesta.getHackathonId(), list);
         }
         else{
             // se non c'è una lista per questo hackathon creala e mettila nella mappa e restituiscila
             List<RichiestaSupporto> lista = new ArrayList<>();
             lista.add(richiesta);
-            byHackathon.put(richiesta.getHackathonId(), lista);
+            RichiesteSupportoByHackathonId.put(richiesta.getHackathonId(), lista);
         }
 
         return richiesta;
@@ -29,6 +29,6 @@ public class InMemoryRichiestaSupportoRepository implements RichiestaSupportoRep
 
     @Override
     public List<RichiestaSupporto> findByHackathonId(int hackathonId) {
-        return byHackathon.get(hackathonId);
+        return RichiesteSupportoByHackathonId.get(hackathonId);
     }
 }
