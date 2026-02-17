@@ -14,8 +14,8 @@ public class InMemorySottomissioniRepo implements SottomissioniRepository {
     }
 
     @Override
-    public Sottomissione findbyid(int id) {
-        return sottomissioniByid.get(id);
+    public Sottomissione save(Sottomissione sottomissione) {
+        sottomissioniByid.put(sottomissione.getId(), sottomissione);
+        return sottomissione;
     }
-
 }
