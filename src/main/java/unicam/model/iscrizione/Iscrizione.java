@@ -1,37 +1,26 @@
 package unicam.model.iscrizione;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import unicam.model.hackathon.entity.Hackathon;
+import unicam.model.team.Team;
 import unicam.model.utenti.user.User;
 
 import java.util.List;
 
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Iscrizione {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long htId;
-    private Long teamId;
-
-    public Iscrizione() {}
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getHtId() {
-        return htId;
-    }
-
-    public void setHtId(Long htId) {
-        this.htId = htId;
-    }
-
-    public Long getTeamId() {
-        return teamId;
-    }
-
-    public void setTeamId(Long teamId) {
-        this.teamId = teamId;
-    }
+    @OneToOne
+    private Hackathon ht;
+    @OneToOne
+    private Team team;
 }
