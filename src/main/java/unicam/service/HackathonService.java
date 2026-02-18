@@ -1,13 +1,10 @@
 package unicam.service;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-import unicam.dto.hackathon.DescrizioneHT;
-import unicam.dto.hackathon.HackathonRequest;
-import unicam.dto.hackathon.PlacementHT;
-import unicam.dto.hackathon.StaffHT;
+import unicam.dto.hackathon.*;
 import unicam.model.hackathon.builder.HackathonBuilder;
 import unicam.model.hackathon.entity.*;
+import unicam.model.team.Team;
 import unicam.repository.*;
 import unicam.model.supporto.RichiestaSupporto;
 import unicam.model.utenti.staff.Staff;
@@ -15,16 +12,18 @@ import java.util.List;
 
 @Service
 public class HackathonService {
-    private final HackathonRepository inMemoryHackathonRepository;
-    private final StaffRepository inMemoryStaffRepository;
+    private final HackathonRepository hackathonRepository;
+    private final StaffRepository staffRepository;
     private final RichiestaSupportoRepository richiestaSupportoRepository;
-    private final IscrizioneRepository inMemoryIscrizioniRepository;
+    private final IscrizioneRepository iscrizioniRepository;
+    private final TeamRepository teamRepository;
 
-    public HackathonService(InMemoryHackathonRepository inMemoryHackathonRepository, InMemoryStaffRepository inMemoryStaffRepository, InMemoryRichiestaSupportoRepository inMemoryRichiestaSupportoRepository, InMemoryIscrizioniRepository inMemoryIscrizioniRepository) {
-        this.inMemoryHackathonRepository = inMemoryHackathonRepository;
-        this.inMemoryStaffRepository = inMemoryStaffRepository;
-        this.richiestaSupportoRepository = inMemoryRichiestaSupportoRepository;
-        this.inMemoryIscrizioniRepository = inMemoryIscrizioniRepository;
+    public HackathonService(HackathonRepository hackathonRepository, StaffRepository staffRepository, RichiestaSupportoRepository richiestaSupportoRepository, IscrizioneRepository iscrizioniRepository, TeamRepository teamRepository) {
+        this.hackathonRepository = hackathonRepository;
+        this.staffRepository = staffRepository;
+        this.richiestaSupportoRepository = richiestaSupportoRepository;
+        this.iscrizioniRepository = iscrizioniRepository;
+        this.teamRepository = teamRepository;
     }
 
     public Hackathon CreaHackathon(HackathonRequest hackathonRequest) {
@@ -35,9 +34,9 @@ public class HackathonService {
         String nome = hackathonRequest.getNome();
         Long idOrganizzatore = hackathonRequest.getIdOrganizzatore();
 
-        Staff organizzatore = inMemoryStaffRepository.findById(idOrganizzatore).get();
-        Staff giudice = inMemoryStaffRepository.findById(staff.getIdGiudice()).get();
-        List<Staff> mentori = staff.getMentori().stream().map(m -> inMemoryStaffRepository.findById(m).get()).toList();
+        Staff organizzatore = staffRepository.findById(idOrganizzatore).get();
+        Staff giudice = staffRepository.findById(staff.getIdGiudice()).get();
+        List<Staff> mentori = staff.getMentori().stream().map(m -> staffRepository.findById(m).get()).toList();
 
 
         //se l'organizzatore è già occupato in un altro h
@@ -83,19 +82,21 @@ public class HackathonService {
                 organizzatore.setOccupato(true);
                 organizzatore.setHackathon(hackathon);
 
-                inMemoryStaffRepository.save(organizzatore);
-                inMemoryStaffRepository.save(giudice);
-                inMemoryStaffRepository.saveAll(mentori);
+                staffRepository.save(organizzatore);
+                staffRepository.save(giudice);
+                staffRepository.saveAll(mentori);
 
-                return inMemoryHackathonRepository.save(hackathon);
+                return hackathonRepository.save(hackathon);
             }
 
         }
     }
 
-    public RichiestaSupporto richiediSupporto(Long idTeam, String descrizione) {
-        Long hackathonId = inMemoryIscrizioniRepository.getHackatonByTeam(idTeam);
-        RichiestaSupporto richiesta = new RichiestaSupporto(idTeam, descrizione, hackathonId);
+    public RichiestaSupporto richiediSupporto(RichiestaSupportoDTO richiestaSupportoDTO) {
+        Long hackathonId = iscrizioniRepository.getHackatonByTeam(richiestaSupportoDTO.getIdTeam());
+        Hackathon hackathon = hackathonRepository.findById(hackathonId).get();//.orElseThrow(() -> new IllegalArgumentException("Hackathon non trovato"));
+        Team team = teamRepository.findById(richiestaSupportoDTO.getIdTeam()).get();//.orElseThrow(() -> new IllegalArgumentException("Team non trovato"));
+        RichiestaSupporto richiesta = new RichiestaSupporto(team, richiestaSupportoDTO.getDescrizione(), hackathon);
         return richiestaSupportoRepository.save(richiesta);
     }
 
@@ -107,10 +108,10 @@ public class HackathonService {
     }
 
     public void creaSottomissione(String descrizione, String titolo, Long idHackathon) {
-        if(inMemoryHackathonRepository.getHackathonById(idHackathon).getSottomissioni().size() == 10)
+        if(hackathonRepository.getHackathonById(idHackathon).getSottomissioni().size() == 10)
             throw new IllegalArgumentException("Limite massimo di sottomissioni raggiunto");
 
         Sottomissione sottomissione = new Sottomissione(titolo, descrizione);
-        inMemoryHackathonRepository.getHackathonById(idHackathon).getSottomissioni().add(sottomissione.getId());
+        hackathonRepository.getHackathonById(idHackathon).getSottomissioni().add(sottomissione.getId());
     }
 }
