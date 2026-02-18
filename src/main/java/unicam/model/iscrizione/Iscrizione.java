@@ -19,8 +19,8 @@ public class Iscrizione {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne
+    @ManyToOne
     private Hackathon ht;
-    @OneToOne
+    @ManyToOne
     private Team team;
 }

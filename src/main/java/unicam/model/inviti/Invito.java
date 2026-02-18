@@ -17,8 +17,8 @@ public class Invito {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne
+    @ManyToOne
     private Team team;
-    @OneToOne
+    @ManyToOne
     private User destinatario;
 }

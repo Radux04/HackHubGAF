@@ -1,49 +1,25 @@
 package unicam.model.supporto;
 
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import unicam.model.hackathon.entity.Hackathon;
+import unicam.model.team.Team;
+
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class RichiestaSupporto {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long teamId;
+    @ManyToOne
+    private Team team;
     private String descrizione;
-    private Long hackathonId;
-
-    public RichiestaSupporto(Long teamId, String descrizione, Long hackathonId) {
-        this.teamId = teamId;
-        this.descrizione = descrizione;
-        this.hackathonId = hackathonId;
-    }
-
-    public RichiestaSupporto() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getTeamId() {
-        return teamId;
-    }
-
-    public void setTeamId(Long teamId) {
-        this.teamId = teamId;
-    }
-
-    public String getDescrizione() {
-        return descrizione;
-    }
-
-    public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
-    }
-
-    public Long getHackathonId() {
-        return hackathonId;
-    }
-
-    public void setHackathonId(Long hackathonId) {
-        this.hackathonId = hackathonId;
-    }
+    @ManyToOne
+    private Hackathon hackathon;
 }

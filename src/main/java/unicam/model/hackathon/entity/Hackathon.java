@@ -32,6 +32,7 @@ public class Hackathon {
     private Staff idGiudice;
     @ManyToMany
     private List<Staff> mentori;
+    @Enumerated(EnumType.STRING)
     private StatiHackathon stato;
     @ManyToOne
     private Staff idOrganizzatore;
