@@ -9,7 +9,7 @@ public class InMemoryTeamRepository implements TeamRepository {
     private final Map<Integer, Team> teamById = new HashMap<>();
 
     @Override
-    public boolean existsByNome(String nome) {
+    public boolean findByNome(String nome) {
         for(Team t : teamById.values()) {
             if(t.getNome().equals(nome))
                 return true;

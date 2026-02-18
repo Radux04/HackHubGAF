@@ -30,7 +30,7 @@ public class IscrizioneTeamService {
     public Long controlloTeam(Long coordinatoreId){
         Optional<User> u =  userRepository.findById(coordinatoreId);
         if(u.isPresent()){
-            Team t = teamRepository.findByCoordinatore(u);
+            Team t = teamRepository.findByCoordinatore(u.get());
             if(t.isOccupato()){
                 throw new IllegalArgumentException();
             }
@@ -45,9 +45,9 @@ public class IscrizioneTeamService {
 
         Optional<Hackathon> hackathon = hackathonRepository.findById(iscrizioneDTO.getIdHackathon());
 
-        Team team = teamRepository.findByCoordinatoreId(iscrizioneDTO.getCoordinatoreId());
-
         Optional<User> user = userRepository.findById(iscrizioneDTO.getCoordinatoreId());
+
+        Team team = teamRepository.findByCoordinatore(user.get());
 
         if(hackathon.get().getStato() != StatiHackathon.IN_ISCRIZIONE){
             throw new IllegalArgumentException();
@@ -60,14 +60,16 @@ public class IscrizioneTeamService {
         if(user.get().getRuolo()!= Ruoli.COORDINATORE) { throw new IllegalArgumentException("Non puoi fare questa azione, non sei Coordinatore"); }
 
         IscrizioneBuilder ib = new IscrizioneBuilder();
-        ib.buildTeamId(idTeam);
-        ib.buildHTId(idHackathon);
+        ib.buildTeamId(iscrizioneDTO.getTeamId());
+        ib.buildHTId(iscrizioneDTO.getTeamId());
         team.setOccupato(true);
-        for(int u : team.getMembri()){
-            inMemoryUserRepository.findById(u).setOccupato(true);
+        for(User u : team.getMembri()){
+            if(userRepository.findById(u.getId()).isPresent()){
+                u.setOccupato(true);
+            }
         }
-        inMemoryTeamRepository.save(team);
-        inMemoryIscrizioniRepository.save(ib.build());
+        teamRepository.save(team);
+        iscrizioneRepository.save(ib.build());
         return ib.build();
     }
 
