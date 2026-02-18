@@ -3,6 +3,7 @@ package unicam.service;
 import unicam.dto.cambiacordinatore.CambiaCoordinatoreDTO;
 import unicam.dto.cambiateam.CambiaTeamDTO;
 import unicam.dto.invito.InvitoDTO;
+import unicam.dto.removemember.RemoveMemberDTO;
 import unicam.model.inviti.Invito;
 import unicam.repository.*;
 import unicam.model.team.Team;
@@ -74,16 +75,16 @@ public class TeamService {
     }
 
 
-    public boolean removeMemberById(Long memberId, Long idCordinatore){
+    public boolean removeMemberById(RemoveMemberDTO removeMemberDTO) {
         //controllo se l'utente è un cordinatore
-        User u = userRepository.findById(idCordinatore);
+        User u = userRepository.findById(removeMemberDTO.getCoordinatoreId()).get();
         if(u.getRuolo() != Ruoli.COORDINATORE) { return false; }
         //controllo a quale team il cordinatore che sta cercando di effettuare l'operazione appartiene
-        Team t = teamRepository.findTeamByCoordinatoreId(idCordinatore);
+        Team t = teamRepository.findTeamByCoordinatoreId(removeMemberDTO.getCoordinatoreId());
 
-        t.getMembri().remove(memberId);
-        u = userRepository.findById(memberId);
-        u.setIdTeam(-1);
+        t.getMembri().remove(removeMemberDTO.getMemberId());
+        u = userRepository.findById(removeMemberDTO.getMemberId()).get();
+        u.setId(null);
         teamRepository.save(t);
         return true;
     }
