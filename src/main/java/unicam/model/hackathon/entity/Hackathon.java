@@ -1,93 +1,40 @@
 package unicam.model.hackathon.entity;
 
+import jakarta.persistence.*;
+import lombok.*;
 import unicam.model.utenti.staff.Staff;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Entity
+@Data
+@NoArgsConstructor
 public class Hackathon {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-    private DescrizioneHT descrizione;
-    private PlacementHT placement;
-    private StaffHT staff;
+    //private DescrizioneHT descrizione;
+    private String regolamento;
+    private float premio;
+    private int maxSize;
+    //private PlacementHT placement;
+    private LocalDateTime scadenzaIscrizioni;
+    private LocalDateTime dataInizio;
+    private LocalDateTime dataFine;
+    private String luogo;
+    //private StaffHT staff;
+    @ManyToOne
+    private Staff idGiudice;
+    @ManyToMany
+    private List<Staff> mentori;
     private StatiHackathon stato;
-    private Long idOrganizzatore;
-    private List<Long> sottomissioni;
-
-    public Hackathon() {}
-
-    public Hackathon(String nome, DescrizioneHT descrizione, PlacementHT placement, StaffHT staff, StatiHackathon stato, int idOrganizzatore) {
-        this.nome = nome;
-        this.descrizione = descrizione;
-        this.placement = placement;
-        this.staff = staff;
-        this.stato = stato;
-        this.idOrganizzatore = idOrganizzatore;
-        this.sottomissioni = new ArrayList<>();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public DescrizioneHT getDescrizione() {
-        return descrizione;
-    }
-
-    public void setDescrizione(DescrizioneHT descrizione) {
-        this.descrizione = descrizione;
-    }
-
-    public PlacementHT getPlacement() {
-        return placement;
-    }
-
-    public void setPlacement(PlacementHT placement) {
-        this.placement = placement;
-    }
-
-    public StaffHT getStaff() {
-        return staff;
-    }
-
-    public void setStaff(StaffHT staff) {
-        this.staff = staff;
-    }
-
-    public StatiHackathon getStato() {
-        return stato;
-    }
-
-    public void setStato(StatiHackathon stato) {
-        this.stato = stato;
-    }
-
-    public int getIdOrganizzatore() {
-        return idOrganizzatore;
-    }
-
-    public void setIdOrganizzatore(int idOrganizzatore) {
-        this.idOrganizzatore = idOrganizzatore;
-    }
-
-    public List<Integer> getSottomissioni() {
-        return sottomissioni;
-    }
-
-    public void setSottomissioni(List<Integer> sottomissioni) {
-        this.sottomissioni = sottomissioni;
-    }
+    @ManyToOne
+    private Staff idOrganizzatore;
+    @OneToMany
+    private List<Sottomissione> sottomissioni;
 }
