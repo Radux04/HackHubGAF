@@ -7,5 +7,5 @@ import unicam.model.team.Team;
 
 public interface IscrizioneRepository extends JpaRepository<Iscrizione, Long> {
 
-    int getHackatonByTeam(int idTeam);
+    Long getHackatonByTeam(Long idTeam);
 }
