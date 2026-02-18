@@ -1,5 +1,6 @@
 package unicam.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import unicam.dto.hackathon.*;
 import unicam.model.hackathon.entity.Hackathon;
@@ -10,12 +11,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/hackathon")
+@RequiredArgsConstructor
 public class HackathonController {
     private final HackathonService hackathonService;
 
-    public HackathonController(HackathonService hackathonService) {
-        this.hackathonService = hackathonService;
-    }
 
     @PostMapping
     public Hackathon CreaHackathon(@RequestBody HackathonRequest hackathonRequest) {

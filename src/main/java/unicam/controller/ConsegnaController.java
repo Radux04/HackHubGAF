@@ -1,18 +1,16 @@
 package unicam.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import unicam.dto.consegna.ConsegnaRequest;
 import unicam.service.ConsegnaService;
 
 @RestController
 @RequestMapping("/consegna")
+@RequiredArgsConstructor
 public class ConsegnaController {
 
     private final ConsegnaService consegnaService;
-
-    public ConsegnaController(ConsegnaService consegnaService) {
-        this.consegnaService = consegnaService;
-    }
 
     @PostMapping
     public boolean caricaSottomissione(@RequestBody ConsegnaRequest sottomissione) {
