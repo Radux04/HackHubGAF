@@ -30,7 +30,7 @@ public class InMemoryConsegnaRepo implements ConsegnaRepository {
     }
 
     @Override
-    public void remove(int idConsegna) {
+    public void remove(Long idConsegna) {
         consegne.remove(idConsegna);
     }
 }
