@@ -25,7 +25,7 @@ public class IscrizioneTeamService {
     }
 
     //controlla se un team è impegnato in un hackaton restituendo l'id del team in questione
-    public int controlloTeam(int coordinatoreId){
+    public Long controlloTeam(Long coordinatoreId){
         Team t = inMemoryTeamRepository.findTeamByCoordinatoreId(coordinatoreId);
         if(t.isOccupato()){
             throw new IllegalArgumentException();
@@ -35,7 +35,7 @@ public class IscrizioneTeamService {
         }
     }
 
-    public Iscrizione iscriviTeam(int coordinatoreId, int idHackathon, int idTeam){
+    public Iscrizione iscriviTeam(Long coordinatoreId, Long idHackathon, Long idTeam){
 
         Hackathon hackathon = inMemoryHackathonRepository.getHackathonById(idHackathon);
 
