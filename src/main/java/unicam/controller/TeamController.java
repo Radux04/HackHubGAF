@@ -16,7 +16,7 @@ public class TeamController {
         return teamService.creaTeam(nome, descrizione, idCoordinatore);
     }
 
-    public Invito invita(int idUser, int idTeamMittente) {
+    public Invito invita(Long idUser, Long idTeamMittente) {
         return teamService.invita(idUser, idTeamMittente);
     }
 
