@@ -1,13 +1,12 @@
 package unicam.model.consegna;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import unicam.model.hackathon.entity.Sottomissione;
+import unicam.model.iscrizione.Iscrizione;
 
 
 @Entity
@@ -21,7 +20,9 @@ public class Consegna {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String descrizione;
-    private Long idSottomissione;
-    private Long idIscrizione;
+    @ManyToOne
+    private Sottomissione sottomissione;
+    @ManyToOne
+    private Iscrizione iscrizione;
     private int voto;
 }
