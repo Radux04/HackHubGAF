@@ -1,8 +1,7 @@
 package unicam.service;
 
-import org.hibernate.type.SpecialOneToOneType;
 import org.springframework.stereotype.Service;
-import unicam.dto.ConsegnaRequest;
+import unicam.dto.consegna.ConsegnaRequest;
 import unicam.model.consegna.Consegna;
 import unicam.model.hackathon.entity.Sottomissione;
 import unicam.model.iscrizione.Iscrizione;
@@ -23,8 +22,6 @@ public class ConsegnaService {
         this.consegnaRepository = consegnaRepository;
         this.iscrizioneRepository = iscrizioneRepository;
         this.sottomissioniRepository = sottomissioniRepository;
-
-
     }
 
     public boolean caricaSottomissione(ConsegnaRequest sottomissione){

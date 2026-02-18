@@ -1,8 +1,7 @@
 package unicam.controller;
 
 import org.springframework.web.bind.annotation.*;
-import unicam.dto.ConsegnaRequest;
-import unicam.model.consegna.Consegna;
+import unicam.dto.consegna.ConsegnaRequest;
 import unicam.service.ConsegnaService;
 
 @RestController

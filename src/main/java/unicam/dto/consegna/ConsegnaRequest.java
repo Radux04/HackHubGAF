@@ -1,4 +1,4 @@
-package unicam.dto;
+package unicam.dto.consegna;
 
 import lombok.Data;
 
