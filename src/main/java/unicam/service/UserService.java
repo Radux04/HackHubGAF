@@ -2,6 +2,7 @@ package unicam.service;
 
 import unicam.dto.team.CambiaCoordinatoreDTO;
 import unicam.dto.team.CambiaTeamDTO;
+import unicam.dto.user.DiventaMembroDTO;
 import unicam.dto.user.RispostaDTO;
 import unicam.model.inviti.Invito;
 import unicam.model.team.Team;
@@ -67,8 +68,8 @@ public class UserService {
         return false;
     }
 
-    public boolean diventaMembro(Long idTeam, Long idUser) {
-        userRepository.findById(idUser).setIdTeam(idTeam);
-        return teamRepository.getTeamById(idTeam).getMembri().add(idUser);
+    public boolean diventaMembro(DiventaMembroDTO diventaMembroDTO) {
+        userRepository.findById(diventaMembroDTO.getIdUser()).get().setTeam(teamRepository.findById(diventaMembroDTO.getIdTeam()).get());
+        return teamRepository.findById(diventaMembroDTO.getIdTeam()).get().getMembri().add(userRepository.findById(diventaMembroDTO.getIdUser()).get());
     }
 }
