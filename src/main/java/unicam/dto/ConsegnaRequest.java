@@ -6,7 +6,7 @@ import lombok.Data;
 public class ConsegnaRequest {
     private Long idSottomissione;
     private String descrizione;
-    private Long idDescrizione;
+    private Long idIscrizione;
 }
 
 
