@@ -1,4 +1,4 @@
-package unicam.dto.invito;
+package unicam.dto.team;
 
 import lombok.Data;
 

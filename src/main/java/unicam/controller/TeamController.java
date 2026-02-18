@@ -1,11 +1,11 @@
 package unicam.controller;
 
 import org.springframework.web.bind.annotation.RequestBody;
-import unicam.dto.invito.InvitoDTO;
+import unicam.dto.team.InvitoDTO;
+import unicam.dto.team.RemoveMemberDTO;
 import unicam.model.inviti.Invito;
 import unicam.model.team.Team;
 import unicam.service.TeamService;
-import unicam.model.utenti.user.User;
 
 public class TeamController {
     private final TeamService teamService;
@@ -23,6 +23,6 @@ public class TeamController {
     }
 
 
-    public boolean removeMemberById(Long idUser, Long idTeamMittente)
-    { return teamService.removeMemberById(idUser, idTeamMittente); }
+    public boolean removeMemberById(@RequestBody RemoveMemberDTO removeMemberDTO)
+    { return teamService.removeMemberById(removeMemberDTO); }
 }

@@ -1,4 +1,4 @@
-package unicam.dto.cambiacordinatore;
+package unicam.dto.team;
 
 import lombok.Data;
 

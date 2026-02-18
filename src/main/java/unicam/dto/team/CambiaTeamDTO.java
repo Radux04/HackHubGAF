@@ -1,4 +1,4 @@
-package unicam.dto.cambiateam;
+package unicam.dto.team;
 
 import lombok.Data;
 

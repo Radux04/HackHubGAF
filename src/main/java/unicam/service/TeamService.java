@@ -1,9 +1,6 @@
 package unicam.service;
 
-import unicam.dto.cambiacordinatore.CambiaCoordinatoreDTO;
-import unicam.dto.cambiateam.CambiaTeamDTO;
-import unicam.dto.invito.InvitoDTO;
-import unicam.dto.removemember.RemoveMemberDTO;
+import unicam.dto.team.*;
 import unicam.model.inviti.Invito;
 import unicam.repository.*;
 import unicam.model.team.Team;
@@ -22,15 +19,15 @@ public class TeamService {
         this.userRepository = userRepository;
     }
     //da mettere il DTO qui
-    public Team creaTeam(String nome, String descrizione, Long idCoordinatore)
+    public Team creaTeam(CreaTeamDTO creaTeamDTO)
     {
-        if(nome == null || nome.isBlank())
+        if(creaTeamDTO.getNome() == null || creaTeamDTO.getNome().isBlank())
         {throw new IllegalArgumentException("errore nome team");}
 
-        if (teamRepository.existsByNome(nome))
+        if (teamRepository.existsByNome(creaTeamDTO.getNome()))
         {throw new IllegalArgumentException("errore nome team già esistente");}
 
-        User c = userRepository.findById(idCoordinatore).get();
+        User c = userRepository.findById(creaTeamDTO.getIdCordinatore()).get();
 
         if(c.getRuolo() != Ruoli.UTENTE){
             throw  new IllegalArgumentException("errore ruolo team");
@@ -38,9 +35,9 @@ public class TeamService {
 
         c.setRuolo(Ruoli.COORDINATORE);
         Team team = new TeamBuilder()
-                .buildNome(nome)
-                .buildDescrizione(descrizione)
-                .buildCoordinatore(idCoordinatore)
+                .buildNome(creaTeamDTO.getNome())
+                .buildDescrizione(creaTeamDTO.getDescrizione())
+                .buildCoordinatore(creaTeamDTO.getIdCordinatore())
                 .build();
 
         userRepository.save(c);
