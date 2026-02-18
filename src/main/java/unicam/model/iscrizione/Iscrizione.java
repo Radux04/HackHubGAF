@@ -8,17 +8,8 @@ public class Iscrizione {
     private int id;
     private int htId;
     private int teamId;
-    private List<Integer> participanti;
 
-    public Iscrizione(int htId, int teamId, List<Integer> participanti) {
-        this.htId = htId;
-        this.teamId = teamId;
-        this.participanti = participanti;
-    }
-
-    public Iscrizione() {
-
-    }
+    public Iscrizione() {}
 
     public int getId() {
         return id;
@@ -42,13 +33,5 @@ public class Iscrizione {
 
     public void setTeamId(int teamId) {
         this.teamId = teamId;
-    }
-
-    public List<Integer> getParticipant() {
-        return participanti;
-    }
-
-    public void setParticipant(List<Integer> participanti) {
-        this.participanti = participanti;
     }
 }

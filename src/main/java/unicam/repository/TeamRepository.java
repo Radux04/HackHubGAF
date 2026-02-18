@@ -9,6 +9,4 @@ public interface TeamRepository {
     Team save(Team team);
     Team findTeamByCoordinatoreId(int coordinatoreId);
     Team getTeamById(int id);
-
-    Team findTeamById(int idTeam);
 }
