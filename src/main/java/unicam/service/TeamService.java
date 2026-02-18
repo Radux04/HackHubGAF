@@ -1,25 +1,26 @@
 package unicam.service;
 
+import unicam.dto.cambiacordinatore.CambiaCoordinatoreDTO;
+import unicam.dto.cambiateam.CambiaTeamDTO;
+import unicam.dto.invito.InvitoDTO;
 import unicam.model.inviti.Invito;
-import unicam.repository.InMemoryInvitiRepo;
+import unicam.repository.*;
 import unicam.model.team.Team;
 import unicam.model.team.builder.TeamBuilder;
-import unicam.repository.InMemoryTeamRepository;
 import unicam.model.utenti.user.Ruoli;
 import unicam.model.utenti.user.User;
-import unicam.repository.InMemoryUserRepository;
 
 public class TeamService {
-    private final InMemoryTeamRepository teamRepository;
-    private final InMemoryUserRepository userRepository;
-    private final InMemoryInvitiRepo invitiRepository;
+    private final TeamRepository teamRepository;
+    private final UserRepository userRepository;
+    private final InvitiRepository invitiRepository;
 
-    public TeamService(InMemoryTeamRepository teamRepository, InMemoryUserRepository userRepository, InMemoryInvitiRepo invitiRepository) {
+    public TeamService(TeamRepository teamRepository, UserRepository userRepository, InvitiRepository invitiRepository) {
         this.teamRepository = teamRepository;
         this.invitiRepository = invitiRepository;
         this.userRepository = userRepository;
     }
-
+    //da mettere il DTO qui
     public Team creaTeam(String nome, String descrizione, Long idCoordinatore)
     {
         if(nome == null || nome.isBlank())
@@ -28,7 +29,7 @@ public class TeamService {
         if (teamRepository.existsByNome(nome))
         {throw new IllegalArgumentException("errore nome team già esistente");}
 
-        User c = userRepository.findById(idCoordinatore);
+        User c = userRepository.findById(idCoordinatore).get();
 
         if(c.getRuolo() != Ruoli.UTENTE){
             throw  new IllegalArgumentException("errore ruolo team");
@@ -47,22 +48,26 @@ public class TeamService {
 
     }
 
-    public Invito invita(Long idUser, Long idCoordinatore) {
-        User u = userRepository.findById(idCoordinatore);
+    public Invito invita(InvitoDTO invitoDTO) {
+        User u = userRepository.findById(invitoDTO.getIdCoordinator()).get();
 
         if(u.getRuolo() != Ruoli.COORDINATORE) { throw new IllegalArgumentException("errore non sei coordinatore");}
-        Invito invito = new Invito(u.getIdTeam(), idUser);
+        Invito invito = new Invito(u.getTeam(), u);
         invitiRepository.save(invito);
         return invito;
     }
 
-    public boolean cambiaTeam(Long idMembroTeam, Long idTeamAttuale, Long idNuovoTeam) {
-        teamRepository.getTeamById(idTeamAttuale).getMembri().remove(idMembroTeam);
-        userRepository.findById(idMembroTeam).setIdTeam(idNuovoTeam);
-        return teamRepository.getTeamById(idNuovoTeam).getMembri().add(idMembroTeam);
+
+    public boolean cambiaTeam(CambiaTeamDTO cambiaTeamDTO) {
+
+        User user = userRepository.findById(cambiaTeamDTO.getIdMembroTeam()).get();
+        teamRepository.findById(cambiaTeamDTO.getIdTeamAttuale()).get().getMembri().remove(user);
+        user.setTeam(teamRepository.findById(cambiaTeamDTO.getIdNuovoTeam()).get());
+        return teamRepository.findById(cambiaTeamDTO.getIdNuovoTeam()).get().getMembri().add(user);
+
     }
 
-    public void cambiaCoordinatore(Long idTeam, Long idNuovoCoordinatore) {
+    public void cambiaCoordinatore(CambiaCoordinatoreDTO cambiaCoordinatoreDTO) {
         //momentaneamente questo metodo funge solo se un cordinatore decide di accettare l'invito di un altro team.
         userRepository.findById(idNuovoCoordinatore).setRuolo(Ruoli.COORDINATORE);
         teamRepository.getTeamById(idTeam).setCoordinatore(idNuovoCoordinatore);

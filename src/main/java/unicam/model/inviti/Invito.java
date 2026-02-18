@@ -21,4 +21,9 @@ public class Invito {
     private Team team;
     @ManyToOne
     private User destinatario;
+
+    public Invito(Team team, User destinatario) {
+        this.team = team;
+        this.destinatario = destinatario;
+    }
 }

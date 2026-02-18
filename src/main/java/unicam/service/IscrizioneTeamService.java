@@ -1,6 +1,6 @@
 package unicam.service;
 
-import unicam.dto.IscrizioneDTO;
+import unicam.dto.iscrizione.IscrizioneDTO;
 import unicam.model.hackathon.entity.Hackathon;
 import unicam.model.hackathon.entity.StatiHackathon;
 import unicam.model.iscrizione.Iscrizione;
@@ -9,7 +9,6 @@ import unicam.model.utenti.user.Ruoli;
 import unicam.model.utenti.user.User;
 import unicam.repository.*;
 import unicam.model.team.Team;
-import java.util.List;
 
 public class IscrizioneTeamService {
 

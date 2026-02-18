@@ -1,4 +1,4 @@
-package unicam.dto;
+package unicam.dto.iscrizione;
 
 import lombok.Data;
 
