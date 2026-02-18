@@ -19,7 +19,8 @@ public class Team {
     private Long id;
     private String nome;
     private String descrizione;
-    private Long coordinatore;
+    @OneToOne
+    private User coordinatore;
     private boolean occupato;
     @OneToMany
     private List<User> membri;
