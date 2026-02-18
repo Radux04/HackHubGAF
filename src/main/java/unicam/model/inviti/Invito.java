@@ -1,36 +1,36 @@
 package unicam.model.inviti;
 
 public class Invito {
-    private int id;
-    private int teamId;
-    private int destinatario;
+    private Long id;
+    private Long teamId;
+    private Long destinatario;
 
-    public Invito(int teamId, int destinatario) {
+    public Invito(Long teamId, Long destinatario) {
         this.teamId = teamId;
         this.destinatario = destinatario;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public int getTeamId() {
+    public Long getTeamId() {
         return teamId;
     }
 
-    public void setTeamId(int teamId) {
+    public void setTeamId(Long teamId) {
         this.teamId = teamId;
     }
 
-    public int getDestinatario() {
+    public Long getDestinatario() {
         return destinatario;
     }
 
-    public void setDestinatario(int destinatario) {
+    public void setDestinatario(Long destinatario) {
         this.destinatario = destinatario;
     }
 }
