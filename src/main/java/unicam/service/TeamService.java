@@ -24,7 +24,7 @@ public class TeamService {
         if(creaTeamDTO.getNome() == null || creaTeamDTO.getNome().isBlank())
         {throw new IllegalArgumentException("errore nome team");}
 
-        if (teamRepository.existsByNome(creaTeamDTO.getNome()))
+        if (teamRepository.findByNome(creaTeamDTO.getNome()))
         {throw new IllegalArgumentException("errore nome team già esistente");}
 
         User c = userRepository.findById(creaTeamDTO.getIdCordinatore()).get();
@@ -68,7 +68,7 @@ public class TeamService {
     public void cambiaCoordinatore(CambiaCoordinatoreDTO cambiaCoordinatoreDTO) {
         //momentaneamente questo metodo funge solo se un cordinatore decide di accettare l'invito di un altro team.
         userRepository.findById(cambiaCoordinatoreDTO.getIdNuovoCoordinatore()).get().setRuolo(Ruoli.COORDINATORE);
-        teamRepository.findById(cambiaCoordinatoreDTO.getIdTeam()).get().setCoordinatore(cambiaCoordinatoreDTO.getIdNuovoCoordinatore());
+        teamRepository.findById(cambiaCoordinatoreDTO.getIdTeam()).get().setCoordinatore(userRepository.findById(cambiaCoordinatoreDTO.getIdNuovoCoordinatore()).get());
     }
 
 
@@ -77,7 +77,7 @@ public class TeamService {
         User u = userRepository.findById(removeMemberDTO.getCoordinatoreId()).get();
         if(u.getRuolo() != Ruoli.COORDINATORE) { return false; }
         //controllo a quale team il cordinatore che sta cercando di effettuare l'operazione appartiene
-        Team t = teamRepository.findTeamByCoordinatoreId(removeMemberDTO.getCoordinatoreId());
+        Team t = teamRepository.findByCoordinatore(u);
 
         t.getMembri().remove(removeMemberDTO.getMemberId());
         u = userRepository.findById(removeMemberDTO.getMemberId()).get();
