@@ -10,50 +10,54 @@ import unicam.model.utenti.user.User;
 import unicam.repository.*;
 import unicam.model.team.Team;
 
+import java.util.Optional;
+
 public class IscrizioneTeamService {
 
-    private final TeamRepository inMemoryTeamRepository;
-    private final IscrizioneRepository inMemoryIscrizioniRepository;
-    private final HackathonRepository inMemoryHackathonRepository;
-    private final UserRepository inMemoryUserRepository;
+    private final TeamRepository teamRepository;
+    private final IscrizioneRepository iscrizioneRepository;
+    private final HackathonRepository hackathonRepository;
+    private final UserRepository userRepository;
 
-    public IscrizioneTeamService(InMemoryTeamRepository inMemoryTeamRepository, InMemoryIscrizioniRepository inMemoryIscrizioniRepository, InMemoryHackathonRepository inMemoryHackathonRepository,  InMemoryUserRepository inMemoryUserRepository) {
-        this.inMemoryTeamRepository = inMemoryTeamRepository;
-        this.inMemoryIscrizioniRepository = inMemoryIscrizioniRepository;
-        this.inMemoryHackathonRepository = inMemoryHackathonRepository;
-        this.inMemoryUserRepository = inMemoryUserRepository;
+    public IscrizioneTeamService(TeamRepository teamRepository, IscrizioneRepository iscrizioneRepository, HackathonRepository hackathonRepository, UserRepository userRepository) {
+        this.teamRepository = teamRepository;
+        this.iscrizioneRepository = iscrizioneRepository;
+        this.hackathonRepository = hackathonRepository;
+        this.userRepository = userRepository;
     }
 
     //controlla se un team è impegnato in un hackaton restituendo l'id del team in questione
     public Long controlloTeam(Long coordinatoreId){
-        Team t = inMemoryTeamRepository.findTeamByCoordinatoreId(coordinatoreId);
-        if(t.isOccupato()){
-            throw new IllegalArgumentException();
+        Optional<User> u =  userRepository.findById(coordinatoreId);
+        if(u.isPresent()){
+            Team t = teamRepository.findByCoordinatore(u);
+            if(t.isOccupato()){
+                throw new IllegalArgumentException();
+            }
+            else {
+                return t.getId();
+            }
         }
-        else {
-            return t.getId();
-        }
+        return null;
     }
 
     public Iscrizione iscriviTeam(IscrizioneDTO iscrizioneDTO){
 
+        Optional<Hackathon> hackathon = hackathonRepository.findById(iscrizioneDTO.getIdHackathon());
 
+        Team team = teamRepository.findByCoordinatoreId(iscrizioneDTO.getCoordinatoreId());
 
-        Hackathon hackathon = inMemoryHackathonRepository.getHackathonById(idHackathon);
+        Optional<User> user = userRepository.findById(iscrizioneDTO.getCoordinatoreId());
 
-        if(hackathon.getStato() != StatiHackathon.IN_ISCRIZIONE){
+        if(hackathon.get().getStato() != StatiHackathon.IN_ISCRIZIONE){
             throw new IllegalArgumentException();
         }
 
-        Team team = inMemoryTeamRepository.getTeamById(idTeam);
-
-
-        if(hackathon.getDescrizione().getMaxSize() < team.getMembri().size()){
+        if(hackathon.get().getMaxSize() < team.getMembri().size()){
             throw new IllegalArgumentException("Il tuo team ha troppi membri per partecipare");
         }
-        User us = inMemoryUserRepository.findById(coordinatoreId);
 
-        if(us.getRuolo()!= Ruoli.COORDINATORE) { throw new IllegalArgumentException("Non puoi fare questa azione, non sei Coordinatore"); }
+        if(user.get().getRuolo()!= Ruoli.COORDINATORE) { throw new IllegalArgumentException("Non puoi fare questa azione, non sei Coordinatore"); }
 
         IscrizioneBuilder ib = new IscrizioneBuilder();
         ib.buildTeamId(idTeam);
