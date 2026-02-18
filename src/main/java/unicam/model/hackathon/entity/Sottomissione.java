@@ -3,7 +3,7 @@ package unicam.model.hackathon.entity;
 import java.io.File;
 
 public class Sottomissione {
-    private int id;
+    private Long id;
     private String titolo;
     private String descrizione;
 
@@ -12,11 +12,11 @@ public class Sottomissione {
         this.descrizione = descrizione;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
