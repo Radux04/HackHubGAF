@@ -1,6 +1,8 @@
 package unicam.controller;
 
 
+import org.springframework.web.bind.annotation.RequestBody;
+import unicam.dto.user.RispostaDTO;
 import unicam.service.UserService;
 
 
@@ -11,7 +13,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    public boolean risponde(boolean risposta, Long idInvito, Long idUser) {
-        return userService.risponde(risposta, idInvito, idUser);
+    public boolean risponde(@RequestBody RispostaDTO rispostaDTO) {
+        return userService.risponde(rispostaDTO);
     }
 }

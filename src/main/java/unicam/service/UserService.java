@@ -1,5 +1,9 @@
 package unicam.service;
 
+import unicam.dto.team.CambiaCoordinatoreDTO;
+import unicam.dto.team.CambiaTeamDTO;
+import unicam.dto.user.RispostaDTO;
+import unicam.model.inviti.Invito;
 import unicam.model.team.Team;
 import unicam.repository.*;
 import unicam.model.utenti.user.Ruoli;
@@ -7,51 +11,64 @@ import unicam.model.utenti.user.User;
 
 public class UserService {
     private final TeamService teamService;
-    private final TeamRepository inMemoryTeamRepository;
-    private final UserRepository inMemoryUserRepository;
-    private final InvitiRepository inMemoryInvitiRepository;
+    private final TeamRepository teamRepository;
+    private final UserRepository userRepository;
+    private final InvitiRepository invitiRepository;
 
-    public UserService(TeamService teamService, InMemoryTeamRepository inMemoryTeamRepository, InMemoryUserRepository inMemoryUserRepository, InMemoryInvitiRepo inMemoryInvitiRepository) {
+    public UserService(TeamService teamService, TeamRepository teamRepository, UserRepository userRepository, InvitiRepository invitiRepository) {
         this.teamService = teamService;
-        this.inMemoryTeamRepository = inMemoryTeamRepository;
-        this.inMemoryUserRepository = inMemoryUserRepository;
-        this.inMemoryInvitiRepository =  inMemoryInvitiRepository;
+        this.teamRepository = teamRepository;
+        this.userRepository = userRepository;
+        this.invitiRepository =  invitiRepository;
     }
 
-    public boolean risponde(boolean risposta, Long idInvito, Long idUser) {
-        User user = inMemoryUserRepository.findById(idUser);
+    public boolean risponde(RispostaDTO rispostaDTO) {
+        User user = userRepository.findById(rispostaDTO.getIdUser()).get();
 
+        Invito invito = invitiRepository.findById(rispostaDTO.getIdInvito()).get();
         //User's role
         Ruoli r = user.getRuolo();
         //Team that sent the request
-        Team mittente = inMemoryTeamRepository.getTeamById(inMemoryInvitiRepository.findById(idInvito).getTeamId());
+        Team mittente = teamRepository.findById(invito.getTeam().getId()).get();
         //User's role
-        Team userTeam = inMemoryTeamRepository.getTeamById(user.getIdTeam());
+        Team userTeam = teamRepository.findById(user.getTeam().getId()).get();
 
         //user is a simple user
         if(r == Ruoli.UTENTE){
-            if(risposta){
-                return diventaMembro(mittente.getId(), idUser);
+            if(rispostaDTO.isRisposta()){
+                return diventaMembro(mittente.getId(), rispostaDTO.getIdUser());
             }
         }
         //user is already a member of a team
         else if(r == Ruoli.MEMBROTEAM){
-            if(risposta){
-                return teamService.cambiaTeam(idUser, userTeam.getId(),  mittente.getId());
+            if(rispostaDTO.isRisposta()){
+                CambiaTeamDTO cambiaTeamDTO = new CambiaTeamDTO();
+                cambiaTeamDTO.setIdMembroTeam(user.getId());
+                cambiaTeamDTO.setIdTeamAttuale(userTeam.getId());
+                cambiaTeamDTO.setIdNuovoTeam(mittente.getId());
+                return teamService.cambiaTeam(cambiaTeamDTO);
             }
         }
         //user is a coordinatore of a team
         else if (r == Ruoli.COORDINATORE) {
-            if(risposta){
-                teamService.cambiaCoordinatore(userTeam.getId(), userTeam.getMembri().get(1));
-                return teamService.cambiaTeam(idUser, userTeam.getId(),  mittente.getId());
+            if(rispostaDTO.isRisposta()){
+                CambiaTeamDTO cambiaTeamDTO = new CambiaTeamDTO();
+                cambiaTeamDTO.setIdMembroTeam(user.getId());
+                cambiaTeamDTO.setIdTeamAttuale(userTeam.getId());
+                cambiaTeamDTO.setIdNuovoTeam(mittente.getId());
+                CambiaCoordinatoreDTO cambiaCoordinatoreDTO = new CambiaCoordinatoreDTO();
+                cambiaCoordinatoreDTO.setIdNuovoCoordinatore(userTeam.getMembri().get(1).getId());
+                cambiaCoordinatoreDTO.setIdNuovoCoordinatore(userTeam.getId());
+
+                teamService.cambiaCoordinatore(cambiaCoordinatoreDTO);
+                return teamService.cambiaTeam(cambiaTeamDTO);
             }
         }
         return false;
     }
 
     public boolean diventaMembro(Long idTeam, Long idUser) {
-        inMemoryUserRepository.findById(idUser).setIdTeam(idTeam);
-        return inMemoryTeamRepository.getTeamById(idTeam).getMembri().add(idUser);
+        userRepository.findById(idUser).setIdTeam(idTeam);
+        return teamRepository.getTeamById(idTeam).getMembri().add(idUser);
     }
 }
