@@ -1,7 +1,12 @@
 package unicam.controller;
 
+import org.springframework.web.bind.annotation.*;
+import unicam.dto.ConsegnaRequest;
+import unicam.model.consegna.Consegna;
 import unicam.service.ConsegnaService;
 
+@RestController
+@RequestMapping("/consegna")
 public class ConsegnaController {
 
     private final ConsegnaService consegnaService;
@@ -10,12 +15,13 @@ public class ConsegnaController {
         this.consegnaService = consegnaService;
     }
 
-    public boolean caricaSottomissione(Long idSottomissione, String descrizione, Long idIscrizione){
-        return this.consegnaService.caricaSottomissione(idSottomissione, descrizione, idIscrizione);
+    @PostMapping
+    public boolean caricaSottomissione(@RequestBody ConsegnaRequest sottomissione) {
+        return this.consegnaService.caricaSottomissione(sottomissione);
     }
 
-
-    public void ritiraSottomissione(Long idConsegna) {
+    @DeleteMapping("/{idConsegna}")
+    public void ritiraSottomissione(@PathVariable Long idConsegna) {
         this.consegnaService.ritiraSottomissione(idConsegna);
     }
 }
