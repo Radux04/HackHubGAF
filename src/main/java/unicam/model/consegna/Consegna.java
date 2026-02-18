@@ -25,4 +25,10 @@ public class Consegna {
     @ManyToOne
     private Iscrizione iscrizione;
     private int voto;
+
+    public Consegna(String descrizione, Sottomissione sottomissione, Iscrizione iscrizione) {
+        this.descrizione = descrizione;
+        this.sottomissione = sottomissione;
+        this.iscrizione = iscrizione;
+    }
 }
