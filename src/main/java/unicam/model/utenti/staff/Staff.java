@@ -18,5 +18,5 @@ public class Staff extends Utente {
     @Enumerated(EnumType.STRING)
     private RuoliStaff ruolo;
     @ManyToOne
-    private Hackathon idHackathon;
+    private Hackathon hackathon;
 }

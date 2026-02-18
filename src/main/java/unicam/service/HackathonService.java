@@ -1,5 +1,11 @@
 package unicam.service;
 
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+import unicam.dto.hackathon.DescrizioneHT;
+import unicam.dto.hackathon.HackathonRequest;
+import unicam.dto.hackathon.PlacementHT;
+import unicam.dto.hackathon.StaffHT;
 import unicam.model.hackathon.builder.HackathonBuilder;
 import unicam.model.hackathon.entity.*;
 import unicam.repository.*;
@@ -7,6 +13,7 @@ import unicam.model.supporto.RichiestaSupporto;
 import unicam.model.utenti.staff.Staff;
 import java.util.List;
 
+@Service
 public class HackathonService {
     private final HackathonRepository inMemoryHackathonRepository;
     private final StaffRepository inMemoryStaffRepository;
@@ -20,23 +27,31 @@ public class HackathonService {
         this.inMemoryIscrizioniRepository = inMemoryIscrizioniRepository;
     }
 
-    public Hackathon CreaHackathon(DescrizioneHT descrizione, PlacementHT placement, StaffHT staff, String nome, Long idOrganizzatore) {
+    public Hackathon CreaHackathon(HackathonRequest hackathonRequest) {
 
-        Staff s =  inMemoryStaffRepository.findStaff(idOrganizzatore);
+        DescrizioneHT descrizione = hackathonRequest.getDescrizione();
+        PlacementHT placement = hackathonRequest.getPlacement();
+        StaffHT staff = hackathonRequest.getStaff();
+        String nome = hackathonRequest.getNome();
+        Long idOrganizzatore = hackathonRequest.getIdOrganizzatore();
+
+        Staff organizzatore = inMemoryStaffRepository.findById(idOrganizzatore).get();
+        Staff giudice = inMemoryStaffRepository.findById(staff.getIdGiudice()).get();
+        List<Staff> mentori = staff.getMentori().stream().map(m -> inMemoryStaffRepository.findById(m).get()).toList();
+
 
         //se l'organizzatore è già occupato in un altro h
-        if (s.isOccupato()) throw new IllegalArgumentException("Organizzatore occupato");
+        if (organizzatore.isOccupato()) throw new IllegalArgumentException("Organizzatore occupato");
         //se l'organizzatore è libero
         else {
-            Staff g = inMemoryStaffRepository.findStaff(staff.getIdGiudice());
             //se il giudice è occupato
-            if (g.isOccupato()) throw new IllegalArgumentException("Giudice occupato");
+            if (giudice.isOccupato()) throw new IllegalArgumentException("Giudice occupato");
             //se il giudice è libero
             else {
                 //cicla tutti i mentori
-                for (int m : staff.getMentori()) {
+                for (Staff m : mentori) {
                     //se uno dei mentori è già occupato, lancia un'eccezione
-                    if (inMemoryStaffRepository.findStaff(m).isOccupato()) {
+                    if (m.isOccupato()) {
                         throw new IllegalArgumentException("un mentore è occupato");
                     }
                 }
@@ -44,29 +59,33 @@ public class HackathonService {
                 //l'hackathon viene creato attraverso il builder
                 HackathonBuilder hackathonBuilder = new HackathonBuilder();
                 hackathonBuilder.buildName(nome)
-                        .buildDescrizione(descrizione)
-                        .buildPlacement(placement)
-                        .buildStaff(staff)
-                        .buildOrganizzatore(idOrganizzatore);
+                        .buildDataFine(placement.getDataInizio())
+                        .buildDataFine(placement.getDataFine())
+                        .buildScadenzaIscrizioni(placement.getScadenzaIscrizioni())
+                        .buildGiudice(giudice)
+                        .buildLuogo(placement.getLuogo())
+                        .buildMaxSize(descrizione.getMaxSize())
+                        .buildMentori(mentori)
+                        .buildOrganizzatore(organizzatore)
+                        .buildPremio(descrizione.getPremio())
+                        .buildRegolamento(descrizione.getRegolamento());
                 Hackathon hackathon = hackathonBuilder.build();
 
 
-                g.setOccupato(true);
-                for (int m : staff.getMentori()) {
+                giudice.setOccupato(true);
+                for (Staff m : mentori) {
                     //setta lo stato del mentore a occupato
-                    inMemoryStaffRepository.findStaff(m).setOccupato(true);
+                    m.setOccupato(true);
                     //setta l'attributo hackathon del mentore come l'hackathon appena creato
-                    inMemoryStaffRepository.findStaff(m).setIdHackathon(hackathon.getId());
+                    m.setHackathon(hackathon);
                 }
 
-                s.setOccupato(true);
-                s.setIdHackathon(hackathon.getId());
+                organizzatore.setOccupato(true);
+                organizzatore.setHackathon(hackathon);
 
-                inMemoryStaffRepository.save(s);
-                inMemoryStaffRepository.save(g);
-                for (int m : staff.getMentori()) {
-                    inMemoryStaffRepository.save(inMemoryStaffRepository.findStaff(m));
-                }
+                inMemoryStaffRepository.save(organizzatore);
+                inMemoryStaffRepository.save(giudice);
+                inMemoryStaffRepository.saveAll(mentori);
 
                 return inMemoryHackathonRepository.save(hackathon);
             }

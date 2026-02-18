@@ -29,13 +29,13 @@ public class Hackathon {
     private String luogo;
     //private StaffHT staff;
     @ManyToOne
-    private Staff idGiudice;
+    private Staff giudice;
     @ManyToMany
     private List<Staff> mentori;
     @Enumerated(EnumType.STRING)
     private StatiHackathon stato;
     @ManyToOne
-    private Staff idOrganizzatore;
+    private Staff organizzatore;
     @OneToMany
     private List<Sottomissione> sottomissioni;
 }

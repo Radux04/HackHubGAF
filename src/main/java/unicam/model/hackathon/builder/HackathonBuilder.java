@@ -1,8 +1,11 @@
 package unicam.model.hackathon.builder;
 
 import unicam.model.hackathon.entity.*;
+import unicam.model.utenti.staff.Staff;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 public class HackathonBuilder {
     private Hackathon hackathon = new Hackathon();
@@ -16,23 +19,53 @@ public class HackathonBuilder {
         return this;
     }
 
-    public HackathonBuilder buildDescrizione(DescrizioneHT description) {
-        hackathon.setDescrizione(description);
+    public HackathonBuilder buildRegolamento(String regolamento) {
+        hackathon.setRegolamento(regolamento);
         return this;
     }
 
-    public HackathonBuilder buildPlacement(PlacementHT placementHT) {
-        hackathon.setPlacement(placementHT);
+    public HackathonBuilder buildPremio(float premio) {
+        hackathon.setPremio(premio);
         return this;
     }
 
-    public HackathonBuilder buildStaff(StaffHT staffHT) {
-        hackathon.setStaff(staffHT);
+    public HackathonBuilder buildMaxSize(int maxSize) {
+        hackathon.setMaxSize(maxSize);
         return this;
     }
 
-    public HackathonBuilder buildOrganizzatore(int org) {
-        hackathon.setIdOrganizzatore(org);
+    public HackathonBuilder buildScadenzaIscrizioni(LocalDateTime scadenza) {
+        hackathon.setScadenzaIscrizioni(scadenza);
+        return this;
+    }
+
+    public HackathonBuilder buildDataInizio(LocalDateTime dataInizio) {
+        hackathon.setDataInizio(dataInizio);
+        return this;
+    }
+
+    public HackathonBuilder buildDataFine(LocalDateTime dataFine) {
+        hackathon.setDataFine(dataFine);
+        return this;
+    }
+
+    public HackathonBuilder buildLuogo(String luogo) {
+        hackathon.setLuogo(luogo);
+        return this;
+    }
+
+    public HackathonBuilder buildGiudice(Staff giudice) {
+        hackathon.setGiudice(giudice);
+        return this;
+    }
+
+    public HackathonBuilder buildMentori(List<Staff> mentori) {
+        hackathon.setMentori(mentori);
+        return this;
+    }
+
+    public HackathonBuilder buildOrganizzatore(Staff organizzatore) {
+        hackathon.setOrganizzatore(organizzatore);
         return this;
     }
 
