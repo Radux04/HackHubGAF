@@ -1,5 +1,6 @@
 package unicam.model.iscrizione.builder;
 
+import unicam.model.hackathon.entity.Hackathon;
 import unicam.model.iscrizione.Iscrizione;
 import unicam.model.team.Team;
 import unicam.model.utenti.user.User;
@@ -19,13 +20,13 @@ public class IscrizioneBuilder {
         return this;
     }
 
-    public IscrizioneBuilder buildHTId(Long HTId){
-        i.setHtId(HTId);
+    public IscrizioneBuilder buildTeam(Team team){
+        i.setTeam(team);
         return this;
     }
 
-    public IscrizioneBuilder buildTeamId(Long teamId){
-        i.setTeamId(teamId);
+    public IscrizioneBuilder buildHackatho(Hackathon hackathon){
+        i.setHt(hackathon);
         return this;
     }
 

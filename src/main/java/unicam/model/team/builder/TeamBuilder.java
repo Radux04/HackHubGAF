@@ -10,8 +10,6 @@ public class TeamBuilder {
     private Team team;
 
     public TeamBuilder() {
-//        this.team = new Team(); // serve costruttore vuoto in Team
-//        this.team.setMembri(new ArrayList<>());
         reset();
     }
 
@@ -25,7 +23,7 @@ public class TeamBuilder {
         return this;
     }
 
-    public TeamBuilder buildCoordinatore(Long coordinatore) {
+    public TeamBuilder buildCoordinatore(User coordinatore) {
         team.setCoordinatore(coordinatore);
         return this;
     }
@@ -37,6 +35,7 @@ public class TeamBuilder {
 
     public Team build() {
         team.setMembri(new ArrayList<>());
+        team.setOccupato(false);
         return team;
     }
 }

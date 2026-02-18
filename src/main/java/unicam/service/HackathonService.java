@@ -67,7 +67,7 @@ public class HackathonService {
                 //l'hackathon viene creato attraverso il builder
                 HackathonBuilder hackathonBuilder = new HackathonBuilder();
                 hackathonBuilder.buildName(nome)
-                        .buildDataFine(placement.getDataInizio())
+                        .buildDataInizio(placement.getDataInizio())
                         .buildDataFine(placement.getDataFine())
                         .buildScadenzaIscrizioni(placement.getScadenzaIscrizioni())
                         .buildGiudice(giudice)

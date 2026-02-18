@@ -37,7 +37,7 @@ public class TeamService {
         Team team = new TeamBuilder()
                 .buildNome(creaTeamDTO.getNome())
                 .buildDescrizione(creaTeamDTO.getDescrizione())
-                .buildCoordinatore(creaTeamDTO.getIdCordinatore())
+                .buildCoordinatore(c)
                 .build();
 
         userRepository.save(c);
