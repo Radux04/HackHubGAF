@@ -47,7 +47,7 @@ public class IscrizioneTeamService {
 
 
         if(hackathon.getDescrizione().getMaxSize() < team.getMembri().size()){
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Il tuo team ha troppi membri per partecipare");
         }
         User us = inMemoryUserRepository.findById(coordinatoreId);
 

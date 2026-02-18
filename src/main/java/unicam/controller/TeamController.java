@@ -19,4 +19,8 @@ public class TeamController {
     public Invito invita(int idUser, int idTeamMittente) {
         return teamService.invita(idUser, idTeamMittente);
     }
+
+
+    public boolean removeMemberById(int idUser, int idTeamMittente)
+    { return teamService.removeMemberById(idUser, idTeamMittente); }
 }
