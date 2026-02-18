@@ -12,7 +12,7 @@ public class ConsegnaService {
 
     }
 
-    public boolean caricaSottomissione(int idSottomissione, String descrizione, int idIscrizione){
+    public boolean caricaSottomissione(Long idSottomissione, String descrizione, Long idIscrizione){
         Consegna c = new Consegna(idIscrizione, descrizione, idSottomissione);
         if(consegnaRepository.contains(c)){
             return false;
