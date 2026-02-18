@@ -12,8 +12,8 @@ public class Hackathon {
     private PlacementHT placement;
     private StaffHT staff;
     private StatiHackathon stato;
-    private int idOrganizzatore;
-    private List<Integer> sottomissioni;
+    private Long idOrganizzatore;
+    private List<Long> sottomissioni;
 
     public Hackathon() {}
 

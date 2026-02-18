@@ -6,7 +6,7 @@ import java.util.List;
 
 public class StaffHT {
     private Long idGiudice;
-    private List<Integer> mentori;
+    private List<Long> mentori;
 
     public StaffHT(Long idGiudice, List<Integer> mentori) {
         this.idGiudice = idGiudice;
