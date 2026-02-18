@@ -5,14 +5,14 @@ import unicam.model.utenti.user.User;
 import java.util.List;
 
 public class Team {
-    private int id;
+    private Long id;
     private String nome;
     private String descrizione;
-    private int coordinatore;
+    private Long coordinatore;
     private boolean occupato;
-    private List<Integer> membri;
+    private List<Long> membri;
 
-    public Team(String nome, String descrizione, int coordinatore, List<Integer> membri) {
+    public Team(String nome, String descrizione, Long coordinatore, List<Long> membri) {
         this.nome = nome;
         this.descrizione = descrizione;
         this.coordinatore = coordinatore;
@@ -22,11 +22,11 @@ public class Team {
 
         public Team() {}
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -46,11 +46,11 @@ public class Team {
         this.descrizione = descrizione;
     }
 
-    public int getCoordinatore() {
+    public Long getCoordinatore() {
         return coordinatore;
     }
 
-    public void setCoordinatore(int coordinatore) {
+    public void setCoordinatore(Long coordinatore) {
         this.coordinatore = coordinatore;
     }
 
@@ -62,11 +62,11 @@ public class Team {
         this.occupato = occupato;
     }
 
-    public List<Integer> getMembri() {
+    public List<Long> getMembri() {
         return membri;
     }
 
-    public void setMembri(List<Integer> membri) {
+    public void setMembri(List<Long> membri) {
         this.membri = membri;
     }
 }
