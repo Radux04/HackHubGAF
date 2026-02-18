@@ -1,5 +1,6 @@
 package unicam.service;
 
+import unicam.dto.IscrizioneDTO;
 import unicam.model.hackathon.entity.Hackathon;
 import unicam.model.hackathon.entity.StatiHackathon;
 import unicam.model.iscrizione.Iscrizione;
@@ -35,7 +36,9 @@ public class IscrizioneTeamService {
         }
     }
 
-    public Iscrizione iscriviTeam(Long coordinatoreId, Long idHackathon, Long idTeam){
+    public Iscrizione iscriviTeam(IscrizioneDTO iscrizioneDTO){
+
+
 
         Hackathon hackathon = inMemoryHackathonRepository.getHackathonById(idHackathon);
 
