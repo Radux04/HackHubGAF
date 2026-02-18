@@ -2,25 +2,25 @@ package unicam.model.consegna;
 
 public class Consegna {
 
-    private int id;
+    private Long id;
     private String descrizione;
-    private int idSottomissione;
-    private int idIscrizione;
+    private Long idSottomissione;
+    private Long idIscrizione;
     private int voto;
 
 
-    public Consegna(int idIscrizione, String  descrizione, int sottomissione) {
+    public Consegna(Long idIscrizione, String  descrizione, Long sottomissione) {
         this.descrizione = descrizione;
         this.idIscrizione = idIscrizione;
         this.idSottomissione = sottomissione;
         voto = 0;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -32,19 +32,19 @@ public class Consegna {
         this.descrizione = descrizione;
     }
 
-    public int getIdIscrizione() {
+    public Long getIdIscrizione() {
         return idIscrizione;
     }
 
-    public void setIdIscrizione(int idIscrizione) {
+    public void setIdIscrizione(Long idIscrizione) {
         this.idIscrizione = idIscrizione;
     }
 
-    public int getSottomissione() {
+    public Long getSottomissione() {
         return idSottomissione;
     }
 
-    public void setSottomissione(int sottomissione) {
+    public void setSottomissione(Long sottomissione) {
         this.idSottomissione = sottomissione;
     }
 
