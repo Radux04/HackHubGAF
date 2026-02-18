@@ -6,5 +6,5 @@ import unicam.model.team.Team;
 
 public interface TeamRepository extends JpaRepository<Team,Long> {
     boolean existsByNome(String nome);
-    Team findTeamByCoordinatoreId(int coordinatoreId);
+    Team findTeamByCoordinatoreId(Long coordinatoreId);
 }

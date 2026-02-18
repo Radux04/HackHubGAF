@@ -6,5 +6,5 @@ import unicam.model.supporto.RichiestaSupporto;
 import java.util.List;
 
 public interface RichiestaSupportoRepository extends JpaRepository <RichiestaSupporto, Long> {
-    List<RichiestaSupporto> findByHackathonId(int hackathonId);
+    List<RichiestaSupporto> findByHackathonId(Long hackathonId);
 }
