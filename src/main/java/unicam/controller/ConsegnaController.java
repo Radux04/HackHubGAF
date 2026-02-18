@@ -10,12 +10,12 @@ public class ConsegnaController {
         this.consegnaService = consegnaService;
     }
 
-    public boolean caricaSottomissione(int idSottomissione, String descrizione, int idIscrizione){
+    public boolean caricaSottomissione(Long idSottomissione, String descrizione, Long idIscrizione){
         return this.consegnaService.caricaSottomissione(idSottomissione, descrizione, idIscrizione);
     }
 
 
-    public void ritiraSottomissione(int idConsegna) {
+    public void ritiraSottomissione(Long idConsegna) {
         this.consegnaService.ritiraSottomissione(idConsegna);
     }
 }

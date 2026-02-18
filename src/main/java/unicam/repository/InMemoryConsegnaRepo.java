@@ -7,10 +7,10 @@ import java.util.Map;
 
 public class InMemoryConsegnaRepo implements ConsegnaRepository {
 
-    private Map<Integer, Consegna> consegne;
+    private Map<Long, Consegna> consegne;
 
     public InMemoryConsegnaRepo() {
-        consegne = new HashMap<Integer, Consegna>();
+        consegne = new HashMap<Long, Consegna>();
     }
 
     @Override
@@ -30,7 +30,7 @@ public class InMemoryConsegnaRepo implements ConsegnaRepository {
     }
 
     @Override
-    public void remove(int idConsegna) {
+    public void remove(Long idConsegna) {
         consegne.remove(idConsegna);
     }
 }

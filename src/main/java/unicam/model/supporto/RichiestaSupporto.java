@@ -1,12 +1,12 @@
 package unicam.model.supporto;
 
 public class RichiestaSupporto {
-    private int id;
-    private int teamId;
+    private Long id;
+    private Long teamId;
     private String descrizione;
-    private int hackathonId;
+    private Long hackathonId;
 
-    public RichiestaSupporto(int teamId, String descrizione, int hackathonId) {
+    public RichiestaSupporto(Long teamId, String descrizione, Long hackathonId) {
         this.teamId = teamId;
         this.descrizione = descrizione;
         this.hackathonId = hackathonId;
@@ -15,19 +15,19 @@ public class RichiestaSupporto {
     public RichiestaSupporto() {
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public int getTeamId() {
+    public Long getTeamId() {
         return teamId;
     }
 
-    public void setTeamId(int teamId) {
+    public void setTeamId(Long teamId) {
         this.teamId = teamId;
     }
 
@@ -39,11 +39,11 @@ public class RichiestaSupporto {
         this.descrizione = descrizione;
     }
 
-    public int getHackathonId() {
+    public Long getHackathonId() {
         return hackathonId;
     }
 
-    public void setHackathonId(int hackathonId) {
+    public void setHackathonId(Long hackathonId) {
         this.hackathonId = hackathonId;
     }
 }
