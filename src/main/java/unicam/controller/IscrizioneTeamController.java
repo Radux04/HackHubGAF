@@ -13,8 +13,8 @@ public class IscrizioneTeamController {
     }
 
     
-    public Iscrizione iscriviTeam(int coordinatoreId, int idHackathon) {
-        int teamid = iscrizioneTeamService.controlloTeam(coordinatoreId);
+    public Iscrizione iscriviTeam(Long coordinatoreId, Long idHackathon) {
+        Long teamid = iscrizioneTeamService.controlloTeam(coordinatoreId);
         return iscrizioneTeamService.iscriviTeam(coordinatoreId, idHackathon, teamid);
     }
 
