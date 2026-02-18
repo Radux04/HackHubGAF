@@ -27,7 +27,7 @@ public class TeamController {
         return teamService.invita(invitoDTO);
     }
 
-    @DeleteMapping("/{memberId}")
+    @DeleteMapping("/{membroId}")
     public boolean removeMemberById(@PathVariable Long membroId){
         return teamService.removeMemberById(membroId);
     }
