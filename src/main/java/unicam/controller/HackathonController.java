@@ -15,6 +15,7 @@ import java.util.List;
 public class HackathonController {
     private final HackathonService hackathonService;
 
+
     @PostMapping
     public Hackathon CreaHackathon(@RequestBody HackathonRequest hackathonRequest) {
         return hackathonService.CreaHackathon(hackathonRequest);

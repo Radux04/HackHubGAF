@@ -17,6 +17,7 @@ import unicam.service.IscrizioneTeamService;
 public class IscrizioneTeamController {
     private final IscrizioneTeamService iscrizioneTeamService;
 
+
     @PostMapping
     public Iscrizione iscriviTeam(@RequestBody IscrizioneDTO  iscrizioneDTO) {
         //se il team non partecipa già a un hackathon lo aggiungo al DTO
