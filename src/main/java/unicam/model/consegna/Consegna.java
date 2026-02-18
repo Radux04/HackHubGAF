@@ -1,58 +1,27 @@
 package unicam.model.consegna;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Consegna {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String descrizione;
     private Long idSottomissione;
     private Long idIscrizione;
     private int voto;
-
-
-    public Consegna(Long idIscrizione, String  descrizione, Long sottomissione) {
-        this.descrizione = descrizione;
-        this.idIscrizione = idIscrizione;
-        this.idSottomissione = sottomissione;
-        voto = 0;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getDescrizione() {
-        return descrizione;
-    }
-
-    public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
-    }
-
-    public Long getIdIscrizione() {
-        return idIscrizione;
-    }
-
-    public void setIdIscrizione(Long idIscrizione) {
-        this.idIscrizione = idIscrizione;
-    }
-
-    public Long getSottomissione() {
-        return idSottomissione;
-    }
-
-    public void setSottomissione(Long sottomissione) {
-        this.idSottomissione = sottomissione;
-    }
-
-    public int getVoto() {
-        return voto;
-    }
-
-    public void setVoto(int voto) {
-        this.voto = voto;
-    }
 }
