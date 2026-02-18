@@ -1,6 +1,7 @@
 package unicam.controller;
 
 import org.springframework.web.bind.annotation.RequestBody;
+import unicam.dto.team.CreaTeamDTO;
 import unicam.dto.team.InvitoDTO;
 import unicam.dto.team.RemoveMemberDTO;
 import unicam.model.inviti.Invito;
@@ -14,8 +15,8 @@ public class TeamController {
         this.teamService = teamService;
     }
 
-    public Team creaTeam(String nome, String descrizione, Long idCoordinatore) {
-        return teamService.creaTeam(nome, descrizione, idCoordinatore);
+    public Team creaTeam(@RequestBody CreaTeamDTO creaTeamDTO) {
+        return teamService.creaTeam(creaTeamDTO);
     }
 
     public Invito invita(@RequestBody InvitoDTO invitoDTO) {
