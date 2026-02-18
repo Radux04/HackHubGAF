@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class CambiaCoordinatoreDTO {
-    private Long idCordinatore;
+    private Long idTeam;
     private Long idNuovoCoordinatore;
 }
