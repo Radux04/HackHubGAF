@@ -1,10 +1,11 @@
 package unicam.controller;
 
 import org.springframework.web.bind.annotation.*;
-import unicam.model.hackathon.entity.DescrizioneHT;
+import unicam.dto.hackathon.DescrizioneHT;
+import unicam.dto.hackathon.HackathonRequest;
 import unicam.model.hackathon.entity.Hackathon;
-import unicam.model.hackathon.entity.PlacementHT;
-import unicam.model.hackathon.entity.StaffHT;
+import unicam.dto.hackathon.PlacementHT;
+import unicam.dto.hackathon.StaffHT;
 import unicam.service.HackathonService;
 import unicam.model.supporto.RichiestaSupporto;
 
@@ -20,8 +21,8 @@ public class HackathonController {
     }
 
     @PostMapping
-    public Hackathon CreaHackathon(DescrizioneHT descrizione, PlacementHT placement, StaffHT staff, String nome, Long idOrganizzatore) {
-        return hackathonService.CreaHackathon(descrizione, placement, staff, nome, idOrganizzatore);
+    public Hackathon CreaHackathon(@RequestBody HackathonRequest hackathonRequest) {
+        return hackathonService.CreaHackathon(hackathonRequest);
     }
 
     @PostMapping("/richiesteSupporto")
