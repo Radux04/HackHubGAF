@@ -1,36 +1,24 @@
 package unicam.model.inviti;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Generated;
+import lombok.NoArgsConstructor;
+import unicam.model.team.Team;
+import unicam.model.utenti.user.User;
+
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Invito {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long teamId;
-    private Long destinatario;
-
-    public Invito(Long teamId, Long destinatario) {
-        this.teamId = teamId;
-        this.destinatario = destinatario;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getTeamId() {
-        return teamId;
-    }
-
-    public void setTeamId(Long teamId) {
-        this.teamId = teamId;
-    }
-
-    public Long getDestinatario() {
-        return destinatario;
-    }
-
-    public void setDestinatario(Long destinatario) {
-        this.destinatario = destinatario;
-    }
+    @OneToOne
+    private Team team;
+    @OneToOne
+    private User destinatario;
 }
