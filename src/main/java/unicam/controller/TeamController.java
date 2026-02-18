@@ -1,9 +1,6 @@
 package unicam.controller;
 
-import org.springframework.web.bind.annotation.Mapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import unicam.dto.team.CreaTeamDTO;
 import unicam.dto.team.InvitoDTO;
 import unicam.dto.team.RemoveMemberDTO;
@@ -20,15 +17,18 @@ public class TeamController {
         this.teamService = teamService;
     }
 
+    @PostMapping("/creaTeam")
     public Team creaTeam(@RequestBody CreaTeamDTO creaTeamDTO) {
         return teamService.creaTeam(creaTeamDTO);
     }
 
+    @PostMapping("/invita")
     public Invito invita(@RequestBody InvitoDTO invitoDTO) {
         return teamService.invita(invitoDTO);
     }
 
-
-    public boolean removeMemberById(@RequestBody RemoveMemberDTO removeMemberDTO)
-    { return teamService.removeMemberById(removeMemberDTO); }
+    @DeleteMapping("/{memberId}")
+    public boolean removeMemberById(@PathVariable Long membroId){
+        return teamService.removeMemberById(membroId);
+    }
 }

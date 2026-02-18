@@ -72,17 +72,9 @@ public class TeamService {
     }
 
 
-    public boolean removeMemberById(RemoveMemberDTO removeMemberDTO) {
-        //controllo se l'utente è un cordinatore
-        User u = userRepository.findById(removeMemberDTO.getCoordinatoreId()).get();
-        if(u.getRuolo() != Ruoli.COORDINATORE) { return false; }
-        //controllo a quale team il cordinatore che sta cercando di effettuare l'operazione appartiene
-        Team t = teamRepository.findByCoordinatore(u);
-
-        t.getMembri().remove(removeMemberDTO.getMemberId());
-        u = userRepository.findById(removeMemberDTO.getMemberId()).get();
-        u.setId(null);
-        teamRepository.save(t);
+    public boolean removeMemberById(Long membroId) {
+        teamRepository.findById(userRepository.findById(membroId).get().getTeam().getId()).get().getMembri().remove(userRepository.findById(membroId).get());
+        userRepository.findById(membroId).get().setId(null);
         return true;
     }
 }
