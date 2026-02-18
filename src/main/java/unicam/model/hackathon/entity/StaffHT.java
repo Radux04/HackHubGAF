@@ -5,19 +5,19 @@ import unicam.model.utenti.staff.Staff;
 import java.util.List;
 
 public class StaffHT {
-    private int idGiudice;
+    private Long idGiudice;
     private List<Integer> mentori;
 
-    public StaffHT(int idGiudice, List<Integer> mentori) {
+    public StaffHT(Long idGiudice, List<Integer> mentori) {
         this.idGiudice = idGiudice;
         this.mentori = mentori;
     }
 
-    public int getIdGiudice() {
+    public Long getIdGiudice() {
         return idGiudice;
     }
 
-    public void setIdGiudice(int idGiudice) {
+    public void setIdGiudice(Long idGiudice) {
         this.idGiudice = idGiudice;
     }
 
