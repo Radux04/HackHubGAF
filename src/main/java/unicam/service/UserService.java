@@ -37,7 +37,10 @@ public class UserService {
         //user is a simple user
         if(r == Ruoli.UTENTE){
             if(rispostaDTO.isRisposta()){
-                return diventaMembro(mittente.getId(), rispostaDTO.getIdUser());
+                DiventaMembroDTO diventaMembroDTO = new DiventaMembroDTO();
+                diventaMembroDTO.setIdTeam(invito.getTeam().getId());
+                diventaMembroDTO.setIdUser(invito.getDestinatario().getId());
+                return diventaMembro(diventaMembroDTO);
             }
         }
         //user is already a member of a team
