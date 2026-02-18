@@ -69,8 +69,8 @@ public class TeamService {
 
     public void cambiaCoordinatore(CambiaCoordinatoreDTO cambiaCoordinatoreDTO) {
         //momentaneamente questo metodo funge solo se un cordinatore decide di accettare l'invito di un altro team.
-        userRepository.findById(idNuovoCoordinatore).setRuolo(Ruoli.COORDINATORE);
-        teamRepository.getTeamById(idTeam).setCoordinatore(idNuovoCoordinatore);
+        userRepository.findById(cambiaCoordinatoreDTO.getIdNuovoCoordinatore()).get().setRuolo(Ruoli.COORDINATORE);
+        teamRepository.findById(cambiaCoordinatoreDTO.getIdTeam()).get().setCoordinatore(cambiaCoordinatoreDTO.getIdNuovoCoordinatore());
     }
 
 
