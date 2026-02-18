@@ -22,4 +22,10 @@ public class RichiestaSupporto {
     private String descrizione;
     @ManyToOne
     private Hackathon hackathon;
+
+    public RichiestaSupporto(Team team, String descrizione, Hackathon hackathon) {
+        this.team = team;
+        this.descrizione = descrizione;
+        this.hackathon = hackathon;
+    }
 }
