@@ -1,5 +1,6 @@
 package unicam.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import unicam.dto.team.CreaTeamDTO;
 import unicam.dto.team.InvitoDTO;
@@ -10,12 +11,9 @@ import unicam.service.TeamService;
 
 @RestController
 @RequestMapping("/team")
+@RequiredArgsConstructor
 public class TeamController {
     private final TeamService teamService;
-
-    public TeamController(TeamService teamService) {
-        this.teamService = teamService;
-    }
 
     @PostMapping("/creaTeam")
     public Team creaTeam(@RequestBody CreaTeamDTO creaTeamDTO) {
