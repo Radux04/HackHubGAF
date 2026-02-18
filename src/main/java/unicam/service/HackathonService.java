@@ -19,13 +19,20 @@ public class HackathonService {
     private final RichiestaSupportoRepository richiestaSupportoRepository;
     private final IscrizioneRepository iscrizioniRepository;
     private final TeamRepository teamRepository;
+    private final SottomissioniRepository sottomissioniRepository;
 
-    public HackathonService(HackathonRepository hackathonRepository, StaffRepository staffRepository, RichiestaSupportoRepository richiestaSupportoRepository, IscrizioneRepository iscrizioniRepository, TeamRepository teamRepository) {
+    public HackathonService(HackathonRepository hackathonRepository
+            ,StaffRepository staffRepository
+            ,RichiestaSupportoRepository richiestaSupportoRepository
+            ,IscrizioneRepository iscrizioniRepository
+            ,TeamRepository teamRepository
+            ,SottomissioniRepository sottomissioniRepository) {
         this.hackathonRepository = hackathonRepository;
         this.staffRepository = staffRepository;
         this.richiestaSupportoRepository = richiestaSupportoRepository;
         this.iscrizioniRepository = iscrizioniRepository;
         this.teamRepository = teamRepository;
+        this.sottomissioniRepository = sottomissioniRepository;
     }
 
     public Hackathon CreaHackathon(HackathonRequest hackathonRequest) {
@@ -114,11 +121,13 @@ public class HackathonService {
         return richieste;
     }
 
-    public void creaSottomissione(String descrizione, String titolo, Long idHackathon) {
-        if(hackathonRepository.getHackathonById(idHackathon).getSottomissioni().size() == 10)
+
+    public void creaSottomissione(CreaSottomissioneDTO creaSottomissioneDTO) {
+        if(hackathonRepository.findById(creaSottomissioneDTO.getIdHackaton()).get().getSottomissioni().size() == 10)
             throw new IllegalArgumentException("Limite massimo di sottomissioni raggiunto");
 
-        Sottomissione sottomissione = new Sottomissione(titolo, descrizione);
-        hackathonRepository.getHackathonById(idHackathon).getSottomissioni().add(sottomissione.getId());
+        Sottomissione sottomissione = new Sottomissione(creaSottomissioneDTO.getTitolo(), creaSottomissioneDTO.getDescrizione());
+        sottomissioniRepository.save(sottomissione);
+        hackathonRepository.findById(creaSottomissioneDTO.getIdHackaton()).get().getSottomissioni().add(sottomissione);
     }
 }

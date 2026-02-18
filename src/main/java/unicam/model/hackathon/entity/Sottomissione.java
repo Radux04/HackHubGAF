@@ -20,4 +20,9 @@ public class Sottomissione {
     private Long id;
     private String titolo;
     private String descrizione;
+
+    public Sottomissione(String titolo, String descrizione) {
+        this.titolo = titolo;
+        this.descrizione = descrizione;
+    }
 }

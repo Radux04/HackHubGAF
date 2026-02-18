@@ -33,7 +33,7 @@ public class HackathonController {
     }
 
     @PostMapping("/sottomissione")
-    public void creaSottomissione(@RequestBody String descrizione,@RequestBody String titolo,@RequestBody Long idHackaton) {
-        hackathonService.creaSottomissione(descrizione, titolo, idHackaton);
+    public void creaSottomissione(@RequestBody CreaSottomissioneDTO creaSottomissioneDTO) {
+        hackathonService.creaSottomissione(creaSottomissioneDTO);
     }
 }
