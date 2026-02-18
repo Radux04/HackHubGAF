@@ -22,7 +22,7 @@ public class ConsegnaService {
         return true;
     }
 
-    public void ritiraSottomissione(int idConsegna) {
+    public void ritiraSottomissione(Long idConsegna) {
         consegnaRepository.remove(idConsegna);
 
     }
