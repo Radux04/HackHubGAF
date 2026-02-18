@@ -19,12 +19,12 @@ public class IscrizioneBuilder {
         return this;
     }
 
-    public IscrizioneBuilder buildHTId(int HTId){
+    public IscrizioneBuilder buildHTId(Long HTId){
         i.setHtId(HTId);
         return this;
     }
 
-    public IscrizioneBuilder buildTeamId(int teamId){
+    public IscrizioneBuilder buildTeamId(Long teamId){
         i.setTeamId(teamId);
         return this;
     }
