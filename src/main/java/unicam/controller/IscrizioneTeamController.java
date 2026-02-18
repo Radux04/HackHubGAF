@@ -11,7 +11,7 @@ import unicam.service.IscrizioneTeamService;
 
 
 @RestController
-@RequestMapping("/team")
+@RequestMapping("/iscrizioneTeam")
 public class IscrizioneTeamController {
     private final IscrizioneTeamService iscrizioneTeamService;
 

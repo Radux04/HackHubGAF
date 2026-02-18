@@ -1,9 +1,14 @@
 package unicam.controller;
 
 
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import unicam.dto.user.RispostaDTO;
 import unicam.service.UserService;
 
-
+@RestController
+@RequestMapping("/user")
 public class UserController {
     private final UserService userService;
 
@@ -11,7 +16,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    public boolean risponde(boolean risposta, Long idInvito, Long idUser) {
-        return userService.risponde(risposta, idInvito, idUser);
+    public boolean risponde(@RequestBody RispostaDTO rispostaDTO) {
+        return userService.risponde(rispostaDTO);
     }
 }
