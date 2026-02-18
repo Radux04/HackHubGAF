@@ -1,5 +1,6 @@
 package unicam.service;
 
+import org.springframework.stereotype.Service;
 import unicam.dto.iscrizione.IscrizioneDTO;
 import unicam.model.hackathon.entity.Hackathon;
 import unicam.model.hackathon.entity.StatiHackathon;
@@ -12,6 +13,7 @@ import unicam.model.team.Team;
 
 import java.util.Optional;
 
+@Service
 public class IscrizioneTeamService {
 
     private final TeamRepository teamRepository;
@@ -43,34 +45,35 @@ public class IscrizioneTeamService {
 
     public Iscrizione iscriviTeam(IscrizioneDTO iscrizioneDTO){
 
-        Optional<Hackathon> hackathon = hackathonRepository.findById(iscrizioneDTO.getIdHackathon());
+        Hackathon hackathon = hackathonRepository.findById(iscrizioneDTO.getIdHackathon()).get();
 
-        Optional<User> user = userRepository.findById(iscrizioneDTO.getCoordinatoreId());
+        User user = userRepository.findById(iscrizioneDTO.getCoordinatoreId()).get();
 
-        Team team = teamRepository.findByCoordinatore(user.get());
+        Team team = teamRepository.findByCoordinatore(user);
 
-        if(hackathon.get().getStato() != StatiHackathon.IN_ISCRIZIONE){
+        if(hackathon.getStato() != StatiHackathon.IN_ISCRIZIONE){
             throw new IllegalArgumentException();
         }
 
-        if(hackathon.get().getMaxSize() < team.getMembri().size()){
+        if(hackathon.getMaxSize() < team.getMembri().size()){
             throw new IllegalArgumentException("Il tuo team ha troppi membri per partecipare");
         }
 
-        if(user.get().getRuolo()!= Ruoli.COORDINATORE) { throw new IllegalArgumentException("Non puoi fare questa azione, non sei Coordinatore"); }
+        if(user.getRuolo()!= Ruoli.COORDINATORE) { throw new IllegalArgumentException("Non puoi fare questa azione, non sei Coordinatore"); }
 
-        IscrizioneBuilder ib = new IscrizioneBuilder();
-        ib.buildTeamId(iscrizioneDTO.getTeamId());
-        ib.buildHTId(iscrizioneDTO.getTeamId());
-        team.setOccupato(true);
+        teamRepository.findByCoordinatore(user).setOccupato(true);
         for(User u : team.getMembri()){
             if(userRepository.findById(u.getId()).isPresent()){
                 u.setOccupato(true);
             }
         }
-        teamRepository.save(team);
-        iscrizioneRepository.save(ib.build());
-        return ib.build();
+
+        IscrizioneBuilder ib = new IscrizioneBuilder();
+        ib.buildHackatho(hackathon).buildTeam(team);
+        Iscrizione iscrizione = ib.build();
+
+        iscrizioneRepository.save(iscrizione);
+        return iscrizione;
     }
 
 }

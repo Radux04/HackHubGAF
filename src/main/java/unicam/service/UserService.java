@@ -1,5 +1,6 @@
 package unicam.service;
 
+import org.springframework.stereotype.Service;
 import unicam.dto.team.CambiaCoordinatoreDTO;
 import unicam.dto.team.CambiaTeamDTO;
 import unicam.dto.user.DiventaMembroDTO;
@@ -10,6 +11,7 @@ import unicam.repository.*;
 import unicam.model.utenti.user.Ruoli;
 import unicam.model.utenti.user.User;
 
+@Service
 public class UserService {
     private final TeamService teamService;
     private final TeamRepository teamRepository;

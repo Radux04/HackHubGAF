@@ -1,5 +1,6 @@
 package unicam.service;
 
+import org.springframework.stereotype.Service;
 import unicam.dto.team.*;
 import unicam.model.inviti.Invito;
 import unicam.repository.*;
@@ -8,6 +9,7 @@ import unicam.model.team.builder.TeamBuilder;
 import unicam.model.utenti.user.Ruoli;
 import unicam.model.utenti.user.User;
 
+@Service
 public class TeamService {
     private final TeamRepository teamRepository;
     private final UserRepository userRepository;
