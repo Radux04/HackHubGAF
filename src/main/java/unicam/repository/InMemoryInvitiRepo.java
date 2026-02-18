@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class InMemoryInvitiRepo implements InvitiRepository {
-    private Map<Integer, Invito> invites = new HashMap<>();
+    private Map<Long, Invito> invites = new HashMap<>();
 
     @Override
     public Invito save(Invito invito) {

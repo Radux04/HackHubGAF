@@ -12,7 +12,7 @@ public class TeamController {
         this.teamService = teamService;
     }
 
-    public Team creaTeam(String nome, String descrizione, int idCoordinatore) {
+    public Team creaTeam(String nome, String descrizione, Long idCoordinatore) {
         return teamService.creaTeam(nome, descrizione, idCoordinatore);
     }
 
@@ -21,6 +21,6 @@ public class TeamController {
     }
 
 
-    public boolean removeMemberById(int idUser, int idTeamMittente)
+    public boolean removeMemberById(Long idUser, Long idTeamMittente)
     { return teamService.removeMemberById(idUser, idTeamMittente); }
 }

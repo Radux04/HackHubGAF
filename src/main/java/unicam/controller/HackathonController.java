@@ -16,19 +16,19 @@ public class HackathonController {
         this.hackathonService = hackathonService;
     }
     
-    public Hackathon CreaHackathon(DescrizioneHT descrizione, PlacementHT placement, StaffHT staff, String nome, int idOrganizzatore) {
+    public Hackathon CreaHackathon(DescrizioneHT descrizione, PlacementHT placement, StaffHT staff, String nome, Long idOrganizzatore) {
         return hackathonService.CreaHackathon(descrizione, placement, staff, nome, idOrganizzatore);
     }
 
-    public RichiestaSupporto richiestaSupporto(int idTeam, String descrizione) {
+    public RichiestaSupporto richiestaSupporto(Long idTeam, String descrizione) {
         return hackathonService.richiediSupporto(idTeam, descrizione);
     }
 
-    public List<RichiestaSupporto> visualizzaRichiestaSupporto(int idHackaton) {
+    public List<RichiestaSupporto> visualizzaRichiestaSupporto(Long idHackaton) {
         return hackathonService.visualizzaRichiesteSupporto(idHackaton);
     }
 
-    public void creaSottomissione(String descrizione, String titolo, int idHackaton) {
+    public void creaSottomissione(String descrizione, String titolo, Long idHackaton) {
         hackathonService.creaSottomissione(descrizione, titolo, idHackaton);
     }
 }

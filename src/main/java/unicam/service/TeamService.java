@@ -20,7 +20,7 @@ public class TeamService {
         this.userRepository = userRepository;
     }
 
-    public Team creaTeam(String nome, String descrizione, int idCoordinatore)
+    public Team creaTeam(String nome, String descrizione, Long idCoordinatore)
     {
         if(nome == null || nome.isBlank())
         {throw new IllegalArgumentException("errore nome team");}
@@ -56,20 +56,20 @@ public class TeamService {
         return invito;
     }
 
-    public boolean cambiaTeam(int idMembroTeam, int idTeamAttuale, int idNuovoTeam) {
+    public boolean cambiaTeam(Long idMembroTeam, Long idTeamAttuale, Long idNuovoTeam) {
         teamRepository.getTeamById(idTeamAttuale).getMembri().remove(idMembroTeam);
         userRepository.findById(idMembroTeam).setIdTeam(idNuovoTeam);
         return teamRepository.getTeamById(idNuovoTeam).getMembri().add(idMembroTeam);
     }
 
-    public void cambiaCoordinatore(int idTeam, int idNuovoCoordinatore) {
+    public void cambiaCoordinatore(Long idTeam, Long idNuovoCoordinatore) {
         //momentaneamente questo metodo funge solo se un cordinatore decide di accettare l'invito di un altro team.
         userRepository.findById(idNuovoCoordinatore).setRuolo(Ruoli.COORDINATORE);
         teamRepository.getTeamById(idTeam).setCoordinatore(idNuovoCoordinatore);
     }
 
 
-    public boolean removeMemberById(int memberId, int idCordinatore){
+    public boolean removeMemberById(Long memberId, Long idCordinatore){
         //controllo se l'utente è un cordinatore
         User u = userRepository.findById(idCordinatore);
         if(u.getRuolo() != Ruoli.COORDINATORE) { return false; }

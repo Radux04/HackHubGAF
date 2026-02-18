@@ -11,7 +11,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    public boolean risponde(boolean risposta, int idInvito, int idUser) {
+    public boolean risponde(boolean risposta, Long idInvito, Long idUser) {
         return userService.risponde(risposta, idInvito, idUser);
     }
 }

@@ -20,7 +20,7 @@ public class HackathonService {
         this.inMemoryIscrizioniRepository = inMemoryIscrizioniRepository;
     }
 
-    public Hackathon CreaHackathon(DescrizioneHT descrizione, PlacementHT placement, StaffHT staff, String nome, int idOrganizzatore) {
+    public Hackathon CreaHackathon(DescrizioneHT descrizione, PlacementHT placement, StaffHT staff, String nome, Long idOrganizzatore) {
 
         Staff s =  inMemoryStaffRepository.findStaff(idOrganizzatore);
 
@@ -74,20 +74,20 @@ public class HackathonService {
         }
     }
 
-    public RichiestaSupporto richiediSupporto(int idTeam, String descrizione) {
-        int hackathonId = inMemoryIscrizioniRepository.getHackatonByTeam(idTeam);
+    public RichiestaSupporto richiediSupporto(Long idTeam, String descrizione) {
+        Long hackathonId = inMemoryIscrizioniRepository.getHackatonByTeam(idTeam);
         RichiestaSupporto richiesta = new RichiestaSupporto(idTeam, descrizione, hackathonId);
         return richiestaSupportoRepository.save(richiesta);
     }
 
 
-    public List<RichiestaSupporto> visualizzaRichiesteSupporto(int idHackathon) {
+    public List<RichiestaSupporto> visualizzaRichiesteSupporto(Long idHackathon) {
 
         return richiestaSupportoRepository.findByHackathonId(idHackathon);
 
     }
 
-    public void creaSottomissione(String descrizione, String titolo, int idHackathon) {
+    public void creaSottomissione(String descrizione, String titolo, Long idHackathon) {
         if(inMemoryHackathonRepository.getHackathonById(idHackathon).getSottomissioni().size() == 10)
             throw new IllegalArgumentException("Limite massimo di sottomissioni raggiunto");
 

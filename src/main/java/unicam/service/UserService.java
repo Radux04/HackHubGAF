@@ -18,7 +18,7 @@ public class UserService {
         this.inMemoryInvitiRepository =  inMemoryInvitiRepository;
     }
 
-    public boolean risponde(boolean risposta, int idInvito, int idUser) {
+    public boolean risponde(boolean risposta, Long idInvito, Long idUser) {
         User user = inMemoryUserRepository.findById(idUser);
 
         //User's role
@@ -50,7 +50,7 @@ public class UserService {
         return false;
     }
 
-    public boolean diventaMembro(int idTeam, int idUser) {
+    public boolean diventaMembro(Long idTeam, Long idUser) {
         inMemoryUserRepository.findById(idUser).setIdTeam(idTeam);
         return inMemoryTeamRepository.getTeamById(idTeam).getMembri().add(idUser);
     }

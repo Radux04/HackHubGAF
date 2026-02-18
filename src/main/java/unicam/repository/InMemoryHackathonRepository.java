@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class InMemoryHackathonRepository implements  HackathonRepository {
-    private final Map<Integer, Hackathon> hackathonByID = new HashMap<>();
+    private final Map<Long, Hackathon> hackathonByID = new HashMap<>();
 
     @Override
     public Hackathon save(Hackathon hackathon) {
@@ -15,7 +15,7 @@ public class InMemoryHackathonRepository implements  HackathonRepository {
     }
 
     @Override
-    public Hackathon getHackathonById(int id) {
+    public Hackathon getHackathonById(Long id) {
         return hackathonByID.get(id);
     }
 }
