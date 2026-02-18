@@ -1,11 +1,10 @@
 package unicam.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import unicam.model.hackathon.entity.Hackathon;
 
 import java.util.List;
 
-public interface HackathonRepository {
-
-    Hackathon save(Hackathon hackathon);
-    Hackathon getHackathonById(int idHackaton);
+public interface HackathonRepository extends JpaRepository<Hackathon, Long> {
+    
 }

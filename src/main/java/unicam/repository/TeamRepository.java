@@ -1,12 +1,10 @@
 package unicam.repository;
 
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import unicam.model.team.Team;
 
-public interface TeamRepository {
-
+public interface TeamRepository extends JpaRepository<Team,Long> {
     boolean existsByNome(String nome);
-    Team save(Team team);
     Team findTeamByCoordinatoreId(int coordinatoreId);
-    Team getTeamById(int id);
 }
