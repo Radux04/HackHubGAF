@@ -8,6 +8,8 @@ import unicam.model.team.Team;
 import unicam.repository.*;
 import unicam.model.supporto.RichiestaSupporto;
 import unicam.model.utenti.staff.Staff;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -102,9 +104,14 @@ public class HackathonService {
 
 
     public List<RichiestaSupporto> visualizzaRichiesteSupporto(Long idHackathon) {
-
-        return richiestaSupportoRepository.findByHackathonId(idHackathon);
-
+        List<RichiestaSupporto> richieste = new ArrayList<>();
+        Hackathon hackathon = hackathonRepository.findById(idHackathon).get();
+        for (RichiestaSupporto richiestaSupporto : richiestaSupportoRepository.findByHackathon(hackathon)) {
+            if(richiestaSupporto.getHackathon().getId().equals(idHackathon)) {
+                richieste.add(richiestaSupporto);
+            }
+        }
+        return richieste;
     }
 
     public void creaSottomissione(String descrizione, String titolo, Long idHackathon) {
