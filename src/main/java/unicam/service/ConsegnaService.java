@@ -31,23 +31,18 @@ public class ConsegnaService {
         Optional<Iscrizione> i = this.iscrizioneRepository.findById(sottomissione.getIdIscrizione());
         Optional<Sottomissione> s = this.sottomissioniRepository.findById(sottomissione.getIdSottomissione());
 
+        Consegna c = new Consegna(sottomissione.getDescrizione(), s.get(), i.get());
 
-        if(i.isPresent() && s.isPresent()){
-            Consegna c = new Consegna(sottomissione.getDescrizione(), s.get(), i.get());
-
-            //controllo se esiste già una sottomissione inviata dallo stesso team e che risponde alla stessa consegna
-            for(Consegna co : consegnaRepository.findAll()){
-                if(co.getIscrizione().equals(c.getIscrizione()) && co.getSottomissione().equals(c.getSottomissione())) return false;
-            }
-
-            this.consegnaRepository.save(c);
-            return true;
+        //controllo se esiste già una sottomissione inviata dallo stesso team e che risponde alla stessa consegna
+        for(Consegna co : consegnaRepository.findAll()){
+            if(co.getIscrizione().equals(c.getIscrizione()) && co.getSottomissione().equals(c.getSottomissione())) return false;
         }
 
+        this.consegnaRepository.save(c);
+        return true;
     }
 
     public void ritiraSottomissione(Long idConsegna) {
-        consegnaRepository.remove(idConsegna);
-
+        consegnaRepository.delete(consegnaRepository.findById(idConsegna).get());
     }
 }
