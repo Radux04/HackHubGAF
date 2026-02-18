@@ -20,7 +20,7 @@ public class ConsegnaController {
     }
 
     @DeleteMapping("/{idConsegna}")
-    public void ritiraSottomissione(@PathVariable Long idConsegna) {
+    public void ritiraSottomissione(@RequestBody Long idConsegna) {
         this.consegnaService.ritiraSottomissione(idConsegna);
     }
 }
