@@ -9,6 +9,8 @@ import unicam.model.team.builder.TeamBuilder;
 import unicam.model.utenti.user.Ruoli;
 import unicam.model.utenti.user.User;
 
+import java.util.Optional;
+
 @Service
 public class TeamService {
     private final TeamRepository teamRepository;
@@ -77,6 +79,17 @@ public class TeamService {
     public boolean removeMemberById(Long membroId) {
         teamRepository.findById(userRepository.findById(membroId).get().getTeam().getId()).get().getMembri().remove(userRepository.findById(membroId).get());
         userRepository.findById(membroId).get().setId(null);
+        return true;
+    }
+
+    public boolean nuovoCoordinatore(Long membroId) {
+        Optional<User> u = userRepository.findById(membroId);
+        if(userRepository.findById(membroId).get().getTeam().getMembri().size() < 2){
+            throw   new IllegalArgumentException("non ci sono altri membri nel team");
+        }
+        userRepository.findById(membroId).get().setRuolo(Ruoli.MEMBROTEAM);
+        userRepository.findById(membroId).get().getTeam().setCoordinatore(userRepository.findById(membroId).get());
+        userRepository.findById(membroId).get().setRuolo(Ruoli.COORDINATORE);
         return true;
     }
 }
