@@ -24,4 +24,8 @@ public class IscrizioneTeamController {
 
         return iscrizioneTeamService.iscriviTeam(iscrizioneDTO);
     }
+
+    public void annullaIscrizione(Long coordinatoreId){
+        iscrizioneTeamService.annullaIscrizione(coordinatoreId);
+    }
 }
