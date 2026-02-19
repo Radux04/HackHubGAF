@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import unicam.model.team.Team;
+import unicam.model.utenti.staff.Staff;
 
 @Entity
 @Data
@@ -18,5 +19,9 @@ public class Segnalazione {
     private Long id;
     @ManyToOne
     private Team team;
+    @ManyToOne
+    private Hackathon hackathon;
+    @ManyToOne
+    private Staff mentore;
     private String descrizione;
 }
