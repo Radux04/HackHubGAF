@@ -76,92 +76,23 @@ public class IscrizioneTeamService {
         return iscrizione;
     }
 
-}
-//package unicam.service;
-//
-//import lombok.RequiredArgsConstructor;
-//import org.springframework.stereotype.Service;
-//import org.springframework.transaction.annotation.Transactional;
-//import unicam.dto.iscrizione.IscrizioneDTO;
-//import unicam.model.hackathon.entity.Hackathon;
-//import unicam.model.hackathon.entity.StatiHackathon;
-//import unicam.model.iscrizione.Iscrizione;
-//import unicam.model.iscrizione.builder.IscrizioneBuilder;
-//import unicam.model.team.Team;
-//import unicam.model.utenti.user.Ruoli;
-//import unicam.model.utenti.user.User;
-//import unicam.repository.HackathonRepository;
-//import unicam.repository.IscrizioneRepository;
-//import unicam.repository.TeamRepository;
-//import unicam.repository.UserRepository;
-//
-//@Service
-//@RequiredArgsConstructor
-//public class IscrizioneTeamService { // <- questo è il "mediator" del caso d'uso
-//
-//    private final TeamRepository teamRepository;
-//    private final IscrizioneRepository iscrizioneRepository;
-//    private final HackathonRepository hackathonRepository;
-//    private final UserRepository userRepository;
-//
-//    /**
-//     * Mediator/UseCase: orchestration completa del caso d'uso "Iscrivi Team all'Hackathon".
-//     */
-//    @Transactional
-//    public Iscrizione execute(IscrizioneDTO dto) {
-//
-//        // 1) Recupero coordinatore
-//        User coordinatore = userRepository.findById(dto.getCoordinatoreId())
-//                .orElseThrow(() -> new IllegalArgumentException("Coordinatore non trovato"));
-//
-//        if (coordinatore.getRuolo() != Ruoli.COORDINATORE) {
-//            throw new IllegalArgumentException("Non puoi fare questa azione: non sei Coordinatore");
-//        }
-//
-//        // 2) Recupero team dal coordinatore
-//        Team team = teamRepository.findByCoordinatore(coordinatore);
-//        if (team == null) {
-//            throw new IllegalArgumentException("Team del coordinatore non trovato");
-//        }
-//
-//        if (team.isOccupato()) {
-//            throw new IllegalArgumentException("Il team risulta già iscritto a un hackathon non concluso");
-//        }
-//
-//        // 3) Recupero hackathon
-//        Hackathon hackathon = hackathonRepository.findById(dto.getIdHackathon())
-//                .orElseThrow(() -> new IllegalArgumentException("Hackathon non trovato"));
-//
-//        if (hackathon.getStato() != StatiHackathon.IN_ISCRIZIONE) {
-//            throw new IllegalArgumentException("Hackathon non in stato IN_ISCRIZIONE");
-//        }
-//
-//        if (hackathon.getMaxSize() < team.getMembri().size()) {
-//            throw new IllegalArgumentException("Il team ha troppi membri per partecipare a questo hackathon");
-//        }
-//
-//        // (opzionale ma consigliato) evita doppie iscrizioni stesso hackathon/team
-//        // if (iscrizioneRepository.existsByHackathonIdAndTeamId(hackathon.getId(), team.getId())) {
-//        //     throw new IllegalArgumentException("Il team risulta già iscritto a questo hackathon");
-//        // }
-//
-//        // 4) Aggiorno stati "occupato"
-//        team.setOccupato(true);
-//
-//        // Se User è una entity gestita e la relazione è corretta, basta settare e il flush avviene a fine TX.
-//        // Se NON hai cascade/managed state, salva esplicitamente gli user.
-//        for (User membro : team.getMembri()) {
-//            membro.setOccupato(true);
-//        }
-//
-//        // 5) Creo iscrizione (Builder come già usi)
-//        Iscrizione iscrizione = new IscrizioneBuilder()
-//                .buildHackatho(hackathon)
-//                .buildTeam(team)
-//                .build();
-//
-//        // 6) Persist
-//        return iscrizioneRepository.save(iscrizione);
-//    }
-//}
+    public void annullaIscrizione(Long coordinatoreId){
 
+        //ottengo il coordinatore tramite l'id
+        Optional<User> coordinatore =  userRepository.findById(coordinatoreId);
+        //ottengo il team tramite il coordinatore
+        Team team = coordinatore.get().getTeam();
+
+        //rimuovo l'iscrizione del team
+        iscrizioneRepository.removeIscrizioneByTeamId(team.getId());
+
+        //imposto occupato come liberi
+        teamRepository.findById(team.getId()).get().setOccupato(false);
+
+        //imposto lo stato di tutti i membri del team a occupato
+        for(User u : teamRepository.findById(team.getId()).get().getMembri()){
+            u.setOccupato(false);
+        }
+    }
+
+}
