@@ -37,8 +37,8 @@ public class HackathonController {
     }
 
 
-    public boolean segnalaTeam(Long teamId, Long hackathonId, Long mentoreId, String descrizione){
-        hackathonService.segnalaTeam(teamId, hackathonId, mentoreId, descrizione);
+    public boolean segnalaTeam(SegnalaTeamDTO  segnalaTeamDTO) {
+        hackathonService.segnalaTeam(segnalaTeamDTO);
         return true;
     }
 }
