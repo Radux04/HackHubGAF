@@ -83,11 +83,11 @@ public class TeamService {
     }
 
     public boolean nuovoCoordinatore(Long membroId) {
-        Optional<User> u = userRepository.findById(membroId);
+
         if(userRepository.findById(membroId).get().getTeam().getMembri().size() < 2){
             throw   new IllegalArgumentException("non ci sono altri membri nel team");
         }
-        userRepository.findById(membroId).get().setRuolo(Ruoli.MEMBROTEAM);
+        userRepository.findById(membroId).get().getTeam().getCoordinatore().setRuolo(Ruoli.MEMBROTEAM);
         userRepository.findById(membroId).get().getTeam().setCoordinatore(userRepository.findById(membroId).get());
         userRepository.findById(membroId).get().setRuolo(Ruoli.COORDINATORE);
         return true;
