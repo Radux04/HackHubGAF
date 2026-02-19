@@ -8,4 +8,6 @@ import java.util.Optional;
 @Repository
 public interface IscrizioneRepository extends JpaRepository<Iscrizione, Long> {
     Optional<Iscrizione> findByTeamId(Long teamId);
+
+    void removeIscrizioneByTeamId(Long teamId);
 }
