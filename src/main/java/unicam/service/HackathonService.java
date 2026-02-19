@@ -51,7 +51,9 @@ public class HackathonService {
         String nome = hackathonRequest.nome();
         Long idOrganizzatore = hackathonRequest.idOrganizzatore();
 
-        Staff organizzatore = staffRepository.findById(idOrganizzatore).get();
+        Staff organizzatore = staffRepository.findById(idOrganizzatore)
+                .orElseThrow(() -> new IllegalArgumentException("Organizzatore non trovato"));
+
         Staff giudice = staffRepository.findById(staff.idGiudice()).get();
         List<Staff> mentori = staff.mentori().stream().map(m -> staffRepository.findById(m).get()).toList();
 
@@ -87,8 +89,10 @@ public class HackathonService {
                         .buildRegolamento(descrizione.regolamento());
                 Hackathon hackathon = hackathonBuilder.build();
 
+                hackathonRepository.save(hackathon);
 
                 giudice.setOccupato(true);
+                giudice.setHackathon(hackathon);
                 for (Staff m : mentori) {
                     //setta lo stato del mentore a occupato
                     m.setOccupato(true);
@@ -103,7 +107,7 @@ public class HackathonService {
                 staffRepository.save(giudice);
                 staffRepository.saveAll(mentori);
 
-                return hackathonRepository.save(hackathon);
+                return hackathon;
             }
 
         }

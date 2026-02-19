@@ -34,17 +34,17 @@ public class HackathonBuilder {
         return this;
     }
 
-    public HackathonBuilder buildScadenzaIscrizioni(LocalDateTime scadenza) {
+    public HackathonBuilder buildScadenzaIscrizioni(String scadenza) {
         hackathon.setScadenzaIscrizioni(scadenza);
         return this;
     }
 
-    public HackathonBuilder buildDataInizio(LocalDateTime dataInizio) {
+    public HackathonBuilder buildDataInizio(String dataInizio) {
         hackathon.setDataInizio(dataInizio);
         return this;
     }
 
-    public HackathonBuilder buildDataFine(LocalDateTime dataFine) {
+    public HackathonBuilder buildDataFine(String dataFine) {
         hackathon.setDataFine(dataFine);
         return this;
     }
