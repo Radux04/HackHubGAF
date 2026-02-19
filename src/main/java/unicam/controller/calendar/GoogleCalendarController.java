@@ -1,13 +1,10 @@
 package unicam.controller.calendar;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import unicam.service.calendar.CalendarFacade;
-import unicam.service.calendar.GoogleCalendarService;
+import unicam.service.calendar.CalendarFacadeImpl;
 
 import java.time.OffsetDateTime;
 
@@ -50,7 +47,7 @@ public class GoogleCalendarController {
 //            String attendeeEmail
 //    ) {}
 
-    private final CalendarFacade calendarFacade;
+    private final CalendarFacadeImpl calendarFacade;
 
     // DTO interno, come avevamo fatto
     public record CreateCallRequest(
