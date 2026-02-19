@@ -1,13 +1,18 @@
 package unicam.service.calendar;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import net.fortuna.ical4j.model.DateTime;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 import unicam.controller.calendar.GoogleCalendarController.CreateCallRequest;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.*;
 
 
@@ -85,21 +90,105 @@ public class GoogleCalendarService {
         this.accessTokenExpiry = Instant.now().plusSeconds(expiresIn - 30); // margine
     }
 
+//    public String insertCall(String calendarId, CreateCallRequest req, boolean withMeet) {
+//        ensureValidAccessToken();
+//
+//        // Convertiamo start/end in UTC (Z) per evitare casini di formato
+//        String startUtc = req.start();
+//        String endUtc = req.end();
+//
+//        Map<String, Object> body = new LinkedHashMap<>();
+//        body.put("summary", req.title());
+//        if (req.description() != null) {
+//            body.put("description", req.description());
+//        }
+//
+//        // start / end come consiglia Google: dateTime + timeZone
+//        Map<String, Object> start = new LinkedHashMap<>();
+//        start.put("dateTime", startUtc.toString());     // es: 2026-02-20T14:00:00Z
+//        start.put("timeZone", "Europe/Rome");
+//
+//        Map<String, Object> end = new LinkedHashMap<>();
+//        end.put("dateTime", endUtc.toString());
+//        end.put("timeZone", "Europe/Rome");
+//
+//        body.put("start", start);
+//        body.put("end", end);
+//
+//        // PER ORA: niente attendees, niente Meet, per togliere variabili
+//        // Se vuoi riaggiungere l’attendee dopo che funziona:
+//        // if (req.attendeeEmail() != null && !req.attendeeEmail().isBlank()) {
+//        //     body.put("attendees", List.of(Map.of("email", req.attendeeEmail())));
+//        // }
+//
+//        String uri = "https://www.googleapis.com/calendar/v3/calendars/{calId}/events";
+//
+//        // PER ORA ignoriamo withMeet, vogliamo solo far funzionare l'evento base
+//        // Se dopo funziona, aggiungiamo conferenceDataVersion ecc.
+//
+//        try {
+//            System.out.println("=== REQUEST BODY VERSO GOOGLE ===");
+//            System.out.println(body);
+//            System.out.println("=================================");
+//
+//            Map<?, ?> resp = webClient.post()
+//                    .uri(uri, calendarId)
+//                    .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
+//                    .contentType(MediaType.APPLICATION_JSON)
+//                    .accept(MediaType.APPLICATION_JSON)
+//                    .bodyValue(body)
+//                    .retrieve()
+//                    .bodyToMono(Map.class)
+//                    .block();
+//
+//            System.out.println("=== RESPONSE GOOGLE ===");
+//            System.out.println(resp);
+//            System.out.println("=======================");
+//
+//            if (resp == null || resp.get("id") == null) {
+//                throw new IllegalStateException("Creazione evento fallita: " + resp);
+//            }
+//
+//            return resp.get("id").toString();
+//
+//        } catch (WebClientResponseException ex) {
+//            System.err.println("=== ERRORE GOOGLE CALENDAR ===");
+//            System.err.println("Status: " + ex.getStatusCode());
+//            System.err.println("Body: " + ex.getResponseBodyAsString());
+//            System.err.println("================================");
+//            throw new RuntimeException("Errore Google Calendar: " + ex.getStatusCode(), ex);
+//        }
+//    }
+
     public String insertCall(String calendarId, CreateCallRequest req, boolean withMeet) {
         ensureValidAccessToken();
 
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("summary", req.title());
-        if (req.description() != null) body.put("description", req.description());
 
-        body.put("start", Map.of("dateTime", req.start().toString()));
-        body.put("end", Map.of("dateTime", req.end().toString()));
+        if (req.description() != null) {
+            body.put("description", req.description());
+        }
+
+        // start / end
+        Map<String, Object> start = new LinkedHashMap<>();
+        start.put("dateTime", req.start());   // ora è String
+        start.put("timeZone", "Europe/Rome");
+
+        Map<String, Object> end = new LinkedHashMap<>();
+        end.put("dateTime", req.end());
+        end.put("timeZone", "Europe/Rome");
+
+        body.put("start", start);
+        body.put("end", end);
 
         if (req.attendeeEmail() != null && !req.attendeeEmail().isBlank()) {
             body.put("attendees", List.of(Map.of("email", req.attendeeEmail())));
         }
 
         String uri = "https://www.googleapis.com/calendar/v3/calendars/{calId}/events";
+
+        // 🔥 AGGIUNTA MEET
         if (withMeet) {
             body.put("conferenceData", Map.of(
                     "createRequest", Map.of(
@@ -107,29 +196,54 @@ public class GoogleCalendarService {
                             "conferenceSolutionKey", Map.of("type", "hangoutsMeet")
                     )
             ));
-            uri = "https://www.googleapis.com/calendar/v3/calendars/{calId}/events?conferenceDataVersion=1";
+
+            uri += "?conferenceDataVersion=1";
         }
 
-        Map<?, ?> resp = webClient.post()
-                .uri(uri, calendarId)
-                .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .bodyValue(body)
-                .retrieve()
-                .bodyToMono(Map.class)
-                .block();
+        try {
+            Map<?, ?> resp = webClient.post()
+                    .uri(uri, calendarId)
+                    .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .bodyValue(body)
+                    .retrieve()
+                    .bodyToMono(Map.class)
+                    .block();
 
-        if (resp == null || resp.get("id") == null) {
-            throw new IllegalStateException("Creazione evento fallita: " + resp);
+            if (resp == null || resp.get("id") == null) {
+                throw new IllegalStateException("Creazione evento fallita: " + resp);
+            }
+
+            // 🔥 Recuperiamo il link Meet se esiste
+            if (withMeet && resp.get("conferenceData") != null) {
+                Map<?, ?> conf = (Map<?, ?>) resp.get("conferenceData");
+                if (conf.get("entryPoints") != null) {
+                    List<?> entryPoints = (List<?>) conf.get("entryPoints");
+                    for (Object ep : entryPoints) {
+                        Map<?, ?> entry = (Map<?, ?>) ep;
+                        if ("video".equals(entry.get("entryPointType"))) {
+                            System.out.println("MEET LINK: " + entry.get("uri"));
+                        }
+                    }
+                }
+            }
+
+            return resp.get("id").toString();
+
+        } catch (WebClientResponseException ex) {
+            System.err.println("=== ERRORE GOOGLE CALENDAR ===");
+            System.err.println("Status: " + ex.getStatusCode());
+            System.err.println("Body: " + ex.getResponseBodyAsString());
+            System.err.println("================================");
+            throw new RuntimeException("Errore Google Calendar: " + ex.getStatusCode(), ex);
         }
-
-        return resp.get("id").toString();
     }
+
 
     private void ensureValidAccessToken() {
         if (accessToken == null) {
-            throw new IllegalStateException("Devi prima autorizzare: apri GET /google/auth");
+            throw new IllegalStateException("Devi prima autorizzare: apri GET /google/auth e rifai il giro.");
         }
         if (accessTokenExpiry != null && Instant.now().isAfter(accessTokenExpiry)) {
             refreshAccessToken();
