@@ -12,6 +12,7 @@ import unicam.model.utenti.user.User;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table
 public class Invito {
 
     @Id

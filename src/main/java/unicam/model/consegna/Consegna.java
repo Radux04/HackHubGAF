@@ -14,6 +14,7 @@ import unicam.model.iscrizione.Iscrizione;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table
 public class Consegna {
 
     @Id

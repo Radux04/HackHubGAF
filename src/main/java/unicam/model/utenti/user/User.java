@@ -1,9 +1,6 @@
 package unicam.model.utenti.user;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +11,7 @@ import unicam.model.utenti.Utente;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table
 public class User extends Utente {
     @Enumerated(EnumType.STRING)
     private Ruoli ruolo;

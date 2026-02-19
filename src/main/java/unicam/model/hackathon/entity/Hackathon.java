@@ -12,6 +12,7 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor
+@Table(name = "Hackathon")
 public class Hackathon {
 
     @Id

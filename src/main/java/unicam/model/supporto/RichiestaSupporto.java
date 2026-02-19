@@ -12,6 +12,7 @@ import unicam.model.team.Team;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table
 public class RichiestaSupporto {
 
     @Id
