@@ -28,4 +28,9 @@ public class TeamController {
     public boolean removeMemberById(@PathVariable Long membroId){
         return teamService.removeMemberById(membroId);
     }
+
+    @PutMapping("/coordinatore/{membroId}")
+    public boolean nuovoCoordinatore(@PathVariable Long membroId){
+        return teamService.nuovoCoordinatore(membroId);
+    }
 }
