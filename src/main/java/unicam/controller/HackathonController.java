@@ -16,7 +16,7 @@ public class HackathonController {
     private final HackathonService hackathonService;
 
 
-    @PostMapping
+    @PostMapping("/crea")
     public Hackathon CreaHackathon(@RequestBody HackathonRequest hackathonRequest) {
         return hackathonService.CreaHackathon(hackathonRequest);
     }
@@ -26,12 +26,12 @@ public class HackathonController {
         return hackathonService.richiediSupporto(richiestaSupportoDTO);
     }
 
-    @GetMapping
+    @GetMapping("/{idHackaton}/richiesteSupporto")
     public List<RichiestaSupporto> visualizzaRichiestaSupporto(@PathVariable Long idHackaton) {
         return hackathonService.visualizzaRichiesteSupporto(idHackaton);
     }
 
-    @PostMapping("/sottomissione")
+    @PostMapping("/creaSottomissione")
     public void creaSottomissione(@RequestBody CreaSottomissioneDTO creaSottomissioneDTO) {
         hackathonService.creaSottomissione(creaSottomissioneDTO);
     }
