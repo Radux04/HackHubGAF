@@ -133,4 +133,14 @@ public class HackathonService {
         sottomissioniRepository.save(sottomissione);
         hackathonRepository.findById(creaSottomissioneDTO.getIdHackaton()).get().getSottomissioni().add(sottomissione);
     }
+
+
+
+    public Hackathon aggiungiMentore(AggiungiMentoreDTO aggiungiMentoreDTO)
+    {
+        Hackathon hackathon = hackathonRepository.findById(aggiungiMentoreDTO.getIdHackaton()).get().getMentori().add(staffRepository.findById(aggiungiMentoreDTO.getIdMentore()).get());
+        return hackathon;
+
+
+    }
 }

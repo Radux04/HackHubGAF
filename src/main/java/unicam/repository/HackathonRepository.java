@@ -6,5 +6,5 @@ import unicam.model.hackathon.entity.Hackathon;
 public interface HackathonRepository extends JpaRepository<Hackathon, Long> {
 
 
-    
+    Long id(Long id);
 }
