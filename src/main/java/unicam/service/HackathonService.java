@@ -11,6 +11,7 @@ import unicam.model.utenti.staff.Staff;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class HackathonService {
@@ -20,19 +21,22 @@ public class HackathonService {
     private final IscrizioneRepository iscrizioniRepository;
     private final TeamRepository teamRepository;
     private final SottomissioniRepository sottomissioniRepository;
+    private final UserRepository userRepository;
 
     public HackathonService(HackathonRepository hackathonRepository
             ,StaffRepository staffRepository
             ,RichiestaSupportoRepository richiestaSupportoRepository
             ,IscrizioneRepository iscrizioniRepository
             ,TeamRepository teamRepository
-            ,SottomissioniRepository sottomissioniRepository) {
+            ,SottomissioniRepository sottomissioniRepository
+            ,UserRepository userRepository) {
         this.hackathonRepository = hackathonRepository;
         this.staffRepository = staffRepository;
         this.richiestaSupportoRepository = richiestaSupportoRepository;
         this.iscrizioniRepository = iscrizioniRepository;
         this.teamRepository = teamRepository;
         this.sottomissioniRepository = sottomissioniRepository;
+        this.userRepository = userRepository;
     }
 
     public Hackathon CreaHackathon(HackathonRequest hackathonRequest) {
@@ -140,5 +144,17 @@ public class HackathonService {
         staffRepository.findById(aggiungiMentoreDTO.idMentore()).get().setOccupato(true);
         hackathonRepository.findById(aggiungiMentoreDTO.idHackaton()).get().getMentori().add(staffRepository.findById(aggiungiMentoreDTO.idMentore()).get());
         return hackathonRepository.findById(aggiungiMentoreDTO.idHackaton()).get();
+    }
+
+    public boolean segnalaTeam(Long teamId, Long hackathonId, Long mentoreId, String descrizione){
+
+        Optional<Team> team = teamRepository.findById(teamId);
+        Optional<Hackathon> hackathon = hackathonRepository.findById(hackathonId);
+        Optional<Staff> mentore = userRepository.findById(mentoreId);
+
+        Segnalazione s = new Segnalazione(team.get(), hackathon.get(), mentore.get(), descrizione);
+
+        return true;
+
     }
 }

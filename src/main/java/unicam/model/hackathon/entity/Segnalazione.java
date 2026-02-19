@@ -24,4 +24,12 @@ public class Segnalazione {
     @ManyToOne
     private Staff mentore;
     private String descrizione;
+
+
+    public Segnalazione(Team team,  Hackathon hackathon, Staff mentore, String descrizione) {
+        this.team = team;
+        this.hackathon = hackathon;
+        this.mentore = mentore;
+        this.descrizione = descrizione;
+    }
 }
