@@ -35,4 +35,10 @@ public class HackathonController {
     public void creaSottomissione(@RequestBody CreaSottomissioneDTO creaSottomissioneDTO) {
         hackathonService.creaSottomissione(creaSottomissioneDTO);
     }
+
+
+    public boolean segnalaTeam(Long teamId, Long hackathonId, Long mentoreId, String descrizione){
+        hackathonService.segnalaTeam(teamId, hackathonId, mentoreId, descrizione);
+        return true;
+    }
 }
