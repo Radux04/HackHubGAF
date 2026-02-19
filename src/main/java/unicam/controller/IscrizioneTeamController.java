@@ -2,10 +2,7 @@ package unicam.controller;
 
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import unicam.dto.iscrizione.IscrizioneDTO;
 import unicam.model.iscrizione.Iscrizione;
 import unicam.service.IscrizioneTeamService;
@@ -25,7 +22,8 @@ public class IscrizioneTeamController {
         return iscrizioneTeamService.iscriviTeam(iscrizioneDTO);
     }
 
-    public void annullaIscrizione(Long coordinatoreId){
+    @DeleteMapping
+    public void annullaIscrizione(@PathVariable Long coordinatoreId){
         iscrizioneTeamService.annullaIscrizione(coordinatoreId);
     }
 }
