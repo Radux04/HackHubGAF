@@ -78,6 +78,7 @@ public class IscrizioneTeamService {
 
     public void annullaIscrizione(Long coordinatoreId){
 
+
         //ottengo il coordinatore tramite l'id
         Optional<User> coordinatore =  userRepository.findById(coordinatoreId);
         //ottengo il team tramite il coordinatore

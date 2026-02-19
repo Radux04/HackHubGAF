@@ -5,6 +5,7 @@ import unicam.dto.hackathon.*;
 import unicam.model.hackathon.builder.HackathonBuilder;
 import unicam.model.hackathon.entity.*;
 import unicam.model.team.Team;
+import unicam.model.utenti.user.User;
 import unicam.repository.*;
 import unicam.model.supporto.RichiestaSupporto;
 import unicam.model.utenti.staff.Staff;
@@ -22,6 +23,7 @@ public class HackathonService {
     private final TeamRepository teamRepository;
     private final SottomissioniRepository sottomissioniRepository;
     private final UserRepository userRepository;
+    private final SegnalazioneRepository segnalazioneRepository;
 
     public HackathonService(HackathonRepository hackathonRepository
             ,StaffRepository staffRepository
@@ -29,7 +31,8 @@ public class HackathonService {
             ,IscrizioneRepository iscrizioniRepository
             ,TeamRepository teamRepository
             ,SottomissioniRepository sottomissioniRepository
-            ,UserRepository userRepository) {
+            ,UserRepository userRepository
+            ,SegnalazioneRepository segnalazioneRepository) {
         this.hackathonRepository = hackathonRepository;
         this.staffRepository = staffRepository;
         this.richiestaSupportoRepository = richiestaSupportoRepository;
@@ -37,6 +40,7 @@ public class HackathonService {
         this.teamRepository = teamRepository;
         this.sottomissioniRepository = sottomissioniRepository;
         this.userRepository = userRepository;
+        this.segnalazioneRepository = segnalazioneRepository;
     }
 
     public Hackathon CreaHackathon(HackathonRequest hackathonRequest) {
@@ -146,13 +150,17 @@ public class HackathonService {
         return hackathonRepository.findById(aggiungiMentoreDTO.idHackaton()).get();
     }
 
-    public boolean segnalaTeam(Long teamId, Long hackathonId, Long mentoreId, String descrizione){
 
-        Optional<Team> team = teamRepository.findById(teamId);
-        Optional<Hackathon> hackathon = hackathonRepository.findById(hackathonId);
-        Optional<Staff> mentore = userRepository.findById(mentoreId);
+    public boolean segnalaTeam(SegnalaTeamDTO  segnalaTeamDTO){
 
-        Segnalazione s = new Segnalazione(team.get(), hackathon.get(), mentore.get(), descrizione);
+        Optional<Team> team = teamRepository.findById(segnalaTeamDTO.teamId());
+        Optional<Hackathon> hackathon = hackathonRepository.findById(segnalaTeamDTO.hackathonId());
+        Optional<Staff> mentore = staffRepository.findById(segnalaTeamDTO.mentoreId());
+
+        //crea la segnalazione
+        Segnalazione s = new Segnalazione(team.get(), hackathon.get(), mentore.get(), segnalaTeamDTO.descrizione());
+        //salva la segnalazione nella repository
+        segnalazioneRepository.save(s);
 
         return true;
 
