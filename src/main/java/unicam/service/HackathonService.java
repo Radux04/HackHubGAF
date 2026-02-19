@@ -138,7 +138,8 @@ public class HackathonService {
 
     public Hackathon aggiungiMentore(AggiungiMentoreDTO aggiungiMentoreDTO)
     {
-        Hackathon hackathon = hackathonRepository.findById(aggiungiMentoreDTO.getIdHackaton()).get().getMentori().add(staffRepository.findById(aggiungiMentoreDTO.getIdMentore()).get());
+        hackathonRepository.findById(aggiungiMentoreDTO.getIdHackaton()).get().getMentori().add(staffRepository.findById(aggiungiMentoreDTO.getIdMentore()).get());
+        Hackathon hackathon = hackathonRepository.findById(aggiungiMentoreDTO.getIdHackaton()).get();
         return hackathon;
 
 
