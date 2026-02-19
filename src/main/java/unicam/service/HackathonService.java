@@ -37,15 +37,15 @@ public class HackathonService {
 
     public Hackathon CreaHackathon(HackathonRequest hackathonRequest) {
 
-        DescrizioneHT descrizione = hackathonRequest.getDescrizione();
-        PlacementHT placement = hackathonRequest.getPlacement();
-        StaffHT staff = hackathonRequest.getStaff();
-        String nome = hackathonRequest.getNome();
-        Long idOrganizzatore = hackathonRequest.getIdOrganizzatore();
+        DescrizioneHT descrizione = hackathonRequest.descrizione();
+        PlacementHT placement = hackathonRequest.placement();
+        StaffHT staff = hackathonRequest.staff();
+        String nome = hackathonRequest.nome();
+        Long idOrganizzatore = hackathonRequest.idOrganizzatore();
 
         Staff organizzatore = staffRepository.findById(idOrganizzatore).get();
-        Staff giudice = staffRepository.findById(staff.getIdGiudice()).get();
-        List<Staff> mentori = staff.getMentori().stream().map(m -> staffRepository.findById(m).get()).toList();
+        Staff giudice = staffRepository.findById(staff.idGiudice()).get();
+        List<Staff> mentori = staff.mentori().stream().map(m -> staffRepository.findById(m).get()).toList();
 
 
         //se l'organizzatore è già occupato in un altro h
@@ -67,16 +67,16 @@ public class HackathonService {
                 //l'hackathon viene creato attraverso il builder
                 HackathonBuilder hackathonBuilder = new HackathonBuilder();
                 hackathonBuilder.buildName(nome)
-                        .buildDataInizio(placement.getDataInizio())
-                        .buildDataFine(placement.getDataFine())
-                        .buildScadenzaIscrizioni(placement.getScadenzaIscrizioni())
+                        .buildDataInizio(placement.dataInizio())
+                        .buildDataFine(placement.dataFine())
+                        .buildScadenzaIscrizioni(placement.scadenzaIscrizioni())
                         .buildGiudice(giudice)
-                        .buildLuogo(placement.getLuogo())
-                        .buildMaxSize(descrizione.getMaxSize())
+                        .buildLuogo(placement.luogo())
+                        .buildMaxSize(descrizione.maxSize())
                         .buildMentori(mentori)
                         .buildOrganizzatore(organizzatore)
-                        .buildPremio(descrizione.getPremio())
-                        .buildRegolamento(descrizione.getRegolamento());
+                        .buildPremio(descrizione.premio())
+                        .buildRegolamento(descrizione.regolamento());
                 Hackathon hackathon = hackathonBuilder.build();
 
 
@@ -102,13 +102,13 @@ public class HackathonService {
     }
 
     public RichiestaSupporto richiediSupporto(RichiestaSupportoDTO richiestaSupportoDTO) {
-        Long hackathonId = iscrizioniRepository.findByTeamId(richiestaSupportoDTO.getIdTeam())
+        Long hackathonId = iscrizioniRepository.findByTeamId(richiestaSupportoDTO.idTeam())
                 .map(i -> i.getHt().getId())
                 .orElse(null);
 
         Hackathon hackathon = hackathonRepository.findById(hackathonId).get();//.orElseThrow(() -> new IllegalArgumentException("Hackathon non trovato"));
-        Team team = teamRepository.findById(richiestaSupportoDTO.getIdTeam()).get();//.orElseThrow(() -> new IllegalArgumentException("Team non trovato"));
-        RichiestaSupporto richiesta = new RichiestaSupporto(team, richiestaSupportoDTO.getDescrizione(), hackathon);
+        Team team = teamRepository.findById(richiestaSupportoDTO.idTeam()).get();//.orElseThrow(() -> new IllegalArgumentException("Team non trovato"));
+        RichiestaSupporto richiesta = new RichiestaSupporto(team, richiestaSupportoDTO.descrizione(), hackathon);
         return richiestaSupportoRepository.save(richiesta);
     }
 
@@ -126,22 +126,19 @@ public class HackathonService {
 
 
     public void creaSottomissione(CreaSottomissioneDTO creaSottomissioneDTO) {
-        if(hackathonRepository.findById(creaSottomissioneDTO.getIdHackaton()).get().getSottomissioni().size() == 10)
+        if(hackathonRepository.findById(creaSottomissioneDTO.idHackaton()).get().getSottomissioni().size() == 10)
             throw new IllegalArgumentException("Limite massimo di sottomissioni raggiunto");
 
-        Sottomissione sottomissione = new Sottomissione(creaSottomissioneDTO.getTitolo(), creaSottomissioneDTO.getDescrizione());
+        Sottomissione sottomissione = new Sottomissione(creaSottomissioneDTO.titolo(), creaSottomissioneDTO.descrizione());
         sottomissioniRepository.save(sottomissione);
-        hackathonRepository.findById(creaSottomissioneDTO.getIdHackaton()).get().getSottomissioni().add(sottomissione);
+        hackathonRepository.findById(creaSottomissioneDTO.idHackaton()).get().getSottomissioni().add(sottomissione);
     }
 
 
 
-    public Hackathon aggiungiMentore(AggiungiMentoreDTO aggiungiMentoreDTO)
-    {
-        hackathonRepository.findById(aggiungiMentoreDTO.getIdHackaton()).get().getMentori().add(staffRepository.findById(aggiungiMentoreDTO.getIdMentore()).get());
-        Hackathon hackathon = hackathonRepository.findById(aggiungiMentoreDTO.getIdHackaton()).get();
-        return hackathon;
-
-
+    public Hackathon aggiungiMentore(AggiungiMentoreDTO aggiungiMentoreDTO) {
+        staffRepository.findById(aggiungiMentoreDTO.idMentore()).get().setOccupato(true);
+        hackathonRepository.findById(aggiungiMentoreDTO.idHackaton()).get().getMentori().add(staffRepository.findById(aggiungiMentoreDTO.idMentore()).get());
+        return hackathonRepository.findById(aggiungiMentoreDTO.idHackaton()).get();
     }
 }

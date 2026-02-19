@@ -25,10 +25,10 @@ public class ConsegnaService {
     }
 
     public boolean caricaSottomissione(ConsegnaRequest sottomissione){
-        Optional<Iscrizione> i = this.iscrizioneRepository.findById(sottomissione.getIdIscrizione());
-        Optional<Sottomissione> s = this.sottomissioniRepository.findById(sottomissione.getIdSottomissione());
+        Optional<Iscrizione> i = this.iscrizioneRepository.findById(sottomissione.idIscrizione());
+        Optional<Sottomissione> s = this.sottomissioniRepository.findById(sottomissione.idSottomissione());
 
-        Consegna c = new Consegna(sottomissione.getDescrizione(), s.get(), i.get());
+        Consegna c = new Consegna(sottomissione.descrizione(), s.get(), i.get());
 
         //controllo se esiste già una sottomissione inviata dallo stesso team e che risponde alla stessa consegna
         for(Consegna co : consegnaRepository.findAll()){
