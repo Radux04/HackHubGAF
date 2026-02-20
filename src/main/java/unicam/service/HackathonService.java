@@ -22,7 +22,6 @@ public class HackathonService {
     private final IscrizioneRepository iscrizioniRepository;
     private final TeamRepository teamRepository;
     private final SottomissioniRepository sottomissioniRepository;
-    private final UserRepository userRepository;
     private final SegnalazioneRepository segnalazioneRepository;
 
     public HackathonService(HackathonRepository hackathonRepository
@@ -39,7 +38,6 @@ public class HackathonService {
         this.iscrizioniRepository = iscrizioniRepository;
         this.teamRepository = teamRepository;
         this.sottomissioniRepository = sottomissioniRepository;
-        this.userRepository = userRepository;
         this.segnalazioneRepository = segnalazioneRepository;
     }
 
