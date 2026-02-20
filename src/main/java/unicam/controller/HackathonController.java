@@ -42,4 +42,9 @@ public class HackathonController {
         hackathonService.segnalaTeam(segnalaTeamDTO);
         return true;
     }
+
+    @PostMapping("/aggiungiMentore")
+    public Hackathon aggiungiMentore(@RequestBody AggiungiMentoreDTO aggiungiMentoreDTO) {
+        return hackathonService.aggiungiMentore(aggiungiMentoreDTO);
+    }
 }
