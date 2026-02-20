@@ -1,18 +1,14 @@
 package unicam.service.calendar;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import net.fortuna.ical4j.model.DateTime;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
-import unicam.controller.calendar.GoogleCalendarController.CreateCallRequest;
+import unicam.dto.CreateCallRequest;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
 import java.util.*;
 
 
@@ -34,7 +30,6 @@ public class GoogleCalendarService {
         if (clientSecret == null || clientSecret.isBlank()) throw new IllegalStateException("Manca GOOGLE_CLIENT_SECRET nel .env");
         if (redirectUri == null || redirectUri.isBlank()) throw new IllegalStateException("Manca GOOGLE_REDIRECT_URI nel .env");
     }
-
 
     // DEMO storage (in memoria)
     private volatile String accessToken;

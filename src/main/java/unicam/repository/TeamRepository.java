@@ -8,6 +8,6 @@ import unicam.model.User;
 
 @Repository
 public interface TeamRepository extends JpaRepository<Team,Long> {
-    boolean findByNome(String nome);
+    boolean existsByNome(String nome);
     Team findByCoordinatore(User coordinatore);
 }

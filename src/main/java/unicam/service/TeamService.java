@@ -26,7 +26,7 @@ public class TeamService {
         if(creaTeamDTO.nome() == null || creaTeamDTO.nome().isBlank())
         {throw new IllegalArgumentException("errore nome team");}
 
-        if (teamRepository.findByNome(creaTeamDTO.nome()))
+        if (teamRepository.existsByNome(creaTeamDTO.nome()))
         {throw new IllegalArgumentException("errore nome team già esistente");}
 
         User c = userRepository.findById(creaTeamDTO.idCordinatore()).get();

@@ -19,16 +19,16 @@ public class Hackathon {
     @EqualsAndHashCode.Include
     private Long id;
     private String nome;
-    //private DescrizioneHT descrizione;
+    //DescrizioneHT descrizione;
     private String regolamento;
     private float premio;
     private int maxSize;
-    //private PlacementHT placement;
+    //PlacementHT placement;
     private String scadenzaIscrizioni;
     private String dataInizio;
     private String dataFine;
     private String luogo;
-    //private StaffHT staff;
+    //StaffHT staff;
     @ManyToOne
     @JsonManagedReference
     private Staff giudice;

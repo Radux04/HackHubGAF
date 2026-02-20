@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import net.fortuna.ical4j.model.DateTime;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import unicam.dto.CreateCallRequest;
 import unicam.service.calendar.CalendarFacadeImpl;
 
 import java.time.DateTimeException;
@@ -51,15 +52,6 @@ public class GoogleCalendarController {
 //    ) {}
 
     private final CalendarFacadeImpl calendarFacade;
-
-    // DTO interno, come avevamo fatto
-    public record CreateCallRequest(
-            String title,
-            String description,
-            String start,
-            String end,
-            String attendeeEmail
-    ) {}
 
     // 1) Redirect manuale: restituisce l'URL Google da aprire
     @GetMapping("/auth")
