@@ -76,9 +76,12 @@ public class TeamService {
     }
 
 
-    public boolean removeMemberById(Long membroId) {
-        teamRepository.findById(userRepository.findById(membroId).get().getTeam().getId()).get().getMembri().remove(userRepository.findById(membroId).get());
-        userRepository.findById(membroId).get().setId(null);
+    public boolean removeMemberById(RemoveMemberDTO removeMemberDTO) {
+        if(userRepository.findById(removeMemberDTO.coordinatoreId()).get().getRuolo() != Ruoli.COORDINATORE){
+            return false;
+        }
+        teamRepository.findById(userRepository.findById(removeMemberDTO.memberId()).get().getTeam().getId()).get().getMembri().remove(userRepository.findById(removeMemberDTO.memberId()).get());
+        userRepository.findById(removeMemberDTO.memberId()).get().setId(null);
         return true;
     }
 
