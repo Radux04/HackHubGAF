@@ -16,9 +16,6 @@ public class IscrizioneTeamController {
 
     @PostMapping
     public Iscrizione iscriviTeam(@RequestBody IscrizioneDTO  iscrizioneDTO) {
-        //se il team non partecipa già a un hackathon lo aggiungo al DTO
-        iscrizioneDTO.setTeamId(iscrizioneTeamService.controlloTeam(iscrizioneDTO.getCoordinatoreId()));
-
         return iscrizioneTeamService.iscriviTeam(iscrizioneDTO);
     }
 

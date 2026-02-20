@@ -28,28 +28,17 @@ public class IscrizioneTeamService {
         this.userRepository = userRepository;
     }
 
-    //controlla se un team è impegnato in un hackaton restituendo l'id del team in questione
-    public Long controlloTeam(Long coordinatoreId){
-        Optional<User> u =  userRepository.findById(coordinatoreId);
-        if(u.isPresent()){
-            Team t = teamRepository.findByCoordinatore(u.get());
-            if(t.isOccupato()){
-                throw new IllegalArgumentException();
-            }
-            else {
-                return t.getId();
-            }
-        }
-        return null;
-    }
-
     public Iscrizione iscriviTeam(IscrizioneDTO iscrizioneDTO){
 
-        Hackathon hackathon = hackathonRepository.findById(iscrizioneDTO.getIdHackathon()).get();
+        Hackathon hackathon = hackathonRepository.findById(iscrizioneDTO.idHackathon()).get();
 
-        User user = userRepository.findById(iscrizioneDTO.getCoordinatoreId()).get();
+        User user = userRepository.findById(iscrizioneDTO.coordinatoreId()).get();
 
         Team team = teamRepository.findByCoordinatore(user);
+
+        if(team.isOccupato()){
+            throw new IllegalArgumentException("Il tuo team è già iscritto a un hackathon");
+        }
 
         if(hackathon.getStato() != StatiHackathon.IN_ISCRIZIONE){
             throw new IllegalArgumentException();
