@@ -1,12 +1,7 @@
 package unicam.dto.iscrizione;
 
-import lombok.Data;
 
-@Data
-public class IscrizioneDTO {
-    private Long coordinatoreId;
-    private Long idHackathon;
-    private Long teamId;
-
-
-}
+public record IscrizioneDTO (
+    Long coordinatoreId,
+    Long idHackathon,
+    Long teamId) { }
