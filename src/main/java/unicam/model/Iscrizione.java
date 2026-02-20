@@ -1,14 +1,9 @@
-package unicam.model.iscrizione;
+package unicam.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import unicam.model.hackathon.entity.Hackathon;
-import unicam.model.team.Team;
-import unicam.model.utenti.user.User;
-
-import java.util.List;
 
 @Entity
 @Data

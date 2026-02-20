@@ -1,11 +1,9 @@
-package unicam.model.hackathon.entity;
+package unicam.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import unicam.model.team.Team;
-import unicam.model.utenti.staff.Staff;
 
 @Entity
 @Data

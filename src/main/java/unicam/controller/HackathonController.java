@@ -3,9 +3,9 @@ package unicam.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import unicam.dto.hackathon.*;
-import unicam.model.hackathon.entity.Hackathon;
+import unicam.model.Hackathon;
 import unicam.service.HackathonService;
-import unicam.model.supporto.RichiestaSupporto;
+import unicam.model.RichiestaSupporto;
 
 import java.util.List;
 

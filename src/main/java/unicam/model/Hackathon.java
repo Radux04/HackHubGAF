@@ -1,12 +1,9 @@
-package unicam.model.hackathon.entity;
+package unicam.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
-import unicam.model.utenti.staff.Staff;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 

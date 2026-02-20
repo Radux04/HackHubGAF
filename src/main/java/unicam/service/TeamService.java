@@ -2,14 +2,12 @@ package unicam.service;
 
 import org.springframework.stereotype.Service;
 import unicam.dto.team.*;
-import unicam.model.inviti.Invito;
+import unicam.model.Invito;
 import unicam.repository.*;
-import unicam.model.team.Team;
-import unicam.model.team.builder.TeamBuilder;
-import unicam.model.utenti.user.Ruoli;
-import unicam.model.utenti.user.User;
-
-import java.util.Optional;
+import unicam.model.Team;
+import unicam.builder.TeamBuilder;
+import unicam.model.Ruoli;
+import unicam.model.User;
 
 @Service
 public class TeamService {

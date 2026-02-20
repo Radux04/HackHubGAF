@@ -1,12 +1,10 @@
-package unicam.model.consegna;
+package unicam.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import unicam.model.hackathon.entity.Sottomissione;
-import unicam.model.iscrizione.Iscrizione;
 
 
 @Entity

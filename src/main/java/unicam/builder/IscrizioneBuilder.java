@@ -1,11 +1,8 @@
-package unicam.model.iscrizione.builder;
+package unicam.builder;
 
-import unicam.model.hackathon.entity.Hackathon;
-import unicam.model.iscrizione.Iscrizione;
-import unicam.model.team.Team;
-import unicam.model.utenti.user.User;
-
-import java.util.List;
+import unicam.model.Hackathon;
+import unicam.model.Iscrizione;
+import unicam.model.Team;
 
 public class IscrizioneBuilder {
 

@@ -1,11 +1,9 @@
-package unicam.model.utenti.user;
+package unicam.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import unicam.model.team.Team;
-import unicam.model.utenti.Utente;
 
 @Entity
 @Data

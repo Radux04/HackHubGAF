@@ -1,4 +1,4 @@
-package unicam.model.utenti.user;
+package unicam.model;
 
 import jakarta.persistence.Embeddable;
 

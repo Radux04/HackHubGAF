@@ -1,4 +1,4 @@
-package unicam.model.utenti;
+package unicam.model;
 
 import jakarta.persistence.*;
 import lombok.*;

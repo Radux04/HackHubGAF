@@ -1,9 +1,9 @@
-package unicam.model.hackathon.builder;
+package unicam.builder;
 
-import unicam.model.hackathon.entity.*;
-import unicam.model.utenti.staff.Staff;
+import unicam.model.Hackathon;
+import unicam.model.StatiHackathon;
+import unicam.model.Staff;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 

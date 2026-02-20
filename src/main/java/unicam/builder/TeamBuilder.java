@@ -1,10 +1,9 @@
-package unicam.model.team.builder;
+package unicam.builder;
 
-import unicam.model.team.Team;
-import unicam.model.utenti.user.User;
+import unicam.model.Team;
+import unicam.model.User;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class TeamBuilder {
     private Team team;

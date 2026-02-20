@@ -1,0 +1,27 @@
+package unicam.model;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Table
+public class Invito {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @ManyToOne
+    private Team team;
+    @ManyToOne
+    private User destinatario;
+
+    public Invito(Team team, User destinatario) {
+        this.team = team;
+        this.destinatario = destinatario;
+    }
+}

@@ -5,11 +5,11 @@ import unicam.dto.team.CambiaCoordinatoreDTO;
 import unicam.dto.team.CambiaTeamDTO;
 import unicam.dto.DiventaMembroDTO;
 import unicam.dto.RispostaDTO;
-import unicam.model.inviti.Invito;
-import unicam.model.team.Team;
+import unicam.model.Invito;
+import unicam.model.Team;
 import unicam.repository.*;
-import unicam.model.utenti.user.Ruoli;
-import unicam.model.utenti.user.User;
+import unicam.model.Ruoli;
+import unicam.model.User;
 
 @Service
 public class UserService {

@@ -2,8 +2,8 @@ package unicam.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import unicam.model.hackathon.entity.Hackathon;
-import unicam.model.supporto.RichiestaSupporto;
+import unicam.model.Hackathon;
+import unicam.model.RichiestaSupporto;
 
 import java.util.List;
 @Repository

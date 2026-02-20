@@ -2,14 +2,14 @@ package unicam.service;
 
 import org.springframework.stereotype.Service;
 import unicam.dto.IscrizioneDTO;
-import unicam.model.hackathon.entity.Hackathon;
-import unicam.model.hackathon.entity.StatiHackathon;
-import unicam.model.iscrizione.Iscrizione;
-import unicam.model.iscrizione.builder.IscrizioneBuilder;
-import unicam.model.utenti.user.Ruoli;
-import unicam.model.utenti.user.User;
+import unicam.model.Hackathon;
+import unicam.model.StatiHackathon;
+import unicam.model.Iscrizione;
+import unicam.builder.IscrizioneBuilder;
+import unicam.model.Ruoli;
+import unicam.model.User;
 import unicam.repository.*;
-import unicam.model.team.Team;
+import unicam.model.Team;
 
 import java.util.Optional;
 

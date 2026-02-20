@@ -1,4 +1,4 @@
-package unicam.model.hackathon.entity;
+package unicam.model;
 
 import jakarta.persistence.Embeddable;
 

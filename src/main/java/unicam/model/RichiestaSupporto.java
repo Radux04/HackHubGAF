@@ -1,30 +1,30 @@
-package unicam.model.inviti;
+package unicam.model;
+
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Generated;
 import lombok.NoArgsConstructor;
-import unicam.model.team.Team;
-import unicam.model.utenti.user.User;
 
 @Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Table
-public class Invito {
+public class RichiestaSupporto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
     private Team team;
+    private String descrizione;
     @ManyToOne
-    private User destinatario;
+    private Hackathon hackathon;
 
-    public Invito(Team team, User destinatario) {
+    public RichiestaSupporto(Team team, String descrizione, Hackathon hackathon) {
         this.team = team;
-        this.destinatario = destinatario;
+        this.descrizione = descrizione;
+        this.hackathon = hackathon;
     }
 }

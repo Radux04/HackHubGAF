@@ -1,10 +1,8 @@
-package unicam.model.utenti.staff;
+package unicam.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
-import unicam.model.hackathon.entity.Hackathon;
-import unicam.model.utenti.Utente;
 
 @Entity
 @Getter
