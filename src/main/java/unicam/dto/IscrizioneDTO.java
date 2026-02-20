@@ -1,4 +1,4 @@
-package unicam.dto.iscrizione;
+package unicam.dto;
 
 
 public record IscrizioneDTO (

@@ -1,4 +1,4 @@
-package unicam.dto.user;
+package unicam.dto;
 
 public record DiventaMembroDTO (
     Long idTeam,

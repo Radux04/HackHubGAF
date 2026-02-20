@@ -3,7 +3,7 @@ package unicam.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import unicam.dto.iscrizione.IscrizioneDTO;
+import unicam.dto.IscrizioneDTO;
 import unicam.model.iscrizione.Iscrizione;
 import unicam.service.IscrizioneTeamService;
 

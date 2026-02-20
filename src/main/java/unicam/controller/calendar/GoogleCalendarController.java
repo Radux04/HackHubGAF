@@ -77,31 +77,6 @@ public class GoogleCalendarController {
         return ResponseEntity.ok("OK. Token salvati. Ora puoi chiamare POST /google/calls");
     }
 
-//    // 3) Creazione call nel calendar
-//    @PostMapping("/calls")
-//    public ResponseEntity<String> createCall(
-//            @RequestParam(defaultValue = "false") boolean meet,
-//            @Valid @RequestBody CreateCallRequest req
-//    ) {
-//        String eventId = calendarFacade.creaCallCalendario(req, meet);
-//        return ResponseEntity.ok(eventId);
-//    }
-
-//    @PostMapping("/calls")
-//    public ResponseEntity<?> createCall(
-//            @RequestParam(defaultValue = "false") boolean meet,
-//            @Valid @RequestBody CreateCallRequest req
-//    ) {
-//        try {
-//            String eventId = calendarFacade.creaCallCalendario(req, meet);
-//            return ResponseEntity.ok(eventId);
-//        } catch (Exception e) {
-//            e.printStackTrace(); // stampa comunque in console
-//            // ritorno il messaggio così lo vedi direttamente in Postman
-//            return ResponseEntity.status(500).body("ERRORE SERVER: " + e.getMessage());
-//        }
-//    }
-
     @PostMapping("/calls")
     public ResponseEntity<?> createCall(
             @RequestParam boolean meet,
@@ -127,6 +102,4 @@ public class GoogleCalendarController {
                     .body("SERVER ERROR: " + e.getMessage());
         }
     }
-
-
 }

@@ -1,4 +1,4 @@
-package unicam.dto.consegna;
+package unicam.dto;
 
 
 public record ConsegnaRequest (

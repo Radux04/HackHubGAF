@@ -2,7 +2,7 @@ package unicam.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import unicam.dto.consegna.ConsegnaRequest;
+import unicam.dto.ConsegnaRequest;
 import unicam.service.ConsegnaService;
 
 @RestController

@@ -1,7 +1,7 @@
 package unicam.service;
 
 import org.springframework.stereotype.Service;
-import unicam.dto.iscrizione.IscrizioneDTO;
+import unicam.dto.IscrizioneDTO;
 import unicam.model.hackathon.entity.Hackathon;
 import unicam.model.hackathon.entity.StatiHackathon;
 import unicam.model.iscrizione.Iscrizione;

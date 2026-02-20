@@ -1,7 +1,7 @@
 package unicam.service;
 
 import org.springframework.stereotype.Service;
-import unicam.dto.consegna.ConsegnaRequest;
+import unicam.dto.ConsegnaRequest;
 import unicam.model.consegna.Consegna;
 import unicam.model.hackathon.entity.Sottomissione;
 import unicam.model.iscrizione.Iscrizione;
