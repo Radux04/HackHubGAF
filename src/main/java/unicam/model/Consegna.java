@@ -29,5 +29,6 @@ public class Consegna {
         this.descrizione = descrizione;
         this.sottomissione = sottomissione;
         this.iscrizione = iscrizione;
+        this.voto = 0;
     }
 }
