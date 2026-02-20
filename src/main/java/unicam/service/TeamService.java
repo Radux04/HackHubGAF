@@ -25,13 +25,13 @@ public class TeamService {
     //da mettere il DTO qui
     public Team creaTeam(CreaTeamDTO creaTeamDTO)
     {
-        if(creaTeamDTO.getNome() == null || creaTeamDTO.getNome().isBlank())
+        if(creaTeamDTO.nome() == null || creaTeamDTO.nome().isBlank())
         {throw new IllegalArgumentException("errore nome team");}
 
-        if (teamRepository.findByNome(creaTeamDTO.getNome()))
+        if (teamRepository.findByNome(creaTeamDTO.nome()))
         {throw new IllegalArgumentException("errore nome team già esistente");}
 
-        User c = userRepository.findById(creaTeamDTO.getIdCordinatore()).get();
+        User c = userRepository.findById(creaTeamDTO.idCordinatore()).get();
 
         if(c.getRuolo() != Ruoli.UTENTE){
             throw  new IllegalArgumentException("errore ruolo team");
@@ -39,8 +39,8 @@ public class TeamService {
 
         c.setRuolo(Ruoli.COORDINATORE);
         Team team = new TeamBuilder()
-                .buildNome(creaTeamDTO.getNome())
-                .buildDescrizione(creaTeamDTO.getDescrizione())
+                .buildNome(creaTeamDTO.nome())
+                .buildDescrizione(creaTeamDTO.descrizione())
                 .buildCoordinatore(c)
                 .build();
 
@@ -51,7 +51,7 @@ public class TeamService {
     }
 
     public Invito invita(InvitoDTO invitoDTO) {
-        User u = userRepository.findById(invitoDTO.getIdCoordinator()).get();
+        User u = userRepository.findById(invitoDTO.idCoordinator()).get();
 
         if(u.getRuolo() != Ruoli.COORDINATORE) { throw new IllegalArgumentException("errore non sei coordinatore");}
         Invito invito = new Invito(u.getTeam(), u);
@@ -62,17 +62,17 @@ public class TeamService {
 
     public boolean cambiaTeam(CambiaTeamDTO cambiaTeamDTO) {
 
-        User user = userRepository.findById(cambiaTeamDTO.getIdMembroTeam()).get();
-        teamRepository.findById(cambiaTeamDTO.getIdTeamAttuale()).get().getMembri().remove(user);
-        user.setTeam(teamRepository.findById(cambiaTeamDTO.getIdNuovoTeam()).get());
-        return teamRepository.findById(cambiaTeamDTO.getIdNuovoTeam()).get().getMembri().add(user);
+        User user = userRepository.findById(cambiaTeamDTO.idMembroTeam()).get();
+        teamRepository.findById(cambiaTeamDTO.idTeamAttuale()).get().getMembri().remove(user);
+        user.setTeam(teamRepository.findById(cambiaTeamDTO.idNuovoTeam()).get());
+        return teamRepository.findById(cambiaTeamDTO.idNuovoTeam()).get().getMembri().add(user);
 
     }
 
     public void cambiaCoordinatore(CambiaCoordinatoreDTO cambiaCoordinatoreDTO) {
-        //momentaneamente questo metodo funge solo se un cordinatore decide di accettare l'invito di un altro team.
-        userRepository.findById(cambiaCoordinatoreDTO.getIdNuovoCoordinatore()).get().setRuolo(Ruoli.COORDINATORE);
-        teamRepository.findById(cambiaCoordinatoreDTO.getIdTeam()).get().setCoordinatore(userRepository.findById(cambiaCoordinatoreDTO.getIdNuovoCoordinatore()).get());
+        userRepository.findById(cambiaCoordinatoreDTO.idNuovoCoordinatore()).get().setRuolo(Ruoli.COORDINATORE);
+        teamRepository.findById(cambiaCoordinatoreDTO.idTeam()).get().getCoordinatore().setRuolo(Ruoli.MEMBROTEAM);
+        teamRepository.findById(cambiaCoordinatoreDTO.idTeam()).get().setCoordinatore(userRepository.findById(cambiaCoordinatoreDTO.idNuovoCoordinatore()).get());
     }
 
 

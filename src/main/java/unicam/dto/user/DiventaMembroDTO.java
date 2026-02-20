@@ -1,9 +1,6 @@
 package unicam.dto.user;
 
-import lombok.Data;
-
-@Data
-public class DiventaMembroDTO {
-    private Long idTeam;
-    private Long idUser;
+public record DiventaMembroDTO (
+    Long idTeam,
+    Long idUser) {
 }

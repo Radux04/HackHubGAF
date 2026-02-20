@@ -26,9 +26,9 @@ public class UserService {
     }
 
     public boolean risponde(RispostaDTO rispostaDTO) {
-        User user = userRepository.findById(rispostaDTO.getIdUser()).get();
+        User user = userRepository.findById(rispostaDTO.idUser()).get();
 
-        Invito invito = invitiRepository.findById(rispostaDTO.getIdInvito()).get();
+        Invito invito = invitiRepository.findById(rispostaDTO.idInvito()).get();
         //User's role
         Ruoli r = user.getRuolo();
         //Team that sent the request
@@ -38,34 +38,23 @@ public class UserService {
 
         //user is a simple user
         if(r == Ruoli.UTENTE){
-            if(rispostaDTO.isRisposta()){
-                DiventaMembroDTO diventaMembroDTO = new DiventaMembroDTO();
-                diventaMembroDTO.setIdTeam(invito.getTeam().getId());
-                diventaMembroDTO.setIdUser(invito.getDestinatario().getId());
+            if(rispostaDTO.risposta()){
+                DiventaMembroDTO diventaMembroDTO = new DiventaMembroDTO(invito.getTeam().getId(), invito.getDestinatario().getId());
                 return diventaMembro(diventaMembroDTO);
             }
         }
         //user is already a member of a team
         else if(r == Ruoli.MEMBROTEAM){
-            if(rispostaDTO.isRisposta()){
-                CambiaTeamDTO cambiaTeamDTO = new CambiaTeamDTO();
-                cambiaTeamDTO.setIdMembroTeam(user.getId());
-                cambiaTeamDTO.setIdTeamAttuale(userTeam.getId());
-                cambiaTeamDTO.setIdNuovoTeam(mittente.getId());
+            if(rispostaDTO.risposta()){
+                CambiaTeamDTO cambiaTeamDTO = new CambiaTeamDTO(userTeam.getId(), invito.getTeam().getId(), user.getId());
                 return teamService.cambiaTeam(cambiaTeamDTO);
             }
         }
         //user is a coordinatore of a team
         else if (r == Ruoli.COORDINATORE) {
-            if(rispostaDTO.isRisposta()){
-                CambiaTeamDTO cambiaTeamDTO = new CambiaTeamDTO();
-                cambiaTeamDTO.setIdMembroTeam(user.getId());
-                cambiaTeamDTO.setIdTeamAttuale(userTeam.getId());
-                cambiaTeamDTO.setIdNuovoTeam(mittente.getId());
-                CambiaCoordinatoreDTO cambiaCoordinatoreDTO = new CambiaCoordinatoreDTO();
-                cambiaCoordinatoreDTO.setIdNuovoCoordinatore(userTeam.getMembri().get(1).getId());
-                cambiaCoordinatoreDTO.setIdNuovoCoordinatore(userTeam.getId());
-
+            if(rispostaDTO.risposta()){
+                CambiaTeamDTO cambiaTeamDTO = new CambiaTeamDTO(userTeam.getId(), invito.getTeam().getId(), user.getId());
+                CambiaCoordinatoreDTO cambiaCoordinatoreDTO = new CambiaCoordinatoreDTO(mittente.getId(), user.getId());
                 teamService.cambiaCoordinatore(cambiaCoordinatoreDTO);
                 return teamService.cambiaTeam(cambiaTeamDTO);
             }
@@ -74,7 +63,7 @@ public class UserService {
     }
 
     public boolean diventaMembro(DiventaMembroDTO diventaMembroDTO) {
-        userRepository.findById(diventaMembroDTO.getIdUser()).get().setTeam(teamRepository.findById(diventaMembroDTO.getIdTeam()).get());
-        return teamRepository.findById(diventaMembroDTO.getIdTeam()).get().getMembri().add(userRepository.findById(diventaMembroDTO.getIdUser()).get());
+        userRepository.findById(diventaMembroDTO.idUser()).get().setTeam(teamRepository.findById(diventaMembroDTO.idTeam()).get());
+        return teamRepository.findById(diventaMembroDTO.idTeam()).get().getMembri().add(userRepository.findById(diventaMembroDTO.idUser()).get());
     }
 }
