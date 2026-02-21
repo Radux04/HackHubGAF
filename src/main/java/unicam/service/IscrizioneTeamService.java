@@ -66,12 +66,10 @@ public class IscrizioneTeamService {
     }
 
     public void annullaIscrizione(Long coordinatoreId){
-
-
         //ottengo il coordinatore tramite l'id
-        Optional<User> coordinatore =  userRepository.findById(coordinatoreId);
+        User coordinatore =  userRepository.findById(coordinatoreId).get();
         //ottengo il team tramite il coordinatore
-        Team team = coordinatore.get().getTeam();
+        Team team = coordinatore.getTeam();
 
         //rimuovo l'iscrizione del team
         iscrizioneRepository.removeIscrizioneByTeamId(team.getId());

@@ -29,20 +29,17 @@ public class TeamService {
         if (teamRepository.existsByNome(creaTeamDTO.nome()))
         {throw new IllegalArgumentException("errore nome team già esistente");}
 
-        User c = userRepository.findById(creaTeamDTO.idCordinatore()).get();
 
-        if(c.getRuolo() != Ruoli.UTENTE){
+        if(userRepository.findById(creaTeamDTO.idCordinatore()).get().getRuolo() != Ruoli.UTENTE){
             throw  new IllegalArgumentException("errore ruolo team");
         }
 
-        c.setRuolo(Ruoli.COORDINATORE);
+        userRepository.findById(creaTeamDTO.idCordinatore()).get().setRuolo(Ruoli.COORDINATORE);
         Team team = new TeamBuilder()
                 .buildNome(creaTeamDTO.nome())
                 .buildDescrizione(creaTeamDTO.descrizione())
-                .buildCoordinatore(c)
+                .buildCoordinatore(userRepository.findById(creaTeamDTO.idCordinatore()).get())
                 .build();
-
-        userRepository.save(c);
 
         return teamRepository.save(team);
 
@@ -79,7 +76,7 @@ public class TeamService {
             return false;
         }
         teamRepository.findById(userRepository.findById(removeMemberDTO.memberId()).get().getTeam().getId()).get().getMembri().remove(userRepository.findById(removeMemberDTO.memberId()).get());
-        userRepository.findById(removeMemberDTO.memberId()).get().setId(null);
+        userRepository.findById(removeMemberDTO.memberId()).get().setTeam(null);
         return true;
     }
 
