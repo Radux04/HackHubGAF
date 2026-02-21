@@ -113,11 +113,10 @@ public class HackathonService {
     }
 
     public RichiestaSupporto richiediSupporto(RichiestaSupportoDTO richiestaSupportoDTO) {
-        Long hackathonId = iscrizioniRepository.findByTeamId(richiestaSupportoDTO.idTeam())
-                .map(i -> i.getHt().getId())
+        Hackathon hackathon = iscrizioniRepository.findByTeamId(richiestaSupportoDTO.idTeam())
+                .map(i -> i.getHt())
                 .orElse(null);
 
-        Hackathon hackathon = hackathonRepository.findById(hackathonId).get();//.orElseThrow(() -> new IllegalArgumentException("Hackathon non trovato"));
         Team team = teamRepository.findById(richiestaSupportoDTO.idTeam()).get();//.orElseThrow(() -> new IllegalArgumentException("Team non trovato"));
         RichiestaSupporto richiesta = new RichiestaSupporto(team, richiestaSupportoDTO.descrizione(), hackathon);
         return richiestaSupportoRepository.save(richiesta);
