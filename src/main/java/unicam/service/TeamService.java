@@ -47,9 +47,9 @@ public class TeamService {
 
     public Invito invita(InvitoDTO invitoDTO) {
         User u = userRepository.findById(invitoDTO.idCoordinator()).get();
-
         if(u.getRuolo() != Ruoli.COORDINATORE) { throw new IllegalArgumentException("errore non sei coordinatore");}
-        Invito invito = new Invito(u.getTeam(), u);
+        User d = userRepository.findById(invitoDTO.idUser()).get();
+        Invito invito = new Invito(u.getTeam(), d);
         invitiRepository.save(invito);
         return invito;
     }
