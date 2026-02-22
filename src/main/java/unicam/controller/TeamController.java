@@ -26,8 +26,8 @@ public class TeamController {
     }
 
     @DeleteMapping("/{membroId}")
-    public boolean removeMemberById(@PathVariable RemoveMemberDTO removeMemberDTO){
-        return teamService.removeMemberById(removeMemberDTO);
+    public boolean removeMemberById(@RequestBody RemoveMemberDTO removeMemberDTO){
+        return teamService.removeMember(removeMemberDTO);
     }
 
     @PutMapping("/coordinatore/{membroId}")

@@ -38,7 +38,7 @@ public class HackathonController {
 
 
     @PostMapping("/segnalaTeam")
-    public boolean segnalaTeam(SegnalaTeamDTO  segnalaTeamDTO) {
+    public boolean segnalaTeam(@RequestBody SegnalaTeamDTO segnalaTeamDTO) {
         hackathonService.segnalaTeam(segnalaTeamDTO);
         return true;
     }
