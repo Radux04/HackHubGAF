@@ -38,4 +38,11 @@ build/
 ### Mac OS ###
 .DS_Store
 
+
+### Configurazione locale ###
 .env
+.idea/
+.ai/
+
+### Database H2 locale ###
+data/
